@@ -1,0 +1,34 @@
+{
+  "name": "PracticalForms",
+  "version": "0.0.1",
+  "description": "Collection of form components that help make using forms with angula.js more pratical",
+  "main": "src/js/practicalforms.js",
+  "dependencies": {
+    "grunt": "^0.4.5"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-angular-templates": "^0.5.7",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.6.0",
+    "grunt-html2js": "^0.2.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://jlivecchi@bitbucket.org/jjprograms/praticalforms.git"
+  },
+  "keywords": [
+    "angular.js",
+    "form",
+    "validation",
+    "bootstrap",
+    "forms"
+  ],
+  "author": "JJ Programs, LLC",
+  "license": "ISC"
+}

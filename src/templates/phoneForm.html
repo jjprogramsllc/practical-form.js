@@ -1,0 +1,17 @@
+
+<div class="form-group has-feedback" ng-form="subform"
+    ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" >
+  <label class="control-label">{{title}}<span ng-if="required || ngRequired">*</span>
+    <span ng-show="subform.name.$invalid && subform.name.$dirty">
+      <span ng-show="subform.name.$error.required"> - Required!</span>
+      <span ng-show="subform.name.$error.pattern"> - Invalid Input. Enter a valid phone number</span>
+    </span>
+  </label>
+
+  <p class="FormHint" ng-transclude>Form Hint</p>
+  <input class="form-control" type="text" name="name" ng-model="ngModel" ng-required="ngRequired"
+    required={{required}} ng-trim="true" ng-pattern="/\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*/" placeholder="Ex: (123)-456-7890" />
+
+  <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty"></span>
+  <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty"></span>
+ </div>
