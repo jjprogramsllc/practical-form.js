@@ -25,7 +25,8 @@ _Note: The form elements are US validated_
 * Confirm Dialog ( UI.Bootstrap required)
 
 ## Examples ##
-* Coming Soon!
+* Check out the examples folder for a basic example for each form component
+
 
 ## Installation ##
 * This depends on Bootstrap & UI.Bootstrap, Please include these first

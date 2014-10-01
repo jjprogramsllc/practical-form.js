@@ -13,6 +13,9 @@
 			.controller("ExampleCtrl", ['$scope', function($scope){
 				$scope.inputs = {};
 				$scope.deal = {};
+				$scope.ConfirmAction = function(item){
+					console.log("Confirmed Action!", item);
+				}
 			}]);
 		</script>
 	</head>
@@ -80,7 +83,9 @@
     </pf-option-group>
 
     
-
+		<button type=button class="btn btn-success" pf-confirm="ConfirmAction(item)" title="Are you sure?" item="{xyz:123}">
+			Click to open confirm dialog
+		</button>
 
 		
 		<span>{{inputs}}</span>
