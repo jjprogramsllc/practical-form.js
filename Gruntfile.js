@@ -1,12 +1,26 @@
+var path = require('path');
+
+var moduleName = "jjp.PracticalForms";
+
 module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+      
     clean: [".tmp", "build"],
-    jshint: {
-      all: ['Gruntfile.js', 'src/js/**/*.js']
+    
+    concat:{
+      build:{
+        src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
+        dest: 'build/<%= pkg.name %>.min.js'
+      }
     },
+    
+    jshint: {
+      all: ['Gruntfile.js', 'src/**/*.js']
+    },
+    
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
@@ -15,15 +29,15 @@ module.exports = function(grunt) {
         }
       },
       build: {
-        src: 'src/js/**.js',
+        src: ['src/praticalforms.js','src/components/**/*.js'],
         dest: '.tmp/<%= pkg.name %>.min.js'
       }
     },
 
-    ngtemplates:{
+    html2js:{
       options:{
-        module:'PracticalForms',
-        standalone: false,
+        module:moduleName + ".templates",
+        singleModule: true,
         htmlmin: {
           collapseBooleanAttributes:      true,
           collapseWhitespace:             true,
@@ -34,30 +48,27 @@ module.exports = function(grunt) {
           removeScriptTypeAttributes:     true,
           removeStyleLinkTypeAttributes:  true
         },
+        rename: function(filename){
+        	return '/jjp/pf/' + path.basename(filename);
+        },
       },
+      
       build:{
-        cwd: 'src/',
-        src: 'templates/**.html',
+        src: 'src/components/**/*.html',
         dest: '.tmp/<%= pkg.name %>.tpl.min.js',
       },
     },
 
-    concat:{
-      build:{
-        src: ['<%= uglify.build.dest %>','<%= ngtemplates.build.dest %>'],
-        dest: 'build/<%= pkg.name %>.min.js'
-      }
-    }
+    
 
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean','jshint', 'uglify', 'ngtemplates', 'concat']);
+  grunt.registerTask('default', ['clean','jshint', 'uglify', 'html2js', 'concat']);
 
 };

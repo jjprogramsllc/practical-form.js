@@ -2,6 +2,7 @@ angular.module('PracticalForms').directive("pfConfirmDialog", ['$modal', functio
   return {
     restrict: 'A',
     scope: {
+	    pfTtile: "@",
       pfConfirm: "&",
       item: "="
     },
@@ -9,9 +10,9 @@ angular.module('PracticalForms').directive("pfConfirmDialog", ['$modal', functio
       $element.bind('click', function () {
 
         var message = $attrs.pfModalMessage || "Are you sure ?";
-        var modalHtml = '<div class="modal-header"><h1>'+$attrs.pfModalTitle+'</h1></div>';
+        var modalHtml = '<div class="modal-header"><h1>'+$scope.pfTitle+'</h1></div>';
         modalHtml += '<div class="modal-body">' + message + '</div>';
-        modalHtml += '<div class="modal-footer"><button class="btn btn-primary" ng-click="ok()">OK</button><button class="btn btn-warning" ng-click="cancel()">Cancel</button></div>';
+        modalHtml += '<div class="modal-footer"><button class="btn btn-primary" ng-click="Ok()">OK</button><button class="btn btn-warning" ng-click="Cancel()">Cancel</button></div>';
 
         var modalInstance = $modal.open({
           template: modalHtml,
