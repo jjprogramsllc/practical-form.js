@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfRadioInput", function(){
+module.directive("pfRadioInput", function(){
   return {
     restrict: 'E',
     scope:{

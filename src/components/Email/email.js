@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfEmailInput", function(){
+module.directive("pfEmailInput", function(){
   return {
     restrict: 'E',
     scope: {
@@ -16,6 +16,6 @@ angular.module('pf.PracticalForms').directive("pfEmailInput", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/emailForm.html',
+    templateUrl: '/jjp/pf/email.html',
   };
 });

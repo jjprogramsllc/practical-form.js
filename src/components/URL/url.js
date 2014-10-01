@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfUrlInput", function(){
+module.directive("pfUrlInput", function(){
   return {
     restrict: 'E',
     scope: {
@@ -16,6 +16,6 @@ angular.module('pf.PracticalForms').directive("pfUrlInput", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/urlForm.html',
+    templateUrl: '/jjp/pf/url.html',
   };
 });

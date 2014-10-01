@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfStateCodeInput", function(){
+module.directive("pfStateCodeInput", function(){
   return {
     restrict: 'E',
     scope: {
@@ -15,6 +15,6 @@ angular.module('pf.PracticalForms').directive("pfStateCodeInput", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/stateCodeForm.html',
+    templateUrl: '/jjp/pf/state.html',
   };
 });

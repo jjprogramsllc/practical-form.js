@@ -4,22 +4,18 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfTextInput", function(){
+module.directive("pfTextInput", function(){
   return {
     restrict: 'E',
     scope: {
       title: '@',
-      placeholder: '@',
+      placeholder: '@?',
       ngModel : '=',
       required: "=?",
-      ngRequired:"=?",
-      ngMinlength:"=?",
-      ngMaxlength:"=?",
-      ngPattern:"@?",
-      ngTrim:"=?"
+      ngRequired:"=?"
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/textForm.html',
+    templateUrl: '/jjp/pf/text.html',
   };
 });

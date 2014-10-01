@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfCheckboxInput", function(){
+module.directive("pfCheckboxInput", function(){
   return {
     restrict: 'E',
     scope:{

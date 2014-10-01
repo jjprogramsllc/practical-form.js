@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfTextarea", function(){
+module.directive("pfTextarea", function(){
   return {
     restrict: 'E',
     scope: {
@@ -20,6 +20,6 @@ angular.module('pf.PracticalForms').directive("pfTextarea", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/textareaForm.html',
+    templateUrl: '/jjp/pf/textarea.html',
   };
 });

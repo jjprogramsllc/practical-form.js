@@ -24,9 +24,6 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-        compress: {
-          drop_console: true
-        }
       },
       build: {
         src: ['src/praticalforms.js','src/components/**/*.js'],
@@ -59,16 +56,24 @@ module.exports = function(grunt) {
       },
     },
 
-    
+    watch: {
+      dev: {
+        files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
+        tasks: ['clean','jshint', 'uglify', 'html2js', 'concat'],
+        options: {
+          atBegin: true
+        }
+      },
+    }    
 
   });
-
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean','jshint', 'uglify', 'html2js', 'concat']);
+  grunt.registerTask('default', ['clean','jshint', 'uglify', 'html2js', 'concat', 'watch']);
 
 };

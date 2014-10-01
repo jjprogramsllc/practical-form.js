@@ -1,14 +1,90 @@
-<html>
+<html ng-app="examplePage">
 	<head>
 		<title> Pratical Forms Example Page</title>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
-		<script src="../build/PracticalForms.min.js.min.js"></script>
-				
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+
+		<script src="../build/PracticalForms.min.js"></script>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/united/bootstrap.min.css">
+		
+		<script>
+			angular.module("examplePage", ['ui.bootstrap','jjp.PracticalForms'])
+			.controller("ExampleCtrl", ['$scope', function($scope){
+				$scope.inputs = {};
+				$scope.deal = {};
+			}]);
+		</script>
 	</head>
-	<body>
+	<body ng-controller="ExampleCtrl">
+	<form name="form">
 		<h1>Pratical Forms Example Page</h1>
+		
+		<h3>General Text Inputs</h3>
+		<pf-text-input title="Text Input" ng-model="inputs.text" >
+			This is a basic text input. More or less, just a wrapper for basic input. Input is bounded between 0-255 characters and auto tirmed.
+		</pf-text-input>
+		
+		<pf-text-input title="Text Input (Required)" ng-required=1 ng-model="inputs.textReq" placeholder="Required text input">
+			This input is now required by adding ng-required attr.
+		</pf-text-input>
+		
+		<pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
+			Large text box, limited to 2500 chatacters
+		</pf-textarea>
+		
+	  <pf-url-input title="Url Link" ng-model="inputs.link" >
+	  	Enter a link for you deal
+  	</pf-url-input>
+		
+    <pf-phone-input title="Phone Number (US) Input" ng-model="inputs.phone" >
+    	Please enter your firstname
+  	</pf-phone-input>
+  	
+    <pf-email-input title="Email Input" ng-model="inputs.email" >
+    	Please enter your firstname
+  	</pf-email-input>
+  	
+    <pf-password-input title="Password Input" ng-model="inputs.password" >
+    	Please enter your firstname
+  	</pf-password-input>
+		
+		<pf-date-input title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date"> 
+    	Enter the start date of the deal
+  	</pf-date-input>
+		
+		<pf-state-code-input title="State Code Input" ng-model="inputs.state">
+			Enter the name of the Restaurant
+		</pf-state-code-input>
+    
+    <pf-zip-code-input title="Zip Code Input" ng-model="inputs.zip">
+    	Enter the name of the Restaurant
+  	</pf-zip-code-input>
+		
+   	<pf-option-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs">
+		  <pf-checkbox-input title="Monday"><input type="checkbox" ng-model="inputs.onMonday" ></pf-checkbox-input>
+		  <pf-checkbox-input title="Tuesday"><input type="checkbox" ng-model="inputs.onTuesday" ></pf-checkbox-input>
+		  <pf-checkbox-input title="Wednesday"><input type="checkbox" ng-model="inputs.onWendesday" ></pf-checkbox-input>
+		  <pf-checkbox-input title="Thursday"><input type="checkbox" ng-model="inputs.onThursday" ></pf-checkbox-input>
+		  <pf-checkbox-input title="Friday"><input type="checkbox" ng-model="inputs.onFriday" ></pf-checkbox-input>
+		  <pf-checkbox-input title="Saturday"><input type="checkbox" ng-model="inputs.onSaturday" ></pf-checkbox-input>
+		  <pf-checkbox-input title="Sunday"><input type="checkbox" ng-model="inputs.onSunday" ></pf-checkbox-input>
+	  </pf-option-group>
+  
+    <pf-option-group title="Options Group (Checkbox)" description="Option Group is a wrapper for the radio and checkbox inputs">
+      <pf-radio-input title="Buy1, Get 1"><input type="radio" name="type"  value="BOGO" ng-model="inputs.type" ></pf-radio-input>
+      <pf-radio-input title="Free!"><input type="radio" name="type"  value="FREE" ng-model="inputs.type" ></pf-radio-input>
+      <pf-radio-input title="Free with Purchase"><input type="radio" name="type"  value="FREEwPURCHASE" ng-model="inputs.type" ></pf-radio-input>
+      <pf-radio-input title="Discount"><input type="radio" name="type"  value="DISCOUNT" ng-model="inputs.type" ></pf-radio-input>
+      <pf-radio-input title="Other"><input type="radio" name="type"  value="OTHER" ng-model="inputs.type" ></pf-radio-input>
+    </pf-option-group>
+
+    
+
+
+		
+		<span>{{inputs}}</span>
+	</form>
 	</body>
 </html>
 	

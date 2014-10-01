@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfZipCodeInput", function(){
+module.directive("pfZipCodeInput", function(){
   return {
     restrict: 'E',
     scope: {
@@ -16,6 +16,6 @@ angular.module('pf.PracticalForms').directive("pfZipCodeInput", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/zipCodeForm.html',
+    templateUrl: '/jjp/pf/zipcode.html',
   };
 });

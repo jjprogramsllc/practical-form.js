@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfPhoneInput", function(){
+module.directive("pfPhoneInput", function(){
   return {
     restrict: 'E',
     scope: {
@@ -15,6 +15,6 @@ angular.module('pf.PracticalForms').directive("pfPhoneInput", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/phoneForm.html',
+    templateUrl: '/jjp/pf/phone.html',
   };
 });

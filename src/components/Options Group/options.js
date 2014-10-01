@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfOptionGroup", function(){
+module.directive("pfOptionGroup", function(){
   return {
     restrict: 'E',
     require: "^form",
@@ -15,7 +15,7 @@ angular.module('pf.PracticalForms').directive("pfOptionGroup", function(){
     },
     transclude: true,
     replace: true,
-    templateUrl:"templates/optionGroupForm.html",
+    templateUrl:"/jjp/pf/options.html",
     link: function(scope, element, attrs, formController) {
       if(scope.required){
         element.find(":input").attr("required","required");

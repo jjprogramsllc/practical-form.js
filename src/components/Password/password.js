@@ -4,7 +4,7 @@
  *
  */
 
-angular.module('pf.PracticalForms').directive("pfPasswordInput", function(){
+module.directive("pfPasswordInput", function(){
   return {
     restrict: 'E',
     scope: {
@@ -13,6 +13,6 @@ angular.module('pf.PracticalForms').directive("pfPasswordInput", function(){
     },
     replace: true,
     transclude: true,
-    templateUrl: 'templates/passwordForm.html',
+    templateUrl: '/jjp/pf/password.html',
   };
 });

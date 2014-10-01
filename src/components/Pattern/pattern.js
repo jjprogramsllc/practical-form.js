@@ -4,19 +4,22 @@
  *
  */
 
-module.directive("pfDateInput", function(){
+module.directive("pfRegexInput", function(){
   return {
     restrict: 'E',
     scope: {
       title: '@',
+      placeholder: '@?',
       ngModel : '=',
       required: "=?",
       ngRequired:"=?",
-      format: "@?",
-      minDate: "=?",
+      ngMinlength:"=?",
+      ngMaxlength:"=?",
+      ngPattern:"@?",
+      ngTrim:"=?"
     },
     replace: true,
     transclude: true,
-    templateUrl: '/jjp/pf/date.html',
+    templateUrl: '/jjp/pf/pattern.html',
   };
 });

@@ -1,4 +1,4 @@
-angular.module('PracticalForms').directive("pfConfirmDialog", ['$modal', function($modal){
+module.directive("pfConfirmDialog", ['$modal', function($modal){
   return {
     restrict: 'A',
     scope: {
