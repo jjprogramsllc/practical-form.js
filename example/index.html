@@ -1,12 +1,12 @@
 <html ng-app="examplePage">
 	<head>
 		<title> Pratical Forms Example Page</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/united/bootstrap.min.css">
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
 
 		<script src="../build/PracticalForms.min.js"></script>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/united/bootstrap.min.css">
 
 		<script>
 			angular.module("examplePage", ['ui.bootstrap','jjp.PracticalForms'])
@@ -92,7 +92,7 @@
 		<hr />
 		<h2>Other input needing UI-Bootstrap fromaework</h2>
 		<pf-date-input title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date">
-    	Enter a date. Min date can be set using the min attribute.
+    	Enter a date. Min date can be set using the min-date attribute.
   	</pf-date-input>
 
 		<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">

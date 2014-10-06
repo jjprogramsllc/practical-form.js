@@ -15,6 +15,6 @@
   <input class="form-control" type="text" name="name" ng-model="ngModel" ng-required="ngRequired"
     required={{required}} ng-trim="true" ng-pattern="/^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/" placeholder="Ex: (123)-456-7890" />
 
-  <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty"></span>
-  <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty"></span>
+  <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty"></span>
+  <span class="glyphicon glyphicon-ok form-control-feedback" style="top:55px;" ng-show="!subform.name.$invalid && subform.name.$dirty"></span>
  </div>
