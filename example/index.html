@@ -7,7 +7,7 @@
 
 		<script src="../build/PracticalForms.min.js"></script>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/united/bootstrap.min.css">
-		
+
 		<script>
 			angular.module("examplePage", ['ui.bootstrap','jjp.PracticalForms'])
 			.controller("ExampleCtrl", ['$scope', function($scope){
@@ -22,48 +22,54 @@
 	<body ng-controller="ExampleCtrl">
 	<form name="form">
 		<h1>Pratical Forms Example Page</h1>
-		
-		<h3>General Text Inputs</h3>
+
+		<h2>General Text Inputs</h2>
 		<pf-text-input title="Text Input" ng-model="inputs.text" >
 			This is a basic text input. More or less, just a wrapper for basic input. Input is bounded between 0-255 characters and auto tirmed.
 		</pf-text-input>
-		
+
 		<pf-text-input title="Text Input (Required)" ng-required=1 ng-model="inputs.textReq" placeholder="Required text input">
-			This input is now required by adding ng-required attr.
+			This input is now required by adding ng-required attribute. The attribute can be added to any input
 		</pf-text-input>
-		
+
 		<pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
 			Large text box, limited to 2500 chatacters
 		</pf-textarea>
-		
-	  <pf-url-input title="Url Link" ng-model="inputs.link" >
-	  	Enter a link for you deal
-  	</pf-url-input>
-		
-    <pf-phone-input title="Phone Number (US) Input" ng-model="inputs.phone" >
-    	Please enter your firstname
-  	</pf-phone-input>
-  	
+
+		<!-- ---------------------------------------------------------------------------- -->
+		<hr />
+		<h2>Login Form Inputs</h2>
     <pf-email-input title="Email Input" ng-model="inputs.email" >
-    	Please enter your firstname
+    	Email input, validated using the default browser implementation
   	</pf-email-input>
-  	
+
     <pf-password-input title="Password Input" ng-model="inputs.password" >
-    	Please enter your firstname
+    	Please enter password. The default password must be at least 8 characters long and inculde an uppercase letter, lowercase letter and a number.
+			see <a href="http://regexlib.com/REDetails.aspx?regexp_id=1923">Here</a> for more details
   	</pf-password-input>
-		
-		<pf-date-input title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date"> 
-    	Enter the start date of the deal
-  	</pf-date-input>
-		
+
+		<!-- ---------------------------------------------------------------------------- -->
+		<hr />
+		<h1>Address/Contact Inputs</h1>
 		<pf-state-code-input title="State Code Input" ng-model="inputs.state">
-			Enter the name of the Restaurant
+			Enter a state code.
 		</pf-state-code-input>
-    
+
     <pf-zip-code-input title="Zip Code Input" ng-model="inputs.zip">
-    	Enter the name of the Restaurant
+    	Enter a zip code, either xxxxx or xxxxx-xxxx. See <a href="http://regexlib.com/REDetails.aspx?regexp_id=837">Here</a> for more details
   	</pf-zip-code-input>
-		
+
+    <pf-phone-input title="Phone Number (US) Input" ng-model="inputs.phone" >
+    	Enter a phone code, See <a href="http://regexlib.com/REDetails.aspx?regexp_id=607">Here</a> for more details
+  	</pf-phone-input>
+
+	  <pf-url-input title="Url Link" ng-model="inputs.link" >
+	  	URl link. validated using the default browser implementation
+  	</pf-url-input>
+
+		<!-- ---------------------------------------------------------------------------- -->
+		<hr />
+		<h2>Option Group Inputs</h2>
    	<pf-option-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs">
 		  <pf-checkbox-input title="Monday"><input type="checkbox" ng-model="inputs.onMonday" ></pf-checkbox-input>
 		  <pf-checkbox-input title="Tuesday"><input type="checkbox" ng-model="inputs.onTuesday" ></pf-checkbox-input>
@@ -73,7 +79,7 @@
 		  <pf-checkbox-input title="Saturday"><input type="checkbox" ng-model="inputs.onSaturday" ></pf-checkbox-input>
 		  <pf-checkbox-input title="Sunday"><input type="checkbox" ng-model="inputs.onSunday" ></pf-checkbox-input>
 	  </pf-option-group>
-  
+
     <pf-option-group title="Options Group (Checkbox)" description="Option Group is a wrapper for the radio and checkbox inputs">
       <pf-radio-input title="Buy1, Get 1"><input type="radio" name="type"  value="BOGO" ng-model="inputs.type" ></pf-radio-input>
       <pf-radio-input title="Free!"><input type="radio" name="type"  value="FREE" ng-model="inputs.type" ></pf-radio-input>
@@ -82,14 +88,20 @@
       <pf-radio-input title="Other"><input type="radio" name="type"  value="OTHER" ng-model="inputs.type" ></pf-radio-input>
     </pf-option-group>
 
-    
-		<button type=button class="btn btn-success" pf-confirm="ConfirmAction(item)" title="Are you sure?" item="{xyz:123}">
+		<!-- ---------------------------------------------------------------------------- -->
+		<hr />
+		<h2>Other input needing UI-Bootstrap fromaework</h2>
+		<pf-date-input title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date">
+    	Enter a date. Min date can be set using the min attribute.
+  	</pf-date-input>
+
+		<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">
 			Click to open confirm dialog
 		</button>
 
-		
-		<span>{{inputs}}</span>
+		</hr/>
+		<h3>Output</h3>
+		<pre>{{inputs}}</pre >
 	</form>
 	</body>
 </html>
-	
