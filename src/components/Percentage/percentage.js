@@ -83,3 +83,19 @@ Percentage.prototype.backspace = function(){
   // Useful for binding to form when you only have a pretty value
   this.val = this.val.slice(0, this.val.length -1);
 };
+
+
+// Added some cool prototypes since not browser support this yet
+if ( typeof String.prototype.startsWith != 'function' ) {
+  String.prototype.startsWith = function( str ) {
+    return this.substring( 0, str.length ) === str;
+  };
+}
+
+
+
+if ( typeof String.prototype.endsWith != 'function' ) {
+  String.prototype.endsWith = function( str ) {
+    return this.substring( this.length - str.length, this.length ) === str;
+  };
+}

@@ -1,13 +1,12 @@
 /*
  * Basic form input that has basic validation
- * Uses basic angular form directives 
+ * Uses basic angular form directives
  *
  */
 
 module.directive("pfOptionGroup", function(){
   return {
     restrict: 'E',
-    require: "^form",
     scope:{
       title: "@",
       description: '@?',
@@ -16,7 +15,7 @@ module.directive("pfOptionGroup", function(){
     transclude: true,
     replace: true,
     templateUrl:"/jjp/pf/options.html",
-    link: function(scope, element, attrs, formController) {
+    link: function(scope, element, attrs) {
       if(scope.required){
         element.find(":input").attr("required","required");
       }
