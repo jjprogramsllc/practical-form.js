@@ -11,6 +11,9 @@ module.exports = function(grunt) {
     clean: [".tmp", "build"],
     
     concat:{
+      options: {
+	    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
+      },
       build:{
         src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
         dest: 'build/<%= pkg.name %>.min.js'
@@ -22,9 +25,6 @@ module.exports = function(grunt) {
     },
     
     uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-      },
       build: {
         src: ['src/praticalforms.js','src/components/**/*.js'],
         dest: '.tmp/<%= pkg.name %>.min.js'
