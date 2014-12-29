@@ -7,27 +7,27 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-      
+
     clean: [".tmp", "build"],
-    
+
     concat:{
       options: {
 	    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
       },
       build:{
         src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
-        dest: 'build/<%= pkg.name %>.min.js'
+        dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
-    
+
     jshint: {
       all: ['Gruntfile.js', 'src/**/*.js']
     },
-    
+
     uglify: {
       build: {
         src: ['src/praticalforms.js','src/components/**/*.js'],
-        dest: '.tmp/<%= pkg.name %>.min.js'
+        dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
 
@@ -49,10 +49,10 @@ module.exports = function(grunt) {
         	return '/jjp/pf/' + path.basename(filename);
         },
       },
-      
+
       build:{
         src: 'src/components/**/*.html',
-        dest: '.tmp/<%= pkg.name %>.tpl.min.js',
+        dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.tpl.min.js',
       },
     },
 
@@ -60,11 +60,8 @@ module.exports = function(grunt) {
       dev: {
         files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
         tasks: ['clean','jshint', 'uglify', 'html2js', 'concat'],
-        options: {
-          atBegin: true
-        }
       },
-    }    
+    }
 
   });
   grunt.loadNpmTasks('grunt-contrib-watch');
