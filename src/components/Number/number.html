@@ -10,8 +10,7 @@
   </label>
   <p class="FormHint" ng-transclude>Form Hint</p>
   <input class="form-control" type="number" name="name" ng-model="ngModel"
-  	ng-minlength=0 ng-maxlength=255 ng-Trim=1
-  	ng-required="ngRequired" required={{required}}
+		ng-maxlength=255 ng-required="ngRequired" required={{required}}
   	placeholder={{placeholder}} />
   <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty" ></span>
   <span class="glyphicon glyphicon-ok form-control-feedback" style="top:55px;" ng-show="!subform.name.$invalid && subform.name.$dirty" ></span>

@@ -35,7 +35,7 @@ Examples
 
 Installation
 ======================================================
-* This depends on Bootstrap & UI.Bootstrap, Please include these first
+* This depends on AngularJS, Bootstrap & UI.Bootstrap, Please include these first
 * Include the compiled file
       <script src="path/praticalforms.js"></script>
 * Add the module as a dependence of the angular app
@@ -47,7 +47,7 @@ _See the example folder for a nice list of all components_
 Issues
 =======================================================
 * If you have issues, please report them. I will be more encourage to develop this further if there is activity.
-
+* Tested 1.2 & 1.3 version of angular.js. If there are errors with early/later version, submit an issues or patch.
 
 
 License & Contributing
