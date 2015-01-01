@@ -10,16 +10,6 @@ module.exports = function(grunt) {
 
     clean: [".tmp", "build"],
 
-    concat:{
-      options: {
-	    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
-      },
-      build:{
-        src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
-        dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
-      }
-    },
-
     jshint: {
       all: ['Gruntfile.js', 'src/**/*.js']
     },
@@ -56,8 +46,26 @@ module.exports = function(grunt) {
       },
     },
 
+    concat:{
+      options: {
+	    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
+      },
+      build:{
+        src: ['<%= html2js.build.dest %>', 'src/praticalforms.js', 'src/components/**/*.js'],
+        dest: 'build/<%= pkg.name %>-<%= pkg.version %>.js'
+      },
+      prod:{
+        src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
+        dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
+      },
+    },
+
     watch: {
       dev: {
+        files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
+        tasks: ['clean','jshint', 'html2js', 'concat'],
+      },
+      prod: {
         files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
         tasks: ['clean','jshint', 'uglify', 'html2js', 'concat'],
       },
@@ -71,6 +79,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean','jshint', 'uglify', 'html2js', 'concat', 'watch']);
+  grunt.registerTask('default', ['clean','jshint', 'html2js', 'concat', 'watch:dev']);
+  grunt.registerTask('prod', ['clean','jshint', 'uglify', 'html2js', 'concat:prod', 'watch']);
 
 };

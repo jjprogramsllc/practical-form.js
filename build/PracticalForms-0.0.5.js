@@ -1,4 +1,4 @@
-/*! PracticalForms v0.0.4 | (c) 2014, JJ Programs, LLC | Distributed under the MIT License */
+/*! PracticalForms v0.0.5 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.PracticalForms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/email.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.email>- Not a valid Email!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control type=email name=name ng-model=ngModel ng-required=ngRequired required ng-trim=ngTrim placeholder=\"Ex: john.doe@company.com\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
@@ -14,6 +14,8 @@ angular.module('jjp.PracticalForms.templates', []).run(['$templateCache', functi
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.percent>- Value must be between 0% and 100%</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input pf-percentage-mask class=form-control name=name ng-model=ngModel ng-trim=1 ng-required=ngRequired required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/phone.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.pattern>- Invalid Input. Enter a valid phone number</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-required=ngRequired required ng-trim=true ng-pattern=\"/^(?:\\([2-9]\\d{2}\\)\\ ?|[2-9]\\d{2}(?:\\-?|\\ ?))[2-9]\\d{2}[- ]?\\d{4}$/\" placeholder=\"Ex: (123)-456-7890\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
+  $templateCache.put("/jjp/pf/picture.html",
+    "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><div class=\"well row\"><div class=col-xs-9><div class=\"fileinput-preview thumbnail\" style=\"width: 200px; height: 150px; line-height: 150px\"><img ng-src=\"{{imageSrc}}\"></div><input class=form-control type=file name=name accept=image/* ng-required=ngRequired required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div><div class=col-xs-3><button type=button class=\"btn btn-default btn-block file-selector\">Select</button> <button type=button class=\"btn btn-default btn-block\" ng-click=upload()>Upload</button> <button type=button class=\"btn btn-default btn-block\" ng-click=upload()>Change</button> <button type=button class=\"btn btn-default btn-block\" ng-click=upload()>Remove</button></div></div></div>");
   $templateCache.put("/jjp/pf/state.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.pattern>- Invalid Input. Enter the TWO letter state code</span> <span ng-show=subform.name.$error.maxlength>- Invalid Input. Enter the TWO letter state code</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-maxlength=2 ng-required=ngRequired required ng-trim=true ng-pattern=\"/[A-Za-z]{2}/\" placeholder=\"Ex: OH\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/text.html",
@@ -32,4 +34,536 @@ angular.module('jjp.PracticalForms.templates', []).run(['$templateCache', functi
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" datepicker-popup=\"MMMM dd, yyyy\" min-date=\"minDate\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
 }]);
 
-function Percentage(a){var b=String(a).replace(/^0*/,"");this.val=b.replace(/[^0-9]/g,"")}var module=angular.module("jjp.PracticalForms",["jjp.PracticalForms.templates","ui.bootstrap"]);module.directive("pfCheckboxInput",function(){return{restrict:"E",scope:{title:"@"},transclude:!0,replace:!0,template:'<div class="checkbox"><label><span ng-transclude></span>{{title}}</label></div>'}}),module.directive("pfEmailInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"=",required:"=?",ngRequired:"=?",ngTrim:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/email.html"}}),module.directive("pfNumberInput",function(){return{restrict:"E",scope:{title:"@",placeholder:"@?",ngModel:"=",required:"=?",ngRequired:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/number.html"}}),module.directive("pfOptionGroup",function(){return{restrict:"E",scope:{title:"@",description:"@?",required:"=?"},transclude:!0,replace:!0,templateUrl:"/jjp/pf/options.html",link:function(a,b){a.required&&b.find(":input").attr("required","required"),a.$watch("subform.$invalid",function(b){a.isError=b}),a.$watch("subform.$dirty",function(b){a.isDirty=b})}}}),module.directive("pfPasswordInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"="},replace:!0,transclude:!0,templateUrl:"/jjp/pf/password.html"}}),module.directive("pfRegexInput",function(){return{restrict:"E",scope:{title:"@",placeholder:"@?",ngModel:"=",required:"=?",ngRequired:"=?",ngMinlength:"=?",ngMaxlength:"=?",ngPattern:"@?",ngTrim:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/pattern.html"}}),module.directive("pfPercentageInput",function(){return{restrict:"E",scope:{title:"@",placeholder:"@?",ngModel:"=",required:"=?",ngRequired:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/percentage.html"}}),module.directive("pfPercentageMask",function(){return{restrict:"A",require:"ngModel",link:function(a,b,c,d){d.$formatters.push(function(a){return new Percentage(a).pretty()}),d.$parsers.push(function(a){var b=new Percentage(a);return a.indexOf("%")<0&&!a.endsWith("%")&&b.backspace(),b.pretty()!=d.$viewValue&&(d.$setViewValue(b.pretty()),d.$render()),b.value()>=0&&b.value()<=100?d.$setValidity("percent",!0):d.$setValidity("percent",!1),String(b.value())})}}}),Percentage.prototype.value=function(){return parseFloat(this.val)||0},Percentage.prototype.pretty=function(){return this.value()>9?this.value()+" %":"0"+this.value()+" %"},Percentage.prototype.backspace=function(){this.val=this.val.slice(0,this.val.length-1)},"function"!=typeof String.prototype.startsWith&&(String.prototype.startsWith=function(a){return this.substring(0,a.length)===a}),"function"!=typeof String.prototype.endsWith&&(String.prototype.endsWith=function(a){return this.substring(this.length-a.length,this.length)===a}),module.directive("pfPhoneInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"=",required:"=?",ngRequired:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/phone.html"}}),module.directive("pfRadioInput",function(){return{restrict:"E",scope:{title:"@"},transclude:!0,replace:!0,template:'<div class="radio"><label><span ng-transclude></span>{{title}}</label></div>'}}),module.directive("pfStateCodeInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"=",required:"=?",ngRequired:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/state.html"}}),module.directive("pfTextInput",function(){return{restrict:"E",scope:{title:"@",placeholder:"@?",ngModel:"=",required:"=?",ngRequired:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/text.html"}}),module.directive("pfTextarea",function(){return{restrict:"E",scope:{title:"@",placeholder:"@",ngModel:"=",required:"=?",ngRequired:"=?",ngMinlength:"=?",ngMaxlength:"=?",ngPattern:"@?",ngTrim:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/textarea.html"}}),module.directive("pfUrlInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"=",required:"=?",ngRequired:"=?",ngTrim:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/url.html"}}),module.directive("pfZipCodeInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"=",required:"=?",ngRequired:"=?",ngTrim:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/zipcode.html"}}),module.directive("pfConfirm",["$modal",function(a){return{restrict:"A",scope:{pfTitle:"@",pfMessage:"@",pfConfirm:"&"},link:function(b,c){c.bind("click",function(){var c=b.pfMessage||"Are you sure ?",d=b.pfTitle||"Warning!",e='<div class="modal-header"><h1>'+d+"</h1></div>";e+='<div class="modal-body">'+c+"</div>",e+='<div class="modal-footer">',e+='<button class="btn btn-primary" ng-click="Ok()">OK</button>',e+='<button class="btn btn-warning" ng-click="Cancel()">Cancel</button></div>';var f=a.open({template:e,controller:["$scope","$modalInstance",function(a,b){a.Ok=function(){b.close()},a.Cancel=function(){b.dismiss("cancel")}}]});f.result.then(function(){b.pfConfirm()},function(){})})}}}]),module.directive("pfDateInput",function(){return{restrict:"E",scope:{title:"@",ngModel:"=",required:"=?",ngRequired:"=?",format:"@?",minDate:"=?"},replace:!0,transclude:!0,templateUrl:"/jjp/pf/date.html"}});
+var module = angular.module('jjp.PracticalForms', ['jjp.PracticalForms.templates', 'ui.bootstrap']);
+
+
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfCheckboxInput", function(){
+  return {
+    restrict: 'E',
+    scope:{
+      title: "@",
+    },
+    transclude: true,
+    replace: true,
+    template:'<div class="checkbox"><label><span ng-transclude></span>{{title}}</label></div>',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfEmailInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      ngTrim:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/email.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives
+ *
+ */
+
+module.directive("pfNumberInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      placeholder: '@?',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/number.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives
+ *
+ */
+
+module.directive("pfOptionGroup", function(){
+  return {
+    restrict: 'E',
+    scope:{
+      title: "@",
+      description: '@?',
+      required: "=?",
+    },
+    transclude: true,
+    replace: true,
+    templateUrl:"/jjp/pf/options.html",
+    link: function(scope, element, attrs) {
+      if(scope.required){
+        element.find(":input").attr("required","required");
+      }
+      scope.$watch('subform.$invalid', function(isError) {
+        scope.isError = isError;
+      });
+      scope.$watch('subform.$dirty', function(isDirty) {
+        scope.isDirty = isDirty;
+      });
+    }
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfPasswordInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/password.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfRegexInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      placeholder: '@?',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      ngMinlength:"=?",
+      ngMaxlength:"=?",
+      ngPattern:"@?",
+      ngTrim:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/pattern.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives
+ *
+ */
+
+module.directive("pfPercentageInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      placeholder: '@?',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/percentage.html',
+  };
+});
+
+
+module.directive("pfPercentageMask", function(){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+
+    link: function(scope, element, attrs, ctrl) {
+      ctrl.$formatters.push(function(inputValue){
+        return new Percentage(inputValue).pretty();
+      });
+
+      // For angular 1.3
+      // ctrl.$validators.validPercent = function(modelValue, viewValue) {
+      //   console.log(modelValue, viewValue);
+      //   return (modelValue >= 0) && (modelValue <= 100);
+      // };
+
+      ctrl.$parsers.push(function(value) {
+        var p = new Percentage(value);
+        if(value.indexOf("%") < 0 &&  !value.endsWith('%')){
+          // The % was deleted, so delete the last number
+          p.backspace();
+        }
+        // console.log(value, ctrl.$viewValue, p.value(), p.pretty());
+        //Update the new value if it has changed
+        if(p.pretty() != ctrl.$viewValue){
+          ctrl.$setViewValue(p.pretty());
+          ctrl.$render();
+        }
+
+        // Sets the validation
+        if((p.value() >= 0) && (p.value() <= 100)){
+          ctrl.$setValidity('percent', true);
+        }else{
+          ctrl.$setValidity('percent', false);
+        }
+        return String(p.value());
+      });
+    }
+  };
+});
+
+function Percentage(s){
+  //Remove the leading zeros
+  var trimedValue = String(s).replace(/^0*/, '');
+  //only return the numbers
+  this.val = trimedValue.replace(/[^0-9]/g, '');
+}
+
+Percentage.prototype.value = function(){
+  return parseFloat(this.val) || 0;
+};
+Percentage.prototype.pretty = function(){
+  if(this.value() > 9)
+    return this.value() + " %";
+  else
+    return "0" + this.value() + " %";
+};
+Percentage.prototype.backspace = function(){
+  //Used to delete the last number of the val;
+  // Useful for binding to form when you only have a pretty value
+  this.val = this.val.slice(0, this.val.length -1);
+};
+
+
+// Added some cool prototypes since not browser support this yet
+if ( typeof String.prototype.startsWith != 'function' ) {
+  String.prototype.startsWith = function( str ) {
+    return this.substring( 0, str.length ) === str;
+  };
+}
+
+
+
+if ( typeof String.prototype.endsWith != 'function' ) {
+  String.prototype.endsWith = function( str ) {
+    return this.substring( this.length - str.length, this.length ) === str;
+  };
+}
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfPhoneInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/phone.html',
+  };
+});
+
+/*
+ * Single Picture Uploader
+ * Provides a preview of the image before uploading
+ *
+ */
+module.factory("jjp.FileObject", ["$q", "$log",function($q, $log){
+  var FileObject = {
+    ReadImage : function(file, scope){
+      var deferred = $q.defer();
+
+      var reader = new FileReader();
+      reader.onload = onLoad(reader, deferred, scope);
+      reader.onerror = onError(reader, deferred, scope);
+      reader.onprogress = onProgress(reader, scope);
+
+      reader.readAsDataURL(file);
+
+      return deferred.promise;
+    }
+  };
+
+  var onLoad = function(reader, deferred, scope) {
+    return function () {
+      deferred.resolve(reader.result);
+    };
+  };
+
+  var onError = function (reader, deferred, scope) {
+    return function () {
+        deferred.reject(reader.result);
+    };
+  };
+
+  var onProgress = function(reader, scope) {
+    return function (event) {
+      scope.$broadcast("fileProgress", {
+          total: event.total,
+          loaded: event.loaded
+      });
+    };
+  };
+
+  return FileObject;
+}]);
+
+module.directive("pfPictureUploader", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      ngTrim:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/picture.html',
+
+    link: function($scope,el){
+      el.bind("change", function(e){
+        $scope.filexxx = (e.srcElement || e.target).files[0];
+      });
+
+    },
+
+    controller: ['$scope','jjp.FileObject', function($scope, FileObject){
+      $scope.upload = function(){
+        console.log("uploading:", $scope.filexxx);
+        FileObject.ReadImage($scope.filexxx, $scope).then(function(result) {
+          $scope.imageSrc = result;
+        },function(error){
+          console.log(error);
+        });
+      };
+    }]
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfRadioInput", function(){
+  return {
+    restrict: 'E',
+    scope:{
+      title: "@",
+    },
+    transclude: true,
+    replace: true,
+    template:'<div class="radio"><label><span ng-transclude></span>{{title}}</label></div>',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfStateCodeInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/state.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfTextInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      placeholder: '@?',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/text.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfTextarea", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      placeholder: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      ngMinlength:"=?",
+      ngMaxlength:"=?",
+      ngPattern:"@?",
+      ngTrim:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/textarea.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfUrlInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      ngTrim:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/url.html',
+  };
+});
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfZipCodeInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      ngTrim:"=?"
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/zipcode.html',
+  };
+});
+
+module.directive("pfConfirm", ['$modal', function($modal){
+  return {
+    restrict: 'A',
+    scope: {
+	    pfTitle: "@",
+      pfMessage: "@",
+      pfConfirm: "&",
+    },
+    link : function ($scope, $element, $attrs) {
+      $element.bind('click', function () {
+
+        var message = $scope.pfMessage || "Are you sure ?";
+        var title = $scope.pfTitle || "Warning!";
+        var modalHtml = '<div class="modal-header"><h1>'+title+'</h1></div>';
+        modalHtml += '<div class="modal-body">' + message + '</div>';
+        modalHtml += '<div class="modal-footer">';
+        modalHtml += '<button class="btn btn-primary" ng-click="Ok()">OK</button>';
+        modalHtml += '<button class="btn btn-warning" ng-click="Cancel()">Cancel</button></div>';
+
+        var modalInstance = $modal.open({
+          template: modalHtml,
+          controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
+            $scope.Ok = function() { $modalInstance.close(); };
+            $scope.Cancel = function() { $modalInstance.dismiss('cancel'); };
+          }],
+        });
+        modalInstance.result.then(function () {
+            $scope.pfConfirm();
+        }, function () {
+            //Modal dismissed
+        });
+      });
+    }
+  };
+}]);
+
+/*
+ * Basic form input that has basic validation
+ * Uses basic angular form directives 
+ *
+ */
+
+module.directive("pfDateInput", function(){
+  return {
+    restrict: 'E',
+    scope: {
+      title: '@',
+      ngModel : '=',
+      required: "=?",
+      ngRequired:"=?",
+      format: "@?",
+      minDate: "=?",
+    },
+    replace: true,
+    transclude: true,
+    templateUrl: '/jjp/pf/date.html',
+  };
+});
