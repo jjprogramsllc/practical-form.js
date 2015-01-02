@@ -7,18 +7,19 @@
   <p class="FormHint" ng-transclude>Form Hint</p>
   <div class="well row">
     <div class="col-xs-9">
-      <div class="fileinput-preview thumbnail" style="width: 200px; height: 150px; line-height: 150px;">
-        <img ng-src="{{imageSrc}}" />
+      <div class="fileinput-preview thumbnail" style="width: 250px; " ng-show="showPreview == 2">
+        <img ng-src="{{preview}}" />
       </div>
-      <input class="form-control" type="file" name="name" accept="image/*" ng-required="ngRequired" required={{required}} >
-      <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty" ></span>
-      <span class="glyphicon glyphicon-ok form-control-feedback" style="top:55px;" ng-show="!subform.name.$invalid && subform.name.$dirty" ></span>
+      <h4 ng-show="showPreview ==0 ">No Image Selected</h4>
+      <h4 ng-show="showPreview ==1 ">Loading {{load.loaded*100/load.total | number:0}}%</h4>
+      <h4 ng-show="showPreview ==3 ">Error Loading Image</h4>
+      <input class="form-control" type="file" name="name" accept="image/*" ng-required="ngRequired" required={{required}} style="display:none">
+      <p>{{ngModel.name}}   <strong>{{status}} </strong></p>
     </div>
     <div class="col-xs-3">
-      <button type="button" class="btn btn-default btn-block file-selector" >Select</button>
-      <button type="button" class="btn btn-default btn-block" ng-click="upload()">Upload</button>
-      <button type="button" class="btn btn-default btn-block" ng-click="upload()">Change</button>
-      <button type="button" class="btn btn-default btn-block" ng-click="upload()">Remove</button>
+      <button type="button" class="btn btn-block btn-default file-selector">Select</button>
+      <button type="button" class="btn btn-block btn-success" ng-click="Upload()" ng-show="showPreview==2" ng-if="showUpload">Upload</button>
+      <button type="button" class="btn btn-block btn-danger" ng-click="Remove()" ng-show="showPreview > 1">Remove</button>
     </div>
 
 </div>

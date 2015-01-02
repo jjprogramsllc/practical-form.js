@@ -15,7 +15,7 @@ angular.module('jjp.PracticalForms.templates', []).run(['$templateCache', functi
   $templateCache.put("/jjp/pf/phone.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.pattern>- Invalid Input. Enter a valid phone number</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-required=ngRequired required ng-trim=true ng-pattern=\"/^(?:\\([2-9]\\d{2}\\)\\ ?|[2-9]\\d{2}(?:\\-?|\\ ?))[2-9]\\d{2}[- ]?\\d{4}$/\" placeholder=\"Ex: (123)-456-7890\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/picture.html",
-    "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><div class=\"well row\"><div class=col-xs-9><div class=\"fileinput-preview thumbnail\" style=\"width: 200px; height: 150px; line-height: 150px\"><img ng-src=\"{{imageSrc}}\"></div><input class=form-control type=file name=name accept=image/* ng-required=ngRequired required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div><div class=col-xs-3><button type=button class=\"btn btn-default btn-block file-selector\">Select</button> <button type=button class=\"btn btn-default btn-block\" ng-click=upload()>Upload</button> <button type=button class=\"btn btn-default btn-block\" ng-click=upload()>Change</button> <button type=button class=\"btn btn-default btn-block\" ng-click=upload()>Remove</button></div></div></div>");
+    "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><div class=\"well row\"><div class=col-xs-9><div class=\"fileinput-preview thumbnail\" style=\"width: 250px\" ng-show=\"showPreview == 2\"><img ng-src=\"{{preview}}\"></div><h4 ng-show=\"showPreview ==0 \">No Image Selected</h4><h4 ng-show=\"showPreview ==1 \">Loading {{load.loaded*100/load.total | number:0}}%</h4><h4 ng-show=\"showPreview ==3 \">Error Loading Image</h4><input class=form-control type=file name=name accept=image/* ng-required=ngRequired required style=display:none><p>{{ngModel.name}} <strong>{{status}}</strong></p></div><div class=col-xs-3><button type=button class=\"btn btn-block btn-default file-selector\">Select</button> <button type=button class=\"btn btn-block btn-success\" ng-click=Upload() ng-show=\"showPreview==2\" ng-if=showUpload>Upload</button> <button type=button class=\"btn btn-block btn-danger\" ng-click=Remove() ng-show=\"showPreview > 1\">Remove</button></div></div></div>");
   $templateCache.put("/jjp/pf/state.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.pattern>- Invalid Input. Enter the TWO letter state code</span> <span ng-show=subform.name.$error.maxlength>- Invalid Input. Enter the TWO letter state code</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-maxlength=2 ng-required=ngRequired required ng-trim=true ng-pattern=\"/[A-Za-z]{2}/\" placeholder=\"Ex: OH\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/text.html",
@@ -310,9 +310,9 @@ module.factory("jjp.FileObject", ["$q", "$log",function($q, $log){
       var deferred = $q.defer();
 
       var reader = new FileReader();
-      reader.onload = onLoad(reader, deferred, scope);
-      reader.onerror = onError(reader, deferred, scope);
-      reader.onprogress = onProgress(reader, scope);
+      reader.onload = onLoad(reader, deferred);
+      reader.onerror = onError(reader, deferred);
+      reader.onprogress = onProgress(reader, deferred);
 
       reader.readAsDataURL(file);
 
@@ -320,24 +320,21 @@ module.factory("jjp.FileObject", ["$q", "$log",function($q, $log){
     }
   };
 
-  var onLoad = function(reader, deferred, scope) {
+  var onLoad = function(reader, deferred) {
     return function () {
       deferred.resolve(reader.result);
     };
   };
 
-  var onError = function (reader, deferred, scope) {
+  var onError = function (reader, deferred) {
     return function () {
         deferred.reject(reader.result);
     };
   };
 
-  var onProgress = function(reader, scope) {
+  var onProgress = function(reader, deferred) {
     return function (event) {
-      scope.$broadcast("fileProgress", {
-          total: event.total,
-          loaded: event.loaded
-      });
+      deferred.notify(event);
     };
   };
 
@@ -350,30 +347,70 @@ module.directive("pfPictureUploader", function(){
     scope: {
       title: '@',
       ngModel : '=',
+      preview : '=',
+      upload: '@',
       required: "=?",
       ngRequired:"=?",
-      ngTrim:"=?"
     },
     replace: true,
     transclude: true,
     templateUrl: '/jjp/pf/picture.html',
 
-    link: function($scope,el){
-      el.bind("change", function(e){
-        $scope.filexxx = (e.srcElement || e.target).files[0];
+    link: function(scope,el){
+      angular.element(el[0].querySelector('.file-selector')).bind("click", function(e){
+        el[0].querySelector('input').click();
       });
-
+      el.bind("change", function(e){
+        scope.ngModel = (e.srcElement || e.target).files[0];
+        scope.Select();
+      });
     },
 
-    controller: ['$scope','jjp.FileObject', function($scope, FileObject){
-      $scope.upload = function(){
-        console.log("uploading:", $scope.filexxx);
-        FileObject.ReadImage($scope.filexxx, $scope).then(function(result) {
-          $scope.imageSrc = result;
+    controller: ['$scope','$http','jjp.FileObject', function($scope, $http, FileObject){
+      $scope.status = "";
+      $scope.showPreview = 0;
+      // $scope.showUpload = (/^(ht|f)tp(s?)\:\/\/(([a-zA-Z0-9\-\._]+(\.[a-zA-Z0-9\-\._]+)+)|localhost)(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?([\d\w\.\/\%\+\-\=\&amp;\?\:\\\&quot;\'\,\|\~\;]*)$/)
+      //                   .test($scope.upload);
+      $scope.showUpload = true;
+
+
+      $scope.Select = function(){
+        FileObject.ReadImage($scope.ngModel, $scope).then(function(result) {
+          $scope.preview = result;
+          $scope.showPreview = 2;
         },function(error){
+          $scope.showPreview = 3;
+          console.log(error);
+        },function(event){
+          $scope.showPreview = 1;
+          $scope.load = event;
+        });
+      };
+
+      $scope.Upload = function(){
+        console.log($scope.upload);
+        $scope.status = "Uploading!";
+        var fd = new FormData();
+        fd.append('file', $scope.ngModel);
+        $http.post($scope.upload, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function(data){
+          $scope.status = "Saved!";
+          console.log("Success", data);
+        }).error(function(error){
+          $scope.status = "Error!";
           console.log(error);
         });
       };
+
+      $scope.Remove = function(){
+        $scope.ngModel = null;
+        $scope.preview = null;
+        $scope.showPreview = 0;
+      };
+
+
     }]
   };
 });
