@@ -59,13 +59,16 @@ module.directive("pfPercentageMask", function(){
 (function( praticalForms, undefined ) {
 
   praticalForms.Percentage = function(s){
+    s = String(s);
     // determine if the string has % & the value doesn't end with %;
-    var neededBackspace = (s.indexOf("%") < 0) && (!PraticalForms.endsWith(s, '%'));
+    var needBackspace = (s.indexOf("%") < 0) && (!praticalForms.endsWith(s, '%'));
     //Remove the leading zeros
     var trimedValue = String(s).replace(/^0*/, '');
     //only return the numbers
     this._value = trimedValue.replace(/[^0-9]/g, '');
-    this.backspace();
+    if(needBackspace){
+      this.backspace();
+    }
   };
 
   praticalForms.Percentage.prototype.value = function(){
