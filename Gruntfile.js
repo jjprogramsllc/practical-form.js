@@ -61,11 +61,7 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      dev: {
-        files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
-        tasks: ['clean','jshint', 'html2js', 'concat'],
-      },
-      prod: {
+      build: {
         files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
         tasks: ['clean','jshint', 'uglify', 'html2js', 'concat'],
       },
@@ -79,7 +75,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean','jshint', 'html2js', 'concat', 'watch:dev']);
-  grunt.registerTask('prod', ['clean','jshint', 'uglify', 'html2js', 'concat:prod', 'watch']);
+  grunt.registerTask('default', ['clean','jshint', 'uglify','html2js', 'concat', 'watch']);
+  grunt.registerTask('prod', ['clean','jshint', 'uglify', 'html2js', 'concat']);
 
 };
