@@ -11,6 +11,7 @@
 			angular.module("examplePage", ['ui.bootstrap','jjp.PracticalForms'])
 			.controller("ExampleCtrl", ['$scope', function($scope){
 				$scope.inputs = {};
+				$scope.picture2 = {};
 				$scope.ConfirmAction = function(item){
 					console.log("Confirmed Action!", item);
 				};
@@ -110,7 +111,7 @@
 			    	Enter a date. Min date can be set using the min-date attribute.
 			  	</pf-date-input>
 					<pf-date-input title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date2" min-date="inputs.date">
-                                        This date has a min value taken from above.
+            This date has a min value taken from above.
 			  	</pf-date-input>
 
 
@@ -119,12 +120,17 @@
 					</button>
 
 					<hr />
-					<h2>Picture Uploading</h2>
-					<pf-picture-uploader ng-model="inputs.picture" preview="preview" title="Upload Picture">Pick a picture to upload</pf-picture-uploader>
+					<h2>Picture Inputs</h2>
+					<pf-picture-uploader ng-model="inputs.picture" preview="preview" title="Select a Picture" max-size="1000000">Picture selection with preview. Max file size set to 1Mb</pf-picture-uploader>
 
-					<pf-picture-uploader ng-model="inputs.picture2" preview="preview2" title="Picture with uploading" upload="http://localhost:8080/file/">
-						Pick a picture to upload
+					<pf-picture-uploader ng-model="inputs.picture2" preview="preview" result="result" status="status" title="Picture with uploading" url="http://localhost:8080/file/">
+						Picture input with uploading action after the image is selected. 
 					</pf-picture-uploader>
+					<pre>Image Viewer status: {{status}}</pre>
+					<pre>Image Viewer Results: {{result}}</pre>
+					<pre>Image: {{inputs.picture2}}</pre>
+					<pre>Filename: {{inputs.picture2.name}}</pre>
+					<a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image </a>
 
 					</hr/>
 					<h3>Output</h3>

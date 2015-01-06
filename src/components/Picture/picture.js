@@ -5,7 +5,7 @@
  */
 module.factory("jjp.FileObject", ["$q", "$log",function($q, $log){
   var FileObject = {
-    ReadImage : function(file, scope){
+    ReadImage : function(file){
       var deferred = $q.defer();
 
       var reader = new FileReader();
@@ -27,7 +27,7 @@ module.factory("jjp.FileObject", ["$q", "$log",function($q, $log){
 
   var onError = function (reader, deferred) {
     return function () {
-        deferred.reject(reader.result);
+      deferred.reject(reader.result);
     };
   };
 
@@ -46,10 +46,13 @@ module.directive("pfPictureUploader", function(){
     scope: {
       title: '@',
       ngModel : '=',
-      preview : '=',
-      upload: '@',
-      required: "=?",
-      ngRequired:"=?",
+      preview : '=?',
+      url: '@?',
+      result: '=?',
+      status: '=?',
+      maxSize: '=?',
+      required: '=?',
+      ngRequired:'=?',
     },
     replace: true,
     transclude: true,
@@ -59,57 +62,72 @@ module.directive("pfPictureUploader", function(){
       angular.element(el[0].querySelector('.file-selector')).bind("click", function(e){
         el[0].querySelector('input').click();
       });
-      el.bind("change", function(e){
-        scope.ngModel = (e.srcElement || e.target).files[0];
-        scope.Select();
+      angular.element(el[0].querySelector('input')).bind("change", function(e){
+        if( typeof((e.srcElement || e.target).files[0]) !== "undefined"){
+          scope.$apply(function(){
+            scope.ngModel = (e.srcElement || e.target).files[0];
+            scope.Select();
+          });
+        }
       });
     },
 
     controller: ['$scope','$http','jjp.FileObject', function($scope, $http, FileObject){
-      $scope.status = "";
-      $scope.showPreview = 0;
-      // $scope.showUpload = (/^(ht|f)tp(s?)\:\/\/(([a-zA-Z0-9\-\._]+(\.[a-zA-Z0-9\-\._]+)+)|localhost)(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?([\d\w\.\/\%\+\-\=\&amp;\?\:\\\&quot;\'\,\|\~\;]*)$/)
-      //                   .test($scope.upload);
-      $scope.showUpload = true;
-
 
       $scope.Select = function(){
-        FileObject.ReadImage($scope.ngModel, $scope).then(function(result) {
+        $scope.status = 1;
+        if($scope.ngModel.size > $scope.size){
+          $scope.status = -10;
+          $scope.result = "Image is too Big!";
+          return;
+        }
+        FileObject.ReadImage($scope.ngModel).then(function(result) {
           $scope.preview = result;
-          $scope.showPreview = 2;
+          $scope.status = 2;
         },function(error){
-          $scope.showPreview = 3;
-          console.log(error);
+          $scope.status = -1;
+          $scope.result = error;
+          console.warn(error);
         },function(event){
-          $scope.showPreview = 1;
           $scope.load = event;
         });
       };
 
       $scope.Upload = function(){
-        console.log($scope.upload);
-        $scope.status = "Uploading!";
+        $scope.status = 3;
         var fd = new FormData();
         fd.append('file', $scope.ngModel);
-        $http.post($scope.upload, fd, {
+        $http.post($scope.url, fd, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function(data){
-          $scope.status = "Saved!";
-          console.log("Success", data);
+          $scope.status = 4;
+          $scope.result = data;
         }).error(function(error){
-          $scope.status = "Error!";
-          console.log(error);
+          $scope.status = -1;
+          $scope.result = error;
+          console.warn(error);
         });
       };
 
       $scope.Remove = function(){
         $scope.ngModel = null;
         $scope.preview = null;
-        $scope.showPreview = 0;
+        $scope.status = 0;
       };
 
+      $scope.CanUpload = function(){
+        var urlPattern = new RegExp("^(ht|f)tp(s?)\:\/\/(([a-zA-Z0-9\-\._]+(\.[a-zA-Z0-9\-\._]+)+)|localhost)(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?([\d\w\.\/\%\+\-\=\&amp;\?\:\\\&quot;\'\,\|\~\;]*)$");
+        return urlPattern.test($scope.url);
+      };
 
+      // maxSize or 3MB
+      $scope.size = $scope.maxSize || 3000000;
+      $scope.ngModel = {};
+      $scope.status = 0;
+      $scope.result = {};
+      $scope.showPreview = 0;
+      $scope.showUpload = $scope.CanUpload();
     }]
   };
 });
