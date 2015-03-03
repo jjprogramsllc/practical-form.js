@@ -1,6 +1,6 @@
 var path = require('path');
 
-var moduleName = "jjp.PracticalForms";
+var moduleName = "jjp.practical-forms";
 
 module.exports = function(grunt) {
 
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
-        src: ['src/praticalforms.js','src/components/**/*.js'],
+        src: ['src/pratical-forms.js','src/components/**/*.js'],
         dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 	    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
       },
       build:{
-        src: ['<%= html2js.build.dest %>', 'src/praticalforms.js', 'src/components/**/*.js'],
+        src: ['<%= html2js.build.dest %>', 'src/pratical-forms.js', 'src/components/**/*.js'],
         dest: 'build/<%= pkg.name %>-<%= pkg.version %>.js'
       },
       prod:{

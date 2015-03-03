@@ -1,10 +1,9 @@
 {
-  "name": "PracticalForms",
-  "version": "0.0.5",
+  "name": "practical-forms",
+  "version": "0.0.6",
   "description": "Collection of form components that help make using forms with angula.js more pratical",
-  "main": "src/js/practicalforms.js",
+  "main": "src/js/practical-forms.js",
   "dependencies": {
-    "grunt": "^0.4.5"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
@@ -29,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://jlivecchi@bitbucket.org/jjprograms/praticalforms.git"
+    "url": "https://github.com/jjprogramsllc/practical-form.js"
   },
   "keywords": [
     "angular.js",

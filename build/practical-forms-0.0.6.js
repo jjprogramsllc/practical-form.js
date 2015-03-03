@@ -1,5 +1,5 @@
-/*! PracticalForms v0.0.5 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
-angular.module('jjp.PracticalForms.templates', []).run(['$templateCache', function($templateCache) {
+/*! practical-forms v0.0.6 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
+angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/email.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.email>- Not a valid Email!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control type=email name=name ng-model=ngModel ng-required=ngRequired required ng-trim=ngTrim placeholder=\"Ex: john.doe@company.com\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/number.html",
@@ -34,9 +34,7 @@ angular.module('jjp.PracticalForms.templates', []).run(['$templateCache', functi
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" datepicker-popup=\"MMMM dd, yyyy\" min-date=\"minDate\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
 }]);
 
-var module = angular.module('jjp.PracticalForms', ['jjp.PracticalForms.templates', 'ui.bootstrap']);
-
-
+var module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap']);
 
 /*
  * Basic form input that has basic validation
