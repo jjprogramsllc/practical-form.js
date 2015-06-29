@@ -13,7 +13,7 @@
     </span>
   </label>
 
-  <p class="FormHint" ng-transclude>Form Hint</p>
+  <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
   <input class="form-control" type="text" name="name" ng-model="ngModel" ng-required="ngRequired" required={{required}}
     ng-pattern="/^\d{5}(-\d{4})?$/" ng-Trim="ngTrim" placeholder="Ex: 12345" />
 

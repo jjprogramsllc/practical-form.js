@@ -16,45 +16,45 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
-        src: ['src/pratical-forms.js','src/components/**/*.js'],
+        src: ['src/practical-forms.js', 'src/components/**/*.js'],
         dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
 
-    html2js:{
-      options:{
-        module:moduleName + ".templates",
+    html2js: {
+      options: {
+        module: moduleName + ".templates",
         singleModule: true,
         htmlmin: {
-          collapseBooleanAttributes:      true,
-          collapseWhitespace:             true,
-          removeAttributeQuotes:          true,
-          removeComments:                 true, // Only if you don't use comment directives!
-          removeEmptyAttributes:          true,
-          removeRedundantAttributes:      true,
-          removeScriptTypeAttributes:     true,
-          removeStyleLinkTypeAttributes:  true
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeComments: true, // Only if you don't use comment directives!
+          removeEmptyAttributes: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true
         },
-        rename: function(filename){
-        	return '/jjp/pf/' + path.basename(filename);
+        rename: function(filename) {
+          return '/jjp/pf/' + path.basename(filename);
         },
       },
 
-      build:{
+      build: {
         src: 'src/components/**/*.html',
         dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.tpl.min.js',
       },
     },
 
-    concat:{
+    concat: {
       options: {
-	    banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
+        banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
       },
-      build:{
-        src: ['<%= html2js.build.dest %>', 'src/pratical-forms.js', 'src/components/**/*.js'],
+      build: {
+        src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js'],
         dest: 'build/<%= pkg.name %>-<%= pkg.version %>.js'
       },
-      prod:{
+      prod: {
         src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
         dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
       },
@@ -62,8 +62,8 @@ module.exports = function(grunt) {
 
     watch: {
       build: {
-        files: [ 'Gruntfile.js', 'src/**/*.js', 'src/**/*.html' ],
-        tasks: ['clean','jshint', 'uglify', 'html2js', 'concat'],
+        files: ['Gruntfile.js', 'src/**/*.js', 'src/**/*.html'],
+        tasks: ['clean', 'jshint', 'uglify', 'html2js', 'concat'],
       },
     }
 
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean','jshint', 'uglify','html2js', 'concat', 'watch']);
-  grunt.registerTask('prod', ['clean','jshint', 'uglify', 'html2js', 'concat']);
+  grunt.registerTask('default', ['clean', 'jshint', 'uglify', 'html2js', 'concat', 'watch']);
+  grunt.registerTask('prod', ['clean', 'jshint', 'uglify', 'html2js', 'concat']);
 
 };

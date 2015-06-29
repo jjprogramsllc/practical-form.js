@@ -6,7 +6,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-messages.min.js"></script>
-		<script src="../build/practical-forms-0.0.6.js"></script>
+		<script src="../build/practical-forms-0.1.0.js"></script>
 
 		<script>
 			angular.module("examplePage", ['ui.bootstrap','jjp.practical-forms'])
@@ -20,6 +20,9 @@
 				$scope.SetState = function(val){
 					console.log("Setting Input");
 					$scope.inputs.state_code = val;
+				};
+				$scope.set = function(key, val){
+					$scope.inputs[key] = val;
 				};
 			}]);
 		</script>
@@ -40,9 +43,16 @@
 						This is a basic text input. More or less, just a wrapper for basic input. Input is bounded between 0-255 characters and auto trimmed.
 					</pf-text-input>
 
-					<pf-text-input title="Text Input (Required)" ng-required=1 ng-model="inputs.textReq" placeholder="Required text input">
+					<pf-text-input title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" placeholder="Required text input">
 						This input is now required by adding ng-required attribute. The attribute can be added to any input
 					</pf-text-input>
+
+					<pf-text-input title="Text Input, No transclude area" ng-required=1 ng-model="inputs.text"></pf-text-input>
+
+					<pf-text-input title="Text Input, Set model via code" ng-required=1 ng-model="inputs.text_btn_set" placeholder="Click the Button Below">
+						This input is now required by adding ng-required attribute. The attribute can be added to any input
+					</pf-text-input>
+					<button class="btn btn-primary" ng-click="set('text_btn_set','This is input is set by code')" type="button">Set Text</button>
 
 					<pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
 						Large text box, limited to 2500 characters

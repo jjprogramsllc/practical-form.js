@@ -8,9 +8,9 @@
     </span>
   </label>
 
-  <p class="FormHint" ng-transclude>Form Hint</p>
-  <textarea class="form-control" type="text" name="name" ng-model="ngModel" 
-    ng-maxlength=2500  ng-required="ngRequired" required={{required}} 
+  <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
+  <textarea class="form-control" type="text" name="name" ng-model="ngModel"
+    ng-maxlength=2500  ng-required="ngRequired" required={{required}}
     ng-Trim="ngTrim" placeholder={{placeholder}} ></textara>
 
   <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty"></span>

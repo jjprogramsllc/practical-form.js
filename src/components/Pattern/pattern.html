@@ -7,7 +7,7 @@
       <span ng-show="subform.name.$error.pattern"> - Invalid Input</span>
     </span>
   </label>
-  <p class="FormHint" ng-transclude>Form Hint</p>
+  <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
   <input class="form-control" type="text" name="name" ng-model="ngModel" 
   	ng-minlength=0 ng-maxlength=255
   	ng-required="ngRequired" required={{required}}

@@ -1,17 +1,14 @@
-/*
- * Basic form input that has basic validation
- * Uses basic angular form directives 
- *
- */
+(function(practicalForms, undefined) {
+  practicalForms.module.directive("pfCheckboxInput", function() {
+    return {
+      restrict: 'E',
+      scope: {
+        title: "@",
+      },
+      transclude: true,
+      replace: true,
+      template: '<div class="checkbox"><label><span ng-transclude></span>{{title}}</label></div>',
+    };
+  });
 
-module.directive("pfCheckboxInput", function(){
-  return {
-    restrict: 'E',
-    scope:{
-      title: "@",
-    },
-    transclude: true,
-    replace: true,
-    template:'<div class="checkbox"><label><span ng-transclude></span>{{title}}</label></div>',
-  };
-});
+}(window.practicalForms = window.practicalForms || {}));

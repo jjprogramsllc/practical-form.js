@@ -1,7 +1,7 @@
 {
   "name": "practical-forms",
-  "version": "0.0.6",
-  "description": "Collection of form components that help make using forms with angula.js more pratical",
+  "version": "0.1.0",
+  "description": "Collection of form components that help make using forms with angular.js more practical",
   "main": "src/js/practical-forms.js",
   "dependencies": {
   },

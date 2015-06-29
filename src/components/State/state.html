@@ -7,7 +7,7 @@
     </span>
   </label>
 
-  <p class="FormHint" ng-transclude ng-show="hasTransclude">Form Hint</p>
+  <p class="FormHint" ng-transclude ng-transclude ng-show="hasTransclude">Form Hint</p>
   <input class="form-control" type="text" name="name" ng-model="ngModel" ng-required="ngRequired" required={{required}} ng-trim="true" placeholder="Ex: OH or Ohio" />
 
   <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty"></span>

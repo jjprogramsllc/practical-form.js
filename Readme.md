@@ -37,7 +37,7 @@ Installation
 ======================================================
 * This depends on AngularJS, Bootstrap & UI.Bootstrap, Please include these first
 * Include the compiled file
-      <script src="path/praticalforms.js"></script>
+      <script src="path/practicalforms.js"></script>
 * Add the module as a dependence of the angular app
       angular.modular("app", ['ui.bootstrap', 'PractialForms']);
 * Add the directive to the form

@@ -1,15 +1,14 @@
-
-<div class="form-group has-feedback" ng-form="subform"
-    ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" >
-  <label class="control-label">{{title}}<span ng-if="required || ngRequired">*</span>
+<div class="form-group has-feedback" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" ng-form="subform">
+  <label class="control-label">{{title}}
+    <span ng-if="required || ngRequired">*</span>
     <span ng-show="subform.name.$invalid && subform.name.$dirty">
       <span ng-show="subform.name.$error.required"> - Required!</span>
       <span ng-show="subform.name.$error.email"> - Not a valid Email!</span>
     </span>
   </label>
 
-  <p class="FormHint" ng-transclude>Form Hint</p>
-  <input class="form-control" type="email" name="name" ng-model="ngModel" ng-required="ngRequired" required={{required}} ng-Trim="ngTrim" placeholder="Ex: john.doe@company.com"  />
-  <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty"></span>
-  <span class="glyphicon glyphicon-ok form-control-feedback" style="top:55px;" ng-show="!subform.name.$invalid && subform.name.$dirty"></span>
+  <p class="FormHint" ng-show="hasTransclude" ng-transclude></p>
+  <input class="form-control" name="name" ng-Trim="ngTrim" ng-model="ngModel" ng-required="ngRequired" placeholder="Ex: john.doe@company.com" required={{required}} type="email"/>
+  <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty" style="top:55px;"/>
+  <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty" style="top:55px;"/>
 </div>
