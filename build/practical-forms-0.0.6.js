@@ -17,7 +17,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/picture.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude>Form Hint</p><div class=\"well row\"><div class=col-xs-9><h4><span ng-show=\"status == 4\">Success! File Uploaded</span> <span ng-show=\"status == 3\">Uploading...</span> <span ng-show=\"status == 2\">Loaded Image <small><i>Image may not be display correctly</i></small></span> <span ng-show=\"status == 1\">Loading Image {{load.loaded*100/load.total | number:0}}%</span> <span ng-show=\"status == 0\">No Image Selected</span> <span ng-show=\"status < 0\">Error! <span ng-show=\"status == -10\">- File is Too Large, Max Size: {{size/1000}} kB</span></span></h4><div class=\"fileinput-preview thumbnail\" style=\"width: 250px\" ng-show=\"status>= 2\"><img ng-src={{preview}} style=\"image-orientation: from-image\"></div><input class=form-control type=file name=name accept=image/* ng-required=ngRequired required style=display:none><p ng-show=\"status>=2\"><strong>File:</strong> {{ngModel.name}}</p></div><div class=col-xs-3><button type=button class=\"btn btn-block btn-default file-selector\">Select</button> <button type=button class=\"btn btn-block btn-success\" ng-click=Upload() ng-show=\"status>=2\" ng-if=showUpload>Upload</button> <button type=button class=\"btn btn-block btn-danger\" ng-click=Remove() ng-show=\"status>=2\">Remove</button></div></div></div>");
   $templateCache.put("/jjp/pf/state.html",
-    "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.pattern>- Invalid Input. Enter the TWO letter state code</span> <span ng-show=subform.name.$error.maxlength>- Invalid Input. Enter the TWO letter state code</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-maxlength=2 ng-required=ngRequired required ng-trim=true ng-pattern=\"/[A-Za-z]{2}/\" placeholder=\"Ex: OH\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
+    "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}} <span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.stateCode>- State is Invalid. Please enter the state name or the state code</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-required=ngRequired required ng-trim=true placeholder=\"Ex: OH or Ohio\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/text.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.minlength>- Must be Longer then 0 characters</span> <span ng-show=subform.name.$error.maxlength>- Must be shorter then 255 characters</span> <span ng-show=subform.name.$error.pattern>- Invalid Input</span></span></label><p class=FormHint ng-transclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-minlength=0 ng-maxlength=255 ng-trim=1 ng-required=ngRequired required placeholder=\"{{placeholder}}\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/textarea.html",
@@ -450,24 +450,182 @@ module.directive("pfRadioInput", function(){
 
 /*
  * Basic form input that has basic validation
- * Uses basic angular form directives 
+ * Uses basic angular form directives
  *
  */
 
-module.directive("pfStateCodeInput", function(){
+module.directive("pfStateCodeInput", function() {
   return {
+    require: ['ngModel', '^form'],
     restrict: 'E',
     scope: {
       title: '@',
-      ngModel : '=',
+      ngModel: '=',
       required: "=?",
-      ngRequired:"=?",
+      ngRequired: "=?",
+      output: "@"
     },
     replace: true,
     transclude: true,
     templateUrl: '/jjp/pf/state.html',
+    link: function(scope, element, attributes, ctrls) {
+      var output = scope.output || "code";
+      console.log(element);
+      var e = element.find('p').html();
+      scope.hasTransclude = e && (e.length  > 0) || false;
+      console.log(scope.hasTransclude);
+      var ngModel = ctrls[0];
+      scope.subform.name.$validators.stateCode = function(modelValue) {
+        if (!modelValue) return false;
+        return modelValue.toLowerCase() in STATES;
+      };
+      scope.subform.name.$parsers.push(function(viewValue) {
+        viewValue = viewValue.toLowerCase();
+        if (viewValue in STATES) {
+          if (output === "code") {
+            return (viewValue.length == 2) ? viewValue : STATES[viewValue];
+          } else {
+            return (viewValue.length == 2) ? STATES[viewValue] : viewValue;
+          }
+        } else {
+          return undefined;
+        }
+      });
+      scope.$watch('subform.name.$modelValue', function(modelValue, prevValue, form) {
+        if (modelValue !== prevValue && modelValue !== "") {
+          form.subform.name.$setDirty();
+        }
+      });
+    }
   };
 });
+
+var STATES = {
+  'alabama': 'al',
+  'alaska': 'ak',
+  'arizona': 'az',
+  'arkansas': 'ar',
+  'california': 'ca',
+  'colorado': 'co',
+  'connecticut': 'ct',
+  'delaware': 'de',
+  'florida': 'fl',
+  'georgia': 'ga',
+  'hawaii': 'hi',
+  'idaho': 'id',
+  'illinois': 'il',
+  'indiana': 'in',
+  'iowa': 'ia',
+  'kansas': 'ks',
+  'kentucky': 'ky',
+  'louisiana': 'la',
+  'maine': 'me',
+  'maryland': 'md',
+  'massachusetts': 'ma',
+  'michigan': 'mi',
+  'minnesota': 'mn',
+  'mississippi': 'ms',
+  'missouri': 'mo',
+  'montana': 'mt',
+  'nebraska': 'ne',
+  'nevada': 'nv',
+  'new hampshire': 'nh',
+  'new jersey': 'nj',
+  'new mexico': 'nm',
+  'new york': 'ny',
+  'north carolina': 'nc',
+  'north dakota': 'nd',
+  'ohio': 'oh',
+  'oklahoma': 'ok',
+  'oregon': 'or',
+  'pennsylvania': 'pa',
+  'rhode island': 'ri',
+  'south carolina': 'sc',
+  'south dakota': 'sd',
+  'tennessee': 'tn',
+  'texas': 'tx',
+  'utah': 'ut',
+  'vermont': 'vt',
+  'virginia': 'va',
+  'washington': 'wa',
+  'west virginia': 'wv',
+  'wisconsin': 'wi',
+  'wyoming': 'wy',
+  'american samoa': 'as',
+  'district of columbia': 'dc',
+  'federated states of micronesia': 'fm',
+  'guam': 'gu',
+  'marshall islands': 'mh',
+  'northern mariana islands': 'mp',
+  'palau': 'pw',
+  'puerto rico': 'pr',
+  'virgin islands': 'vi',
+  'armed forces africa': 'ae',
+  'armed forces americas': 'aa',
+  'armed forces canada': 'ae',
+  'armed forces europe': 'ae',
+  'armed forces middle east': 'ae',
+  'armed forces pacific': 'ap',
+  'al': 'alabama',
+  'ak': 'alaska',
+  'az': 'arizona',
+  'ar': 'arkansas',
+  'ca': 'california',
+  'co': 'colorado',
+  'ct': 'connecticut',
+  'de': 'delaware',
+  'fl': 'florida',
+  'ga': 'georgia',
+  'hi': 'hawaii',
+  'id': 'idaho',
+  'il': 'illinois',
+  'in': 'indiana',
+  'ia': 'iowa',
+  'ks': 'kansas',
+  'ky': 'kentucky',
+  'la': 'louisiana',
+  'me': 'maine',
+  'md': 'maryland',
+  'ma': 'massachusetts',
+  'mi': 'michigan',
+  'mn': 'minnesota',
+  'ms': 'mississippi',
+  'mo': 'missouri',
+  'mt': 'montana',
+  'ne': 'nebraska',
+  'nv': 'nevada',
+  'nh': 'new hampshire',
+  'nj': 'new jersey',
+  'nm': 'new mexico',
+  'ny': 'new york',
+  'nc': 'north carolina',
+  'nd': 'north dakota',
+  'oh': 'ohio',
+  'ok': 'oklahoma',
+  'or': 'oregon',
+  'pa': 'pennsylvania',
+  'ri': 'rhode island',
+  'sc': 'south carolina',
+  'sd': 'south dakota',
+  'tn': 'tennessee',
+  'tx': 'texas',
+  'ut': 'utah',
+  'vt': 'vermont',
+  'va': 'virginia',
+  'wa': 'washington',
+  'wv': 'west virginia',
+  'wi': 'wisconsin',
+  'wy': 'wyoming',
+  'as': 'american samoa',
+  'dc': 'district of columbia',
+  'fm': 'federated states of micronesia',
+  'gu': 'guam',
+  'mh': 'marshall islands',
+  'mp': 'northern mariana islands',
+  'pw': 'palau',
+  'pr': 'puerto rico',
+  'vi': 'virgin islands',
+};
 
 /*
  * Basic form input that has basic validation

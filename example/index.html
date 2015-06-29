@@ -1,10 +1,11 @@
 <html ng-app="examplePage">
 	<head>
 		<title> Practical Forms Example Page</title>
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css">
-	        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-file-upload/0.5.6/angular-file-upload.min.js"></script>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-messages.min.js"></script>
 		<script src="../build/practical-forms-0.0.6.js"></script>
 
 		<script>
@@ -14,6 +15,11 @@
 				$scope.picture2 = {};
 				$scope.ConfirmAction = function(item){
 					console.log("Confirmed Action!", item);
+				};
+
+				$scope.SetState = function(val){
+					console.log("Setting Input");
+					$scope.inputs.state_code = val;
 				};
 			}]);
 		</script>
@@ -67,8 +73,8 @@
 					<!-- ---------------------------------------------------------------------------- -->
 					<hr />
 					<h1>Address/Contact Inputs</h1>
-					<pf-state-code-input title="State Code Input" ng-model="inputs.state">
-						Enter a state code.
+					<pf-state-code-input title="State Input" ng-model="inputs.state">
+						Enter a state  or a state code.
 					</pf-state-code-input>
 
 			    <pf-zip-code-input title="Zip Code Input" ng-model="inputs.zip">
@@ -103,6 +109,16 @@
 			      <pf-radio-input title="Discount"><input type="radio" name="type"  value="DISCOUNT" ng-model="inputs.type" ></pf-radio-input>
 			      <pf-radio-input title="Other"><input type="radio" name="type"  value="OTHER" ng-model="inputs.type" ></pf-radio-input>
 			    </pf-option-group>
+
+					<!-- ---------------------------------------------------------------------------- -->
+					<hr />
+					<h1>State Inputs</h1>
+					<pf-state-code-input title="State Code Input" ng-model="inputs.state_code" ></pf-state-code-input>
+					<pf-state-code-input title="State Name Input" ng-model="inputs.state_Name" output="word"></pf-state-code-input>
+					<button class="btn btn-primary" ng-click="SetState('OH')" type="button">Set State - Good</button>
+					<button class="btn btn-primary" ng-click="SetState('BAD')" type="button">Set State - Bad</button>
+
+
 
 					<!-- ---------------------------------------------------------------------------- -->
 					<hr />
@@ -155,7 +171,7 @@
 
 					</hr/>
 					<h3>Output</h3>
-					<pre>{{inputs}}</pre >
+					<pre>{{inputs | json}}</pre >
 				</div>
 			</form>
 		</div>
