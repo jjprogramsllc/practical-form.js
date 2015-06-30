@@ -1,15 +1,16 @@
-<div class="form-group has-feedback" ng-form="subform" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" >
-  <label class="control-label">{{title}}<span ng-if="required || ngRequired">*</span>
-    <span ng-show="subform.name.$invalid && subform.name.$dirty">
-      <span ng-show="subform.name.$error.required"> - Required!</span>
-      <span ng-show="subform.name.$error.minlength"> - Must be Longer then 0 characters</span>
-      <span ng-show="subform.name.$error.maxlength"> - Must be shorter then 255 characters</span>
-      <span ng-show="subform.name.$error.pattern"> - Invalid Input</span>
+<div class="form-group has-feedback" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" ng-form="subform">
+
+  <label class="control-label" for="{{::id}}">{{title}}
+    <span ng-if="required || ngRequired">*</span>
+    <span ng-messages="subform.name.$error" ng-show="subform.name.$invalid && subform.name.$dirty" role="alert">
+      <span ng-message="required">&nbsp;-&nbsp;This field is required!</span>
+      <span ng-message="minlength, maxlength">&nbsp;-&nbsp;Text must be between 0 and 255 chacters</span>
     </span>
   </label>
-  <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
-  <input class="form-control" type="text" name="name" ng-model="ngModel" ng-minlength=0
-    ng-maxlength=255 ng-Trim=1 ng-required="ngRequired" required={{required}}	placeholder={{placeholder}} />
-  <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty" ></span>
-  <span class="glyphicon glyphicon-ok form-control-feedback" style="top:55px;" ng-show="!subform.name.$invalid && subform.name.$dirty" ></span>
-</div>
+  <p class="FormHint" ng-show="hasTransclude" ng-transclude/>
+    <div class="pf-form-control">
+      <input class="form-control" id="{{::id}}" name="name" ng-Trim=1 ng-maxlength=255 ng-minlength=0 ng-model="ngModel" ng-required="ngRequired" placeholder={{placeholder}} required={{required}} type="text"/>
+      <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
+      <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
+    </div>
+  </div>

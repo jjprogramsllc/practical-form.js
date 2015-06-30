@@ -59,6 +59,18 @@ module.exports = function(grunt) {
         dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
       },
     },
+    'http-server': {
+      'dev': {
+        root: "./",
+        port: 8282,
+        host: "0.0.0.0",
+        showDir: true,
+        autoIndex: true,
+        ext: "html",
+        // run in parallel with other tasks
+        runInBackground: true,
+      }
+    },
 
     watch: {
       build: {
@@ -68,6 +80,7 @@ module.exports = function(grunt) {
     }
 
   });
+  grunt.loadNpmTasks('grunt-http-server');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -75,7 +88,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean', 'jshint', 'uglify', 'html2js', 'concat', 'watch']);
+  grunt.registerTask('default', ['clean', 'jshint', 'uglify', 'html2js', 'concat', 'http-server','watch']);
   grunt.registerTask('prod', ['clean', 'jshint', 'uglify', 'html2js', 'concat']);
 
 };

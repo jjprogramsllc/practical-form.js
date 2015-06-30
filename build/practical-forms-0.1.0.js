@@ -19,7 +19,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/state.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}} <span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.stateCode>- State is Invalid. Please enter the state name or the state code</span></span></label><p class=FormHint ng-transclude ng-transclude ng-show=hasTransclude>Form Hint</p><input class=form-control name=name ng-model=ngModel ng-required=ngRequired required ng-trim=true placeholder=\"Ex: OH or Ohio\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
   $templateCache.put("/jjp/pf/text.html",
-    "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.minlength>- Must be Longer then 0 characters</span> <span ng-show=subform.name.$error.maxlength>- Must be shorter then 255 characters</span> <span ng-show=subform.name.$error.pattern>- Invalid Input</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><input class=form-control name=name ng-model=ngModel ng-minlength=0 ng-maxlength=255 ng-trim=1 ng-required=ngRequired required placeholder=\"{{placeholder}}\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></div>");
+    "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform><label class=control-label for={{::id}}>{{title}} <span ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert><span ng-message=required>&nbsp;-&nbsp;This field is required!</span> <span ng-message=\"minlength, maxlength\">&nbsp;-&nbsp;Text must be between 0 and 255 chacters</span></span></label><p class=FormHint ng-show=hasTransclude ng-transclude><div class=pf-form-control><input class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=0 ng-model=ngModel ng-required=ngRequired placeholder={{placeholder}} required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/textarea.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span> <span ng-show=subform.name.$error.maxlength>- Must be shorter then {{ngMaxlength || 2500}} characters</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><textarea class=form-control type=text name=name ng-model=ngModel ng-maxlength=2500 ng-required=ngRequired required ng-trim=ngTrim placeholder={{placeholder}}>\n" +
     "\n" +
@@ -34,14 +34,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" datepicker-popup=\"MMMM dd, yyyy\" min-date=\"minDate\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
 }]);
 
-(function( practicalForms, undefined ) {
+(function(practicalForms, undefined) {
   /** Polyfill for string ops */
-  practicalForms.startsWith = function( str, val ) {
-    return str.substring( 0, val.length ) === val;
+  practicalForms.startsWith = function(str, val) {
+    return str.substring(0, val.length) === val;
   };
   /** Polyfill for string ops */
-  practicalForms.endsWith = function( str, val ) {
-    return str.substring( str.length - val.length, str.length ) === val;
+  practicalForms.endsWith = function(str, val) {
+    return str.substring(str.length - val.length, str.length) === val;
   };
 
   /** Main angular modules */
@@ -51,12 +51,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
    */
-  practicalForms.hasTransclude = function(element){
+  practicalForms.hasTransclude = function(element) {
     var e = element.find('p').html();
-    if(e === undefined){
+    if (e === undefined) {
       return false;
     }
-    var hasTransclude = (e.length  > 0);
+    var hasTransclude = (e.length > 0);
     return hasTransclude;
   };
 
@@ -67,8 +67,21 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     }
   };
 
+  /**
+   * Generate id for elements using GUID like string
+   * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
+   */
+  practicalForms.GerenateId = function (){
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  };
 
-}( window.practicalForms = window.practicalForms || {} ));
+}(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
   practicalForms.module.directive("pfCheckboxInput", function() {
@@ -662,6 +675,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/text.html',
       link: function(scope, element, attrs, ctrls){
+        scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
       }
