@@ -13,6 +13,7 @@
       transclude: true,
       templateUrl: '/jjp/pf/percentage.html',
       link: function(scope, element, attrs, ctrls){
+        scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
       }

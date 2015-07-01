@@ -15,6 +15,7 @@
       transclude: true,
       templateUrl: '/jjp/pf/state.html',
       link: function(scope, element, attributes, ctrls) {
+        scope.id = practicalForms.GerenateId();
         var output = scope.output || "code";
         scope.hasTransclude = practicalForms.hasTransclude(element);
         var ngModel = ctrls[0];

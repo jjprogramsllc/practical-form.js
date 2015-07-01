@@ -1,25 +1,26 @@
-(function( practicalForms, undefined ) {
+(function(practicalForms, undefined) {
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive("pfNumberInput", function(){
+  practicalForms.module.directive("pfNumberInput", function() {
     return {
       restrict: 'E',
       scope: {
         title: '@',
         placeholder: '@?',
-        ngModel : '=',
+        ngModel: '=',
         required: "=?",
-        ngRequired:"=?"
+        ngRequired: "=?"
       },
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/number.html',
-      link: function(scope, element, attrs, ctrls){
+      link: function(scope, element, attrs, ctrls) {
+        scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
       }
     };
   });
 
-}( window.practicalForms = window.practicalForms || {} ));
+}(window.practicalForms = window.practicalForms || {}));
