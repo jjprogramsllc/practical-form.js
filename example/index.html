@@ -7,6 +7,9 @@
 		.pf-form-control {
 			position: relative;
 		}
+		.pf-required {
+			color: red;
+		}
 	</style>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
@@ -115,9 +118,9 @@
 					<!-- ---------------------------------------------------------------------------- -->
 					<hr />
 					<h2>Option Group Inputs</h2>
-					<pf-option-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs">
+					<pf-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
 						<pf-checkbox-input title="Monday">
-							<input type="checkbox" ng-model="inputs.onMonday">
+							<input type="checkbox" ng-model="inputs.onMonday" ng-required=1>
 						</pf-checkbox-input>
 						<pf-checkbox-input title="Tuesday">
 							<input type="checkbox" ng-model="inputs.onTuesday">
@@ -137,11 +140,11 @@
 						<pf-checkbox-input title="Sunday">
 							<input type="checkbox" ng-model="inputs.onSunday">
 						</pf-checkbox-input>
-					</pf-option-group>
+					</pf-group>
 
-					<pf-option-group title="Options Group (Checkbox)" description="Option Group is a wrapper for the radio and checkbox inputs">
+					<pf-group title="Options Group (Checkbox)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
 						<pf-radio-input title="Buy1, Get 1">
-							<input type="radio" name="type" value="BOGO" ng-model="inputs.type">
+							<input type="radio" name="type" value="BOGO" ng-model="inputs.type" ng-required=1>
 						</pf-radio-input>
 						<pf-radio-input title="Free!">
 							<input type="radio" name="type" value="FREE" ng-model="inputs.type">
@@ -155,7 +158,7 @@
 						<pf-radio-input title="Other">
 							<input type="radio" name="type" value="OTHER" ng-model="inputs.type">
 						</pf-radio-input>
-					</pf-option-group>
+					</pf-group>
 
 					<!-- ---------------------------------------------------------------------------- -->
 					<hr />

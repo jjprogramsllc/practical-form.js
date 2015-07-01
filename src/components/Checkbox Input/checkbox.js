@@ -4,10 +4,18 @@
       restrict: 'E',
       scope: {
         title: "@",
+        ngModel: "=",
+        required: "=?",
+        ngRequired:"=?"
       },
       transclude: true,
       replace: true,
-      template: '<div class="checkbox"><label><span ng-transclude></span>{{title}}</label></div>',
+      templateUrl: '/jjp/pf/checkbox.html',
+      link: function(scope, element, attrs, ctrls){
+        scope.id = practicalForms.GerenateId();
+        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.ngRequired = scope.ngRequired || false;
+      }
     };
   });
 

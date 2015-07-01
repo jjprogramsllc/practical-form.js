@@ -1,11 +1,13 @@
 /*! practical-forms v0.1.0 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
+  $templateCache.put("/jjp/pf/checkbox.html",
+    "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-checked=checked ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
   $templateCache.put("/jjp/pf/email.html",
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=email>This doesn't seem to be a valid email!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint ng-show=hasTransclude ng-transclude id={{::id}}-tip></p><div class=pf-form-control><input id={{::id}} aria-describedby={{::id}}-tip class=form-control name=name ng-trim=ngTrim ng-model=ngModel ng-required=ngRequired placeholder=\"Example: john.doe@company.com\" required type=\"email\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
+  $templateCache.put("/jjp/pf/group.html",
+    "<fieldset ng-form=subform><legend ng-class=\"{'has-error':isError && isDirty, 'has-success':!isError && isDirty }\">{{title}}</legend><p class=help-block>{{description}}</p><p ng-transclude>&nbsp;</p></fieldset>");
   $templateCache.put("/jjp/pf/number.html",
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=number>That is not a number!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-maxlength=255 ng-model=ngModel ng-required=ngRequired placeholder={{placeholder}} required type=\"number\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
-  $templateCache.put("/jjp/pf/options.html",
-    "<div class=form-group ng-class=\"{'has-error':isError && isDirty, 'has-success':!isError && isDirty }\"><label class=control-label>{{title}} <span ng-if=required>*</span> <span ng-show=\"isError && isDirty\">- Invalid Input!</span></label><p class=FormHint ng-bind=description></p><span ng-form=subform ng-transclude></span></div>");
   $templateCache.put("/jjp/pf/password.html",
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=minlength>The password must be at least 8 characters long!</span> <span ng-message=maxlength>The password must be shorter then 255 characters!</span> <span ng-message=pattern>The password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 digit!</span> <span ng-message=confirm>The confirmation password doesn't match the original!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=8 ng-model=ngModel ng-pattern=\"/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)[0-9a-zA-Z!@#$%^&*()]*$/\" ng-required=ngRequired placeholder={{placeholder}} required type=\"password\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/pattern.html",
@@ -92,10 +94,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       restrict: 'E',
       scope: {
         title: "@",
+        ngModel: "=",
+        required: "=?",
+        ngRequired:"=?"
       },
       transclude: true,
       replace: true,
-      template: '<div class="checkbox"><label><span ng-transclude></span>{{title}}</label></div>',
+      templateUrl: '/jjp/pf/checkbox.html',
+      link: function(scope, element, attrs, ctrls){
+        scope.id = practicalForms.GerenateId();
+        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.ngRequired = scope.ngRequired || false;
+      }
     };
   });
 
@@ -119,6 +129,38 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+      }
+    };
+  });
+}(window.practicalForms = window.practicalForms || {}));
+
+(function(practicalForms, undefined) {
+  practicalForms.module.directive("pfGroup", function() {
+    return {
+      restrict: 'E',
+      scope: {
+        title: "@",
+        description: '@?',
+        required: "=?",
+        ngRequired: "=?"
+      },
+      transclude: true,
+      replace: true,
+      templateUrl: "/jjp/pf/group.html",
+      link: function(scope, element, attrs) {
+        scope.id = practicalForms.GerenateId();
+        if (scope.required) {
+          element.find(":input").attr("required", "required");
+        }
+        scope.$watch('subform.$invalid', function(isError) {
+          scope.isError = isError;
+        });
+        scope.$watch('subform.$dirty', function(isDirty) {
+          scope.isDirty = isDirty;
+        });
+        var x = element.find("input");
+        // console.log(x.length);
+        // .get(0).prop("checked", true);
       }
     };
   });
@@ -149,33 +191,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   });
 
-}(window.practicalForms = window.practicalForms || {}));
-
-(function(practicalForms, undefined) {
-  practicalForms.module.directive("pfOptionGroup", function() {
-    return {
-      restrict: 'E',
-      scope: {
-        title: "@",
-        description: '@?',
-        required: "=?",
-      },
-      transclude: true,
-      replace: true,
-      templateUrl: "/jjp/pf/options.html",
-      link: function(scope, element, attrs) {
-        if (scope.required) {
-          element.find(":input").attr("required", "required");
-        }
-        scope.$watch('subform.$invalid', function(isError) {
-          scope.isError = isError;
-        });
-        scope.$watch('subform.$dirty', function(isDirty) {
-          scope.isDirty = isDirty;
-        });
-      }
-    };
-  });
 }(window.practicalForms = window.practicalForms || {}));
 
 (function( practicalForms, undefined ) {
@@ -494,10 +509,17 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       restrict: 'E',
       scope:{
         title: "@",
+        value: "@",
+        ngModel: "=",
+        checked: "=?",
+        ngChecked:"=?"
       },
       transclude: true,
       replace: true,
-      template:'<div class="radio"><label><span ng-transclude></span>{{title}}</label></div>',
+      template: '<div class="radio"><label><input type="radio" ng-model="ngModel" name={{name}} value={{value}} checked={{ngChecked}}>{{title}}&nbsp;<span class="pf-required" ng-show="required || ngRequired">*</span></label></div>',
+      link: function(scope, element, attrs, ctrls){
+        scope.name = attrs.ngModel;
+      }
     };
   });
 
