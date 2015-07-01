@@ -8,7 +8,8 @@
         placeholder: '@?',
         ngModel : '=',
         required: "=?",
-        ngRequired:"=?"
+        ngRequired:"=?",
+        confirm: "=?"
       },
       replace: true,
       transclude: true,
@@ -17,7 +18,12 @@
         scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
-        console.log(scope);
+        if("confirm" in scope){
+          scope.subform.name.$validators.confirm = function(modelValue) {
+            if (!modelValue) return false;
+            return modelValue === scope.confirm;
+          };
+        }
       }
     };
   });

@@ -1,0 +1,11 @@
+<form name="form" >
+  <fieldset>
+    <legend>{{headerTxt}}</legend>
+    <pf-text-input title="First Name" ng-model="ngModel.firstname" ng-required=1 placeholder="Example: John">{{firstname}}</pf-text-input>
+    <pf-text-input title="Last Name" ng-model="ngModel.lastname" ng-required=1 placeholder="Example: Doe">{{lastname}}</pf-text-input>
+    <pf-email-input title="Email" ng-model="ngModel.email" ng-required=1>{{email}}</pf-email-input>
+    <pf-password-input title="Password" ng-model="ngModel.password" ng-required=1>{{password}}</pf-password-input>
+    <pf-password-input title="Confirm Password" ng-model="ngModel.confirmPassword" ng-required=1 confirm="ngModel.password">{{password}}</pf-password-input>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Login</button>
+  </fieldset>
+</form>
