@@ -1,13 +1,13 @@
-<div class="form-group has-feedback" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" ng-form="subform">
+<div class="form-group has-feedback" tabindex=-1 ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" ng-form="subform">
 
   <label class="control-label" for="{{::id}}">{{title}}
     <span ng-if="required || ngRequired">*</span>
     <span ng-messages="subform.name.$error" ng-show="subform.name.$invalid && subform.name.$dirty" role="alert">
       <span ng-message="required">&nbsp;-&nbsp;This field is required!</span>
-      <span ng-message="minlength, maxlength">&nbsp;-&nbsp;Text must be between 0 and 255 chacters</span>
+      <span ng-message="minlength, maxlength">&nbsp;-&nbsp;Text must be between 0 and 255 characters!</span>
     </span>
   </label>
-  <p class="FormHint" ng-show="hasTransclude" ng-transclude/>
+  <p class="FormHint" ng-show="hasTransclude" ng-transclude></span>
     <div class="pf-form-control">
       <input class="form-control" id="{{::id}}" name="name" ng-Trim=1 ng-maxlength=255 ng-minlength=0 ng-model="ngModel" ng-required="ngRequired" placeholder={{placeholder}} required={{required}} type="text"/>
       <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty">&nbsp;</span>

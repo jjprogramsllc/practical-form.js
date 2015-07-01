@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
-        src: ['src/practical-forms.js', 'src/components/**/*.js'],
+        src: ['src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
         dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       },
 
       build: {
-        src: 'src/components/**/*.html',
+        src: ['src/components/**/*.html','src/forms/**/*.html'],
         dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.tpl.min.js',
       },
     },
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
       },
       build: {
-        src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js'],
+        src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
         dest: 'build/<%= pkg.name %>-<%= pkg.version %>.js'
       },
       prod: {

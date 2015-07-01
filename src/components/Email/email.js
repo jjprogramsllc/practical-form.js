@@ -12,7 +12,8 @@
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/email.html',
-      link: function(scope, element, attrs, ctrls){
+      link: function(scope, element, attrs, ctrls) {
+        scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
       }
