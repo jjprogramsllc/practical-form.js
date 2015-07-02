@@ -15,7 +15,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-aria.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-messages.min.js"></script>
-	<script src="../build/practical-forms-0.1.0.js"></script>
+	<script src="../build/practical-forms-0.3.0.js"></script>
 
 	<script>
 		angular.module("examplePage", ['jjp.practical-forms'])
@@ -36,21 +36,21 @@
 
 			<form class="col-md-12" name="form">
 					<pf-group title="Checkbox Group" description="Option Group is a wrapper for the radio and checkbox inputs">
-						<pf-checkbox-input title="Monday" ng-model="inputs.onMonday" ng-required=1 ></pf-checkbox-input>
-						<pf-checkbox-input title="Tuesday" ng-model="inputs.onTuesday"></pf-checkbox-input>
-						<pf-checkbox-input title="Wednesday" ng-model="inputs.onWendesday"></pf-checkbox-input>
-						<pf-checkbox-input title="Thursday" ng-model="inputs.onThursday"></pf-checkbox-input>
-						<pf-checkbox-input title="Friday" ng-model="inputs.onFriday"></pf-checkbox-input>
-						<pf-checkbox-input title="Saturday"  ng-model="inputs.onSaturday"></pf-checkbox-input>
-						<pf-checkbox-input title="Sunday" ng-model="inputs.onSunday"></pf-checkbox-input>
+						<pf-checkbox title="Monday" ng-model="inputs.onMonday" ng-required=1 ></pf-checkbox>
+						<pf-checkbox title="Tuesday" ng-model="inputs.onTuesday"></pf-checkbox>
+						<pf-checkbox title="Wednesday" ng-model="inputs.onWendesday"></pf-checkbox>
+						<pf-checkbox title="Thursday" ng-model="inputs.onThursday"></pf-checkbox>
+						<pf-checkbox title="Friday" ng-model="inputs.onFriday"></pf-checkbox>
+						<pf-checkbox title="Saturday"  ng-model="inputs.onSaturday"></pf-checkbox>
+						<pf-checkbox title="Sunday" ng-model="inputs.onSunday"></pf-checkbox>
 					</pf-group>
 
 					<pf-group title="Radio Group" description="Option Group is a wrapper for the radio and checkbox inputs" >
-						<pf-radio-input title="Buy1, Get 1" value="BOGO" ng-model="inputs.type" ng-required=true></pf-radio-input>
-						<pf-radio-input title="Frees!" value="FREE" ng-model="inputs.type" ng-required=1></pf-radio-input>
-						<pf-radio-input title="Free with Purchase" value="FREEwPURCHASE" ng-model="inputs.type" ng-required=1></pf-radio-input>
-						<pf-radio-input title="Discount" value="DISCOUNT" ng-model="inputs.type" ng-required=1></pf-radio-input>
-						<pf-radio-input title="Other" value="OTHER" ng-model="inputs.type" ng-required=1></pf-radio-input>
+						<pf-radio title="Buy1, Get 1" value="BOGO" ng-model="inputs.type" ng-required=true></pf-radio>
+						<pf-radio title="Frees!" value="FREE" ng-model="inputs.type" ng-required=1></pf-radio>
+						<pf-radio title="Free with Purchase" value="FREEwPURCHASE" ng-model="inputs.type" ng-required=1></pf-radio>
+						<pf-radio title="Discount" value="DISCOUNT" ng-model="inputs.type" ng-required=1></pf-radio>
+						<pf-radio title="Other" value="OTHER" ng-model="inputs.type" ng-required=1></pf-radio>
 					</pf-group>
 
 					<button type="submit" class="btn btn-primary btn-block" >Done</button>

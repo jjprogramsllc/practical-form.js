@@ -1,6 +1,6 @@
 (function(practicalForms, undefined) {
 
-  practicalForms.module.directive("pfDateInput", function() {
+  practicalForms.module.directive("pfDate", function() {
     return {
       restrict: 'E',
       scope: {

@@ -1,6 +1,6 @@
 PracticalForms.js
 ==============================================
-*Practial, Validated, and Accessible Form Inputs*
+*Practial, Validated, and Accessible Form Inputs, Built in and for United States web developers*
 
 About / Why?
 -----------------------------------------------
@@ -9,11 +9,20 @@ This repo is a collection of form components that are to help with making practi
 * Angular is great at validating forms
 * Bootstrap is great at styling forms
 * They work great together
-* But, it is missing many everyday form components
+* But, it is missing many everyday form components that are need in the US
 * Also, we need an accessible form library.
 
 This repo aims to help fix that problem by making directives for common form inputs, such state code or phone numbers. These form inputs are client validated so the use will get instant feedback, very popular for todays form. Also, they have special consideration for accessibility baked in!
 
+Accessibility
+-----------------------------------------------
+One of the goals for this project is to make the forms accessible out of the box with no additional development required. This is done by careful design of the forms and use of the ngAria library.
+
+* Color blind visuals on inputs
+* Proper labeling for screen readers
+* On form validation labeling
+
+*Now I am not an expert in accessibility, so I made have missed something, please let me know.*
 
 Form Input Included
 -----------------------------------------------
@@ -25,17 +34,15 @@ _Note: The form elements are US validated_
 * Email
 * Password
 * Website / URL
-* Phone number (US)
+* Phone number
 * State
 * Zip Code
 * Radio Buttons Groups
 * Check-box Groups
 * Date picker ( UI.Bootstrap required)
 * Confirm Dialogue ( UI.Bootstrap required)
+* Picture Preview & Uploader
 
-Accessibility
------------------------------------------------
-One of the goals for this project is to make the forms accessible out of the box with no additional development required. This is done by careful design of the forms and use of the ngAria library. Now I am not an expert in accessibility, so I made have missed something, please let me know.
 
 
 Examples
@@ -51,7 +58,7 @@ Installation
 * Add the module as a dependence of the angular app
       angular.modular("app", ['ui.bootstrap', 'PractialForms']);
 * Add the directive to the form
-      <pf-email-input ng-model="data.email"></pf-email-input>
+      <pf-email ng-model="data.email"></pf-email>
 _See the example folder for a nice list of all components and options_
 
 Custom Builds

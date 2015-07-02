@@ -1,5 +1,5 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfCheckboxInput", function() {
+  practicalForms.module.directive("pfCheckbox", function() {
     return {
       restrict: 'E',
       scope: {

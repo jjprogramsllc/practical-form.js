@@ -1,6 +1,6 @@
 (function( practicalForms, undefined ) {
 
-  practicalForms.module.directive("pfStateCodeInput", function() {
+  practicalForms.module.directive("pfState", function() {
     return {
       require: ['ngModel', '^form'],
       restrict: 'E',

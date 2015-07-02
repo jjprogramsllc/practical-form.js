@@ -2,7 +2,7 @@
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive("pfNumberInput", function() {
+  practicalForms.module.directive("pfNumber", function() {
     return {
       restrict: 'E',
       scope: {

@@ -1,6 +1,6 @@
 (function(practicalForms, undefined) {
 
-  practicalForms.module.directive("pfRegexInput", function(){
+  practicalForms.module.directive("pfRegex", function(){
     return {
       restrict: 'E',
       scope: {

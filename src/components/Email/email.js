@@ -1,5 +1,5 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfEmailInput", function() {
+  practicalForms.module.directive("pfEmail", function() {
     return {
       restrict: 'E',
       scope: {

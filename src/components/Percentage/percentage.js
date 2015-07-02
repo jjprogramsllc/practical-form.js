@@ -1,5 +1,5 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfPercentageInput", function() {
+  practicalForms.module.directive("pfPercentage", function() {
     return {
       restrict: 'E',
       scope: {

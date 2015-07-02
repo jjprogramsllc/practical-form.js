@@ -1,6 +1,6 @@
 (function(practicalForms, undefined) {
 
-  practicalForms.module.directive("pfUrlInput", function() {
+  practicalForms.module.directive("pfUrl", function() {
     return {
       restrict: 'E',
       scope: {

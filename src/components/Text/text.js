@@ -2,7 +2,7 @@
   /**
    * Text input that has basic validation
    */
-  practicalForms.module.directive("pfTextInput", function(){
+  practicalForms.module.directive("pfText", function(){
     return {
       scope: {
         title: '@',

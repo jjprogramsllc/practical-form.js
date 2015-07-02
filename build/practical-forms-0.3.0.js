@@ -1,4 +1,4 @@
-/*! practical-forms v0.1.0 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v0.3.0 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -36,9 +36,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/date.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" datepicker-popup=\"MMMM dd, yyyy\" min-date=\"minDate\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
   $templateCache.put("/jjp/pf/loginform.html",
-    "<form name=form><fieldset><legend>{{headerTxt}}</legend><pf-email-input title=Email ng-model=ngModel.email ng-required=1>{{email}}</pf-email-input><pf-password-input title=Password ng-model=ngModel.password ng-required=1>{{password}}</pf-password-input><button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{headerTxt}}</legend><pf-email title=Email ng-model=ngModel.email ng-required=1>{{email}}</pf-email><pf-password title=Password ng-model=ngModel.password ng-required=1>{{password}}</pf-password><button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
   $templateCache.put("/jjp/pf/signupform.html",
-    "<form name=form><fieldset><legend>{{headerTxt}}</legend><pf-text-input title=\"First Name\" ng-model=ngModel.firstname ng-required=1 placeholder=\"Example: John\">{{firstname}}</pf-text-input><pf-text-input title=\"Last Name\" ng-model=ngModel.lastname ng-required=1 placeholder=\"Example: Doe\">{{lastname}}</pf-text-input><pf-email-input title=Email ng-model=ngModel.email ng-required=1>{{email}}</pf-email-input><pf-password-input title=Password ng-model=ngModel.password ng-required=1>{{password}}</pf-password-input><pf-password-input title=\"Confirm Password\" ng-model=ngModel.confirmPassword ng-required=1 confirm=ngModel.password>{{password}}</pf-password-input><button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{headerTxt}}</legend><pf-text title=\"First Name\" ng-model=ngModel.firstname ng-required=1 placeholder=\"Example: John\">{{firstname}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel.lastname ng-required=1 placeholder=\"Example: Doe\">{{lastname}}</pf-text><pf-email title=Email ng-model=ngModel.email ng-required=1>{{email}}</pf-email><pf-password title=Password ng-model=ngModel.password ng-required=1>{{password}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel.confirmPassword ng-required=1 confirm=ngModel.password>{{password}}</pf-password><button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
 }]);
 
 (function(practicalForms, undefined) {
@@ -91,7 +91,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfCheckboxInput", function() {
+  practicalForms.module.directive("pfCheckbox", function() {
     return {
       restrict: 'E',
       scope: {
@@ -114,7 +114,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfEmailInput", function() {
+  practicalForms.module.directive("pfEmail", function() {
     return {
       restrict: 'E',
       scope: {
@@ -155,7 +155,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive("pfNumberInput", function() {
+  practicalForms.module.directive("pfNumber", function() {
     return {
       restrict: 'E',
       scope: {
@@ -180,7 +180,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function( practicalForms, undefined ) {
 
-  practicalForms.module.directive("pfPasswordInput", function(){
+  practicalForms.module.directive("pfPassword", function(){
     return {
       restrict: 'E',
       scope: {
@@ -213,7 +213,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function(practicalForms, undefined) {
 
-  practicalForms.module.directive("pfRegexInput", function(){
+  practicalForms.module.directive("pfRegex", function(){
     return {
       restrict: 'E',
       scope: {
@@ -241,7 +241,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfPercentageInput", function() {
+  practicalForms.module.directive("pfPercentage", function() {
     return {
       restrict: 'E',
       scope: {
@@ -326,7 +326,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfPhoneInput", function() {
+  practicalForms.module.directive("pfPhone", function() {
     return {
       restrict: 'E',
       scope: {
@@ -489,7 +489,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfRadioInput", function(){
+  practicalForms.module.directive("pfRadio", function(){
     return {
       restrict: 'E',
       scope:{
@@ -517,7 +517,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function( practicalForms, undefined ) {
 
-  practicalForms.module.directive("pfStateCodeInput", function() {
+  practicalForms.module.directive("pfState", function() {
     return {
       require: ['ngModel', '^form'],
       restrict: 'E',
@@ -693,7 +693,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   /**
    * Text input that has basic validation
    */
-  practicalForms.module.directive("pfTextInput", function(){
+  practicalForms.module.directive("pfText", function(){
     return {
       scope: {
         title: '@',
@@ -749,7 +749,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function(practicalForms, undefined) {
 
-  practicalForms.module.directive("pfUrlInput", function() {
+  practicalForms.module.directive("pfUrl", function() {
     return {
       restrict: 'E',
       scope: {
@@ -775,7 +775,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive("pfZipCodeInput", function() {
+  practicalForms.module.directive("pfZip", function() {
     return {
       restrict: 'E',
       scope: {
@@ -841,7 +841,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function(practicalForms, undefined) {
 
-  practicalForms.module.directive("pfDateInput", function() {
+  practicalForms.module.directive("pfDate", function() {
     return {
       restrict: 'E',
       scope: {

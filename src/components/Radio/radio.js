@@ -1,5 +1,5 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfRadioInput", function(){
+  practicalForms.module.directive("pfRadio", function(){
     return {
       restrict: 'E',
       scope:{

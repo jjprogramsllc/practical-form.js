@@ -1,6 +1,6 @@
 (function( practicalForms, undefined ) {
 
-  practicalForms.module.directive("pfPasswordInput", function(){
+  practicalForms.module.directive("pfPassword", function(){
     return {
       restrict: 'E',
       scope: {

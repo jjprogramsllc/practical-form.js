@@ -2,7 +2,7 @@
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive("pfZipCodeInput", function() {
+  practicalForms.module.directive("pfZip", function() {
     return {
       restrict: 'E',
       scope: {

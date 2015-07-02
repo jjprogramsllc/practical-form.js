@@ -1,5 +1,5 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfPhoneInput", function() {
+  practicalForms.module.directive("pfPhone", function() {
     return {
       restrict: 'E',
       scope: {
