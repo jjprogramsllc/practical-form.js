@@ -9,7 +9,7 @@
   };
 
   /** Main angular modules */
-  practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap']);
+  practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /**
    * Function to detect if element has transcluded elements

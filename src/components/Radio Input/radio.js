@@ -6,14 +6,19 @@
         title: "@",
         value: "@",
         ngModel: "=",
-        checked: "=?",
-        ngChecked:"=?"
+        required: "=?",
+        ngRequired:"=?"
       },
       transclude: true,
       replace: true,
-      template: '<div class="radio"><label><input type="radio" ng-model="ngModel" name={{name}} value={{value}} checked={{ngChecked}}>{{title}}&nbsp;<span class="pf-required" ng-show="required || ngRequired">*</span></label></div>',
+      templateUrl: '/jjp/pf/radio.html',
       link: function(scope, element, attrs, ctrls){
+        scope.id = practicalForms.GerenateId();
+        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.ngRequired = scope.ngRequired || false;
+        scope.check = scope.ngRequired;
         scope.name = attrs.ngModel;
+        console.log(scope.ngRequired);
       }
     };
   });
