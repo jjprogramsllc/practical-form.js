@@ -12,7 +12,7 @@
       replace: true,
       templateUrl: '/jjp/pf/checkbox.html',
       link: function(scope, element, attrs, ctrls){
-        scope.id = practicalForms.GerenateId();
+        scope.id = practicalForms.gerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
       }

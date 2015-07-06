@@ -36,8 +36,20 @@
 	<div class="container">
 		<div class="row">
 				<div class="col-lg-offset-4 col-lg-4 well">
-					<pf-form-signup ng-model="inputs" ng-submit="submit()">Form should go here</pf-form-signup>
+					<pf-form-signup ng-model="inputs"
+					ng-submit="submit()"
+					header="stuff"
+					lastname="MyBadAssAwesomeSoundingName"
+					lastname-help="Enter the last name of your clan!"
+					>
+						<pf-checkbox ng-required=true title="Sign Me Up!" ng-model="inputs.check"></pf-checkbox>
+					</pf-form-signup>
 				</div>
+				<br>
+				<br>
+				<pre>
+					{{inputs | json}}
+				</pre>
 		</div>
 	</div>
 </body>
