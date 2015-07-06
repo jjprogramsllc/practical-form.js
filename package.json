@@ -1,6 +1,6 @@
 {
   "name": "practical-forms",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Practial, Validated, and Accessible Form Inputs, Built in and for United States web developers",
   "main": "src/js/practical-forms.js",
   "dependencies": {},
@@ -18,10 +18,13 @@
     "grunt-html2js": "~0.2.7",
     "grunt-http-server": "^1.4.0",
     "grunt-karma": "~0.8.0",
+    "grunt-release": "^0.13.0",
+    "grunt-script-link-tags": "^1.0.2",
     "karma": "~0.12.0",
     "karma-jasmine": "~0.1.0",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "karma-phantomjs-launcher": "~0.1.4"
+    "karma-phantomjs-launcher": "~0.1.4",
+    "load-grunt-tasks": "^3.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,0 +1,32 @@
+{
+  "name": "practical-form.js",
+  "version": "0.3.1",
+  "homepage": "https://github.com/jjprogramsllc/practical-form.js",
+  "authors": [
+    "Joseph Livecchi <joewashear007@gmail.com>"
+  ],
+  "description": "Practial, Validated, and Accessible Form Inputs, Built in and for United States web developers",
+  "main": "src/practical-forms.js",
+  "keywords": [
+    "forms",
+    "angular",
+    "bootstrap",
+    "practical",
+    "accessible",
+    "validate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.13.0",
+    "angular": "~1.4.1",
+    "angular-aria": "~1.4.1",
+    "angular-messages": "~1.4.1"
+  }
+}
