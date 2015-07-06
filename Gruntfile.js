@@ -8,6 +8,26 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    release: {
+      options: {
+        additionalFiles: ['bower.json'],
+        changelog: true
+      }
+    },
+
+    tags: {
+      build: {
+        options: {
+          scriptTemplate: '<script src="{{ path }}"></script>',
+          linkTemplate: '<link href="{{ path }}"/>',
+          openTag: '<!-- start template tags -->',
+          closeTag: '<!-- end template tags -->'
+        },
+        src: ['build/*.js', '!build/*.min.js'],
+        dest: 'example/index.html'
+      }
+    },
+
     clean: [".tmp", "build"],
 
     jshint: {
@@ -41,7 +61,7 @@ module.exports = function(grunt) {
       },
 
       build: {
-        src: ['src/components/**/*.html','src/forms/**/*.html'],
+        src: ['src/components/**/*.html', 'src/forms/**/*.html'],
         dest: '.tmp/<%= pkg.name %>-<%= pkg.version %>.tpl.min.js',
       },
     },
@@ -80,15 +100,12 @@ module.exports = function(grunt) {
     }
 
   });
-  grunt.loadNpmTasks('grunt-http-server');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-html2js');
 
-  grunt.registerTask('default', ['clean', 'jshint', 'uglify', 'html2js', 'concat', 'http-server','watch']);
-  grunt.registerTask('prod', ['clean', 'jshint', 'uglify', 'html2js', 'concat']);
+  require('load-grunt-tasks')(grunt);
+
+  grunt.registerTask('default', ['build']);
+  grunt.registerTask('build', ['clean', 'jshint', 'uglify', 'html2js', 'concat']);
+  grunt.registerTask('dev', ['build', 'http-server', 'watch']);
+  grunt.registerTask('publish', ['build','release', 'tags']);
 
 };

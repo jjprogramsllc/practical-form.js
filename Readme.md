@@ -56,7 +56,7 @@ Installation
 * Include the compiled file
       <script src="path/practicalforms.js"></script>
 * Add the module as a dependence of the angular app
-      angular.modular("app", ['ui.bootstrap', 'PractialForms']);
+      angular.modular("app", ['jjp.practical-forms']);
 * Add the directive to the form
       <pf-email ng-model="data.email"></pf-email>
 _See the example folder for a nice list of all components and options_
