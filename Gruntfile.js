@@ -80,14 +80,25 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%=grunt.template.today("yyyy") %>, <%= pkg.author %> | Distributed under the <%= pkg.license %> License */\n',
       },
       build: {
-        src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
-        dest: 'build/<%= pkg.name %>-<%= pkg.version %>.js'
+        files:[{
+          src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
+          dest: 'build/<%= pkg.name %>-<%= pkg.version %>.js'
+        },{
+          src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
+          dest: 'build/<%= pkg.name %>.js'
+        }]
       },
       prod: {
-        src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
-        dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
+        files:[{
+          src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
+          dest: 'build/<%= pkg.name %>-<%= pkg.version %>.min.js'
+        },{
+          src: ['<%= html2js.build.dest %>', '<%= uglify.build.dest %>'],
+          dest: 'build/<%= pkg.name %>.min.js'
+        }]
       },
     },
+
     'http-server': {
       'dev': {
         root: "./",
