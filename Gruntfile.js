@@ -28,8 +28,12 @@ module.exports = function(grunt) {
           openTag: '<!-- start template tags -->',
           closeTag: '<!-- end template tags -->'
         },
-        src: ['build/*.js', '!build/*.min.js'],
-        dest: 'example/index.html'
+        files: [
+          { dest: 'example/index.html', src: ['build/*.js', '!build/*.min.js'] } ,
+          { dest: 'example/login.html', src: ['build/*.js', '!build/*.min.js'] } ,
+          { dest: 'example/signup.html', src: ['build/*.js', '!build/*.min.js'] } ,
+          { dest: 'example/options.html', src: ['build/*.js', '!build/*.min.js'] }
+        ]
       }
     },
 
