@@ -1,8 +1,9 @@
 <form name="form" >
   <fieldset>
-    <legend>{{headerTxt}}</legend>
-    <pf-email title="Email" ng-model="ngModel.email" ng-required=1>{{email}}</pf-email>
-    <pf-password title="Password" ng-model="ngModel.password" ng-required=1>{{password}}</pf-password>
+    <legend>{{::_header}}</legend>
+    <pf-email title="Email" ng-model="ngModel.[_email]" ng-required=1>{{emailHelp}}</pf-email>
+    <pf-password title="Password" ng-model="ngModel.[_password]" ng-required=1>{{passwordHelp}}</pf-password>
+    <span ng-transclude>&nbsp;</span>
     <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Login</button>
   </fieldset>
 </form>

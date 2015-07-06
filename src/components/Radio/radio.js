@@ -13,7 +13,7 @@
       replace: true,
       templateUrl: '/jjp/pf/radio.html',
       link: function(scope, element, attrs, ctrls){
-        scope.id = practicalForms.GerenateId();
+        scope.id = practicalForms.gerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
         scope.check = scope.ngRequired;

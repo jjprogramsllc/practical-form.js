@@ -18,7 +18,7 @@
       transclude: true,
       templateUrl: '/jjp/pf/pattern.html',
         link: function(scope, element, attrs, ctrls) {
-          scope.id = practicalForms.GerenateId();
+          scope.id = practicalForms.gerenateId();
           scope.hasTransclude = practicalForms.hasTransclude(element);
           scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
         }

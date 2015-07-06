@@ -3,10 +3,18 @@
     return {
       scope: {
         header: '@',
-        email: '@',
-        password: '@',
         ngModel: '=',
-        ngSubmit: "&"
+        ngSubmit: "&",
+        firstname: "@",
+        lastname: "@",
+        email: "@",
+        password: "@",
+        confirmPassword: "@",
+
+        firstnameHelp: "@",
+        lastnameHelp: "@",
+        emailHelp: "@",
+        passwordHelp: "@",
       },
       require: "^form",
       restrict: 'E',
@@ -14,7 +22,12 @@
       transclude: true,
       templateUrl: '/jjp/pf/signupform.html',
       link: function(scope, element, attrs, ctrls) {
-        scope.headerTxt = (scope.header === "" || scope.header === undefined) ? "Signup Form" : scope.header;
+        scope._header = practicalForms.valOrDefault(scope.header, "Signup Form");
+        scope._firstname = practicalForms.valOrDefault(scope.firstname ,"firstname");
+        scope._lastname = practicalForms.valOrDefault(scope.lastname ,"lastname");
+        scope._email = practicalForms.valOrDefault(scope.email , "email");
+        scope._password = practicalForms.valOrDefault(scope.password , "password");
+        scope._confirmPassword = practicalForms.valOrDefault(scope.confirmPassword , "confirmPassword");
         scope.hasTransclude = practicalForms.hasTransclude(element);
       }
     };
