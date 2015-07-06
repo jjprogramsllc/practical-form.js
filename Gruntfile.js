@@ -11,7 +11,12 @@ module.exports = function(grunt) {
     release: {
       options: {
         additionalFiles: ['bower.json'],
-        changelog: true
+        beforeBump: ['build'],
+        afterBump: ['tags'],
+        github: {
+          repo: 'jjprogramsllc/practical-form.js',
+          accessTokenVar: 'GITHUB_TOKEN'
+        }
       }
     },
 
@@ -106,6 +111,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['build']);
   grunt.registerTask('build', ['clean', 'jshint', 'uglify', 'html2js', 'concat']);
   grunt.registerTask('dev', ['build', 'http-server', 'watch']);
-  grunt.registerTask('publish', ['build','release', 'tags']);
 
 };
