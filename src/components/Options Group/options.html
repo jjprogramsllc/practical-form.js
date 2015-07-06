@@ -1,8 +1,0 @@
-<div class="form-group" ng-class="{'has-error':isError && isDirty, 'has-success':!isError && isDirty }" >
-  <label class="control-label">{{title}}
-    <span ng-if="required" >*</span>
-    <span ng-show="isError && isDirty"> - Invalid Input!</span>
-  </label>
-  <p class="FormHint" ng-bind="description"></p>
-  <span ng-form="subform" ng-transclude>Form Content</span>
-</div>

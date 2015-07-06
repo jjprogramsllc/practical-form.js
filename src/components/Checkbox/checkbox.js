@@ -1,21 +1,22 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfPhone", function() {
+  practicalForms.module.directive("pfCheckbox", function() {
     return {
       restrict: 'E',
       scope: {
-        title: '@',
-        ngModel: '=',
+        title: "@",
+        ngModel: "=",
         required: "=?",
-        ngRequired: "=?",
+        ngRequired:"=?"
       },
-      replace: true,
       transclude: true,
-      templateUrl: '/jjp/pf/phone.html',
-      link: function(scope, element, attrs, ctrls) {
+      replace: true,
+      templateUrl: '/jjp/pf/checkbox.html',
+      link: function(scope, element, attrs, ctrls){
         scope.id = practicalForms.GerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.ngRequired = scope.ngRequired || false;
       }
     };
   });
+
 }(window.practicalForms = window.practicalForms || {}));

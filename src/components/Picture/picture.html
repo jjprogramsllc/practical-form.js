@@ -4,7 +4,7 @@
       <span ng-show="subform.name.$error.required"> - Required!</span>
     </span>
   </label>
-  <p class="FormHint" ng-transclude>Form Hint</p>
+  <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
   <div class="well row">
     <div class="col-xs-9">
       <h4>

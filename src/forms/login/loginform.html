@@ -1,0 +1,8 @@
+<form name="form" >
+  <fieldset>
+    <legend>{{headerTxt}}</legend>
+    <pf-email title="Email" ng-model="ngModel.email" ng-required=1>{{email}}</pf-email>
+    <pf-password title="Password" ng-model="ngModel.password" ng-required=1>{{password}}</pf-password>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Login</button>
+  </fieldset>
+</form>

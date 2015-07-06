@@ -1,25 +1,28 @@
-/*
- * Basic form input that has basic validation
- * Uses basic angular form directives 
- *
- */
+(function(practicalForms, undefined) {
 
-module.directive("pfRegexInput", function(){
-  return {
-    restrict: 'E',
-    scope: {
-      title: '@',
-      placeholder: '@?',
-      ngModel : '=',
-      required: "=?",
-      ngRequired:"=?",
-      ngMinlength:"=?",
-      ngMaxlength:"=?",
-      ngPattern:"@?",
-      ngTrim:"=?"
-    },
-    replace: true,
-    transclude: true,
-    templateUrl: '/jjp/pf/pattern.html',
-  };
-});
+  practicalForms.module.directive("pfRegex", function(){
+    return {
+      restrict: 'E',
+      scope: {
+        title: '@',
+        placeholder: '@?',
+        ngModel : '=',
+        required: "=?",
+        ngRequired:"=?",
+        ngMinlength:"=?",
+        ngMaxlength:"=?",
+        ngPattern:"@?",
+        ngTrim:"=?"
+      },
+      replace: true,
+      transclude: true,
+      templateUrl: '/jjp/pf/pattern.html',
+        link: function(scope, element, attrs, ctrls) {
+          scope.id = practicalForms.GerenateId();
+          scope.hasTransclude = practicalForms.hasTransclude(element);
+          scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        }
+    };
+  });
+
+}(window.practicalForms = window.practicalForms || {}));

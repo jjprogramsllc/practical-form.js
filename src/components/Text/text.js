@@ -1,21 +1,26 @@
-/*
- * Basic form input that has basic validation
- * Uses basic angular form directives 
- *
- */
+(function( practicalForms, undefined ) {
+  /**
+   * Text input that has basic validation
+   */
+  practicalForms.module.directive("pfText", function(){
+    return {
+      scope: {
+        title: '@',
+        placeholder: '@?',
+        ngModel : '=',
+        required: "=?",
+        ngRequired:"=?"
+      },
+      restrict: 'E',
+      replace: true,
+      transclude: true,
+      templateUrl: '/jjp/pf/text.html',
+      link: function(scope, element, attrs, ctrls){
+        scope.id = practicalForms.GerenateId();
+        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+      }
+    };
+  });
 
-module.directive("pfTextInput", function(){
-  return {
-    restrict: 'E',
-    scope: {
-      title: '@',
-      placeholder: '@?',
-      ngModel : '=',
-      required: "=?",
-      ngRequired:"=?"
-    },
-    replace: true,
-    transclude: true,
-    templateUrl: '/jjp/pf/text.html',
-  };
-});
+}( window.practicalForms = window.practicalForms || {} ));

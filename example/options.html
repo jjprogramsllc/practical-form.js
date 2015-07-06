@@ -1,0 +1,64 @@
+<html ng-app="examplePage" lang="en">
+
+<head>
+	<title> Practical Forms Example Page</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+	<style media="screen">
+		.pf-form-control {
+			position: relative;
+		}
+		.pf-required {
+			color: red;
+		}
+	</style>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-aria.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-messages.min.js"></script>
+	<script src="../build/practical-forms-0.3.0.js"></script>
+
+	<script>
+		angular.module("examplePage", ['jjp.practical-forms'])
+			.controller("ExampleCtrl", ['$scope', function($scope) {
+				$scope.inputs = {};
+			}]);
+	</script>
+</head>
+
+<body ng-controller="ExampleCtrl">
+	<div class="container">
+		<div class="row">
+			<div class="page-header">
+					<h1>Option Group Inputs</h1>
+			</div>
+		</div>
+		<div class="row">
+
+			<form class="col-md-12" name="form">
+					<pf-group title="Checkbox Group" description="Option Group is a wrapper for the radio and checkbox inputs">
+						<pf-checkbox title="Monday" ng-model="inputs.onMonday" ng-required=1 ></pf-checkbox>
+						<pf-checkbox title="Tuesday" ng-model="inputs.onTuesday"></pf-checkbox>
+						<pf-checkbox title="Wednesday" ng-model="inputs.onWendesday"></pf-checkbox>
+						<pf-checkbox title="Thursday" ng-model="inputs.onThursday"></pf-checkbox>
+						<pf-checkbox title="Friday" ng-model="inputs.onFriday"></pf-checkbox>
+						<pf-checkbox title="Saturday"  ng-model="inputs.onSaturday"></pf-checkbox>
+						<pf-checkbox title="Sunday" ng-model="inputs.onSunday"></pf-checkbox>
+					</pf-group>
+
+					<pf-group title="Radio Group" description="Option Group is a wrapper for the radio and checkbox inputs" >
+						<pf-radio title="Buy1, Get 1" value="BOGO" ng-model="inputs.type" ng-required=true></pf-radio>
+						<pf-radio title="Frees!" value="FREE" ng-model="inputs.type" ng-required=1></pf-radio>
+						<pf-radio title="Free with Purchase" value="FREEwPURCHASE" ng-model="inputs.type" ng-required=1></pf-radio>
+						<pf-radio title="Discount" value="DISCOUNT" ng-model="inputs.type" ng-required=1></pf-radio>
+						<pf-radio title="Other" value="OTHER" ng-model="inputs.type" ng-required=1></pf-radio>
+					</pf-group>
+
+					<button type="submit" class="btn btn-primary btn-block" >Done</button>
+					<!-- <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Done</button> -->
+					<pre>{{inputs | json}}</pre>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

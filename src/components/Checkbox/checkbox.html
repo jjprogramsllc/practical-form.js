@@ -1,0 +1,8 @@
+<div ng-class="{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }">
+  <div class="checkbox" tabindex="-1">
+    <label for="{{::id}}">
+      <input id="{{::id}}" ng-model="ngModel" ng-required={{ngRequired}} type="checkbox" />{{title}}&nbsp;
+      <span class="pf-required" ng-show="required || ngRequired">*</span>
+    </label>
+  </div>
+</div>
