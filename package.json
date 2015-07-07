@@ -1,6 +1,6 @@
 {
   "name": "practical-forms",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Practial, Validated, and Accessible Form Inputs, Built in and for United States web developers",
   "main": "src/js/practical-forms.js",
   "dependencies": {},
