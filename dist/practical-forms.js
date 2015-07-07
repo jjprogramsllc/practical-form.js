@@ -35,10 +35,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=pattern>Invalid Zip Code. Plase enter the 5 digit zip code</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=ngTrim ng-model=ngModel ng-pattern=\"/^\\d{5}(-\\d{4})?$/\" ng-required=ngRequired placeholder=\"Ex: 12345\" required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/date.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" datepicker-popup=\"MMMM dd, yyyy\" min-date=\"minDate\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
+  $templateCache.put("/jjp/pf/passwordform.html",
+    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-password title=\"Old Password\" ng-model=ngModel[_oldpassword] ng-required=1>{{oldPasswordHelp}}</pf-password><pf-password title=\"New Password\" ng-model=ngModel[_newpassword] ng-required=1>{{newPasswordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_newpassword]>{{newPasswordHelp}}</pf-password><span ng-transclude ng-if=hasTransclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Change Password</button></fieldset></form>");
   $templateCache.put("/jjp/pf/loginform.html",
     "<form name=form><fieldset><legend>{{::_header}}</legend><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
   $templateCache.put("/jjp/pf/signupform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel.password>{{passwordHelp}}</pf-password><span ng-transclude ng-if=hasTransclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_password]>{{passwordHelp}}</pf-password><span ng-transclude ng-if=hasTransclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
 }]);
 
 (function(practicalForms, undefined) {
@@ -91,6 +93,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   practicalForms.valOrDefault = function(val, def){
     return (val === "" || val === undefined) ? def : val;
   };
+
+  practicalForms.VERSION = "0.3.4";
 
 }(window.practicalForms = window.practicalForms || {}));
 
@@ -862,6 +866,37 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       link: function(scope, element, attrs, ctrls) {
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+      }
+    };
+  });
+
+}(window.practicalForms = window.practicalForms || {}));
+
+(function(practicalForms, undefined) {
+  practicalForms.module.directive("pfFormPassword", function() {
+    return {
+      scope: {
+        header: '@',
+        ngModel: '=',
+        ngSubmit: "&",
+        oldPassword: "@",
+        newPassword: "@",
+        confirmPassword: "@",
+
+        oldPasswordHelp: "@",
+        newPasswordHelp: "@",
+      },
+      require: "^form",
+      restrict: 'E',
+      replace: true,
+      transclude: true,
+      templateUrl: '/jjp/pf/passwordform.html',
+      link: function(scope, element, attrs, ctrls) {
+        scope._header = practicalForms.valOrDefault(scope.header, "Change Password");
+        scope._oldpassword = practicalForms.valOrDefault(scope.oldPassword , "oldPassword");
+        scope._newpassword = practicalForms.valOrDefault(scope.newPassword , "newPassword");
+        scope._confirmPassword = practicalForms.valOrDefault(scope.confirmPassword , "confirmPassword");
+        scope.hasTransclude = practicalForms.hasTransclude(element);
       }
     };
   });
