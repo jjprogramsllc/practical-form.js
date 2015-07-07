@@ -94,6 +94,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     return (val === "" || val === undefined) ? def : val;
   };
 
+  practicalForms.VERSION = "0.3.4";
+
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
