@@ -1,4 +1,4 @@
-/*! practical-forms v0.3.3 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v0.4.1 | (c) 2015, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -94,7 +94,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     return (val === "" || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = "0.3.4";
+  practicalForms.VERSION = "0.4.1";
 
 }(window.practicalForms = window.practicalForms || {}));
 
@@ -921,7 +921,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/loginform.html',
       link: function(scope, element, attrs, ctrls){
-        scope._header = practicalForms.valOrDefault(scope.header, "Signup Form");
+        scope._header = practicalForms.valOrDefault(scope.header, "Login");
         scope._email = practicalForms.valOrDefault(scope.email , "email");
         scope._password = practicalForms.valOrDefault(scope.password , "password");
         scope.hasTransclude = practicalForms.hasTransclude(element);

@@ -11,8 +11,7 @@ module.exports = function(grunt) {
     release: {
       options: {
         additionalFiles: ['bower.json'],
-        beforeBump: ['build'],
-        afterBump: ['tags'],
+        afterBump: ['replace', 'build'],
         github: {
           repo: 'jjprogramsllc/practical-form.js',
           accessTokenVar: 'GITHUB_TOKEN'
