@@ -5,7 +5,7 @@
     <pf-text title="Last Name" ng-model="ngModel[_lastname]" ng-required=1 placeholder="Example: Doe">{{lastnameHelp}}</pf-text>
     <pf-email title="Email" ng-model="ngModel[_email]" ng-required=1>{{emailHelp}}</pf-email>
     <pf-password title="Password" ng-model="ngModel[_password]" ng-required=1>{{passwordHelp}}</pf-password>
-    <pf-password title="Confirm Password" ng-model="ngModel[_confirmPassword]" ng-required=1 confirm="ngModel.password">{{passwordHelp}}</pf-password>
+    <pf-password title="Confirm Password" ng-model="ngModel[_confirmPassword]" ng-required=1 confirm="ngModel[_password]">{{passwordHelp}}</pf-password>
     <span ng-transclude ng-if="hasTransclude">&nbsp;</span>
     <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Create Account</button>
   </fieldset>
