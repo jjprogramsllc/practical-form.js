@@ -34,6 +34,10 @@
 				$scope.set = function(key, val) {
 					$scope.inputs[key] = val;
 				};
+				$scope.AdvancedConfirmSettings = {
+					backdrop: false,
+					animation : false
+				};
 			}]);
 	</script>
 </head>
@@ -178,9 +182,9 @@
 						</pf-date>
 
 
-						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">
-							Click to open confirm dialogue
-						</button>
+						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" >Default Confirm</button>
+						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">Custome Confirm</button>
+						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" modal-options="AdvancedConfirmSettings">Custome Confirm</button>
 
 					</pf-group>
 
