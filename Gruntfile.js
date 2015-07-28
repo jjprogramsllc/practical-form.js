@@ -8,21 +8,28 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    release: {
-      options: {
-        additionalFiles: ['bower.json'],
-        afterBump: ['replace', 'build'],
-        github: {
-          repo: 'jjprogramsllc/practical-form.js',
-          accessTokenVar: 'GITHUB_TOKEN'
-        }
-      }
+    // release: {
+    //   options: {
+    //     additionalFiles: ['bower.json'],
+    //     afterBump: ['replace', 'buildAll'],
+    //     github: {
+    //       repo: 'jjprogramsllc/practical-form.js',
+    //       accessTokenVar: 'GITHUB_TOKEN'
+    //     }
+    //   }
+    // },
+
+    build: {
+      tasks: ['buildAll'],
+      packageConfig: 'pkg',
+      packages: '*.json',
+      gitAdd: '--all'
     },
 
     replace: {
       build: {
         src: 'src/practical-forms.js',
-        dest:'src/practical-forms.js',
+        dest: 'src/practical-forms.js',
         replacements: [{
           from: /VERSION\s=\s["\d\.]+;/, // string replacement
           to: 'VERSION = "<%= pkg.version %>";'
@@ -102,7 +109,7 @@ module.exports = function(grunt) {
     watch: {
       build: {
         files: ['Gruntfile.js', 'src/**/*.js', 'src/**/*.html'],
-        tasks: ['clean', 'jshint', 'uglify', 'html2js', 'concat'],
+        tasks: ['buildAll'],
       },
     }
 
@@ -110,8 +117,8 @@ module.exports = function(grunt) {
 
   require('load-grunt-tasks')(grunt);
 
-  grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['clean', 'jshint', 'uglify', 'html2js', 'concat']);
-  grunt.registerTask('dev', ['build', 'http-server', 'watch']);
+  grunt.registerTask('default', ['buildAll']);
+  grunt.registerTask('buildAll', ['clean', 'replace','jshint', 'uglify', 'html2js', 'concat']);
+  grunt.registerTask('dev', ['buildAll', 'http-server', 'watch']);
 
 };
