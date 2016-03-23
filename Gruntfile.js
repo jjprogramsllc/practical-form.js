@@ -1,23 +1,13 @@
+/* globals require, module */
 var path = require('path');
 
-var moduleName = "jjp.practical-forms";
+var moduleName = 'jjp.practical-forms';
 
 module.exports = function(grunt) {
-
+  'use strict';
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
-    // release: {
-    //   options: {
-    //     additionalFiles: ['bower.json'],
-    //     afterBump: ['replace', 'buildAll'],
-    //     github: {
-    //       repo: 'jjprogramsllc/practical-form.js',
-    //       accessTokenVar: 'GITHUB_TOKEN'
-    //     }
-    //   }
-    // },
 
     build: {
       tasks: ['buildAll'],
@@ -31,15 +21,16 @@ module.exports = function(grunt) {
         src: 'src/practical-forms.js',
         dest: 'src/practical-forms.js',
         replacements: [{
-          from: /VERSION\s=\s["\d\.]+;/, // string replacement
-          to: 'VERSION = "<%= pkg.version %>";'
+          from: /VERSION\s=\s['\d\.]+;/, // string replacement
+          to: 'VERSION = \'<%= pkg.version %>\';'
         }]
       }
     },
 
-    clean: [".tmp", "dist"],
+    clean: ['.tmp', 'dist'],
 
     jshint: {
+      options: { 'jshintrc': true},
       all: ['Gruntfile.js', 'src/**/*.js']
     },
 
@@ -52,7 +43,7 @@ module.exports = function(grunt) {
 
     html2js: {
       options: {
-        module: moduleName + ".templates",
+        module: moduleName + '.templates',
         singleModule: true,
         htmlmin: {
           collapseBooleanAttributes: true,
@@ -94,13 +85,13 @@ module.exports = function(grunt) {
     },
 
     'http-server': {
-      'dev': {
-        root: "./",
+      dev: {
+        root: './',
         port: 8282,
-        host: "0.0.0.0",
+        host: '0.0.0.0',
         showDir: true,
         autoIndex: true,
-        ext: "html",
+        ext: 'html',
         // run in parallel with other tasks
         runInBackground: true,
       }

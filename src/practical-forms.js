@@ -1,4 +1,5 @@
 (function(practicalForms, undefined) {
+  'use strict';
   /** Polyfill for string ops */
   practicalForms.startsWith = function(str, val) {
     return str.substring(0, val.length) === val;
@@ -26,7 +27,7 @@
 
   /** Set the dirty flage when ever the modelValue changes */
   practicalForms.setDirty = function(modelValue, prevValue, form) {
-    if (modelValue !== prevValue && modelValue !== "") {
+    if (modelValue !== prevValue && modelValue !== '') {
       form.subform.name.$setDirty();
     }
   };
@@ -46,9 +47,9 @@
   };
 
   practicalForms.valOrDefault = function(val, def){
-    return (val === "" || val === undefined) ? def : val;
+    return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = "0.5.0";
+  practicalForms.VERSION = '0.5.0';
 
 }(window.practicalForms = window.practicalForms || {}));
