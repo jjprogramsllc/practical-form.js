@@ -7,7 +7,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/group.html",
     "<fieldset><legend>{{title}}</legend><p class=help-block>{{description}}</p><p ng-transclude>&nbsp;</p></fieldset>");
   $templateCache.put("/jjp/pf/number.html",
-    "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=number>That is not a number!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-maxlength=255 ng-model=ngModel ng-required=ngRequired placeholder={{placeholder}} required type=\"number\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
+    "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=number>That is not a number!</span> <span ng-message=max>Numbers must be less then {{max}}</span> <span ng-message=min>Numbers must be greater then {{min}}</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-maxlength=255 ng-model=ngModel ng-required=ngRequired placeholder={{placeholder}} required type=number pf-number-mask max={{max}} min=\"{{min}}/\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/password.html",
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=minlength>The password must be at least 8 characters long!</span> <span ng-message=maxlength>The password must be shorter then 255 characters!</span> <span ng-message=pattern>The password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 digit!</span> <span ng-message=confirm>The confirmation password doesn't match the original!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=8 ng-model=ngModel ng-pattern=\"/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s)[0-9a-zA-Z!@#$%^&*()]*$/\" ng-required=ngRequired placeholder={{placeholder}} required type=\"password\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/pattern.html",
@@ -176,7 +176,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         placeholder: '@?',
         ngModel: '=',
         required: '=?',
-        ngRequired: '=?'
+        ngRequired: '=?',
+        max: '=?',
+        min: '=?'
       },
       replace: true,
       transclude: true,
@@ -185,6 +187,37 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         scope.id = practicalForms.gerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+      }
+    };
+  });
+
+  practicalForms.module.directive('pfNumberMask', function() {
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      scope: false,
+
+      link: function(scope, element, attrs, ctrl) {
+        ctrl.$formatters.push(function(inputValue) {
+          return inputValue;
+        });
+
+        ctrl.$parsers.push(function(value) {
+          var p = value || 0;
+          if (typeof p !== 'number') {
+            console.log('Parse:', p, ' => ', value.replace(/[^0-9\.\-]/g, ''));
+            if (value.length === 0) {
+              value = 0;
+            } else {
+              p = parseFloat(value);
+            }
+            if (p !== ctrl.$viewValue) {
+              ctrl.$setViewValue(p);
+              ctrl.$render();
+            }
+          }
+          return p;
+        });
       }
     };
   });
@@ -283,7 +316,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
       link: function(scope, element, attrs, ctrl) {
         ctrl.$formatters.push(function(inputValue) {
-          return new practicalForms.Percentage(inputValue).pretty();
+          return (new practicalForms.Percentage(inputValue)).pretty();
         });
 
         ctrl.$parsers.push(function(value) {
@@ -299,7 +332,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
           } else {
             ctrl.$setValidity('percent', false);
           }
-          return String(p.value());
+          return p.value();
         });
       }
     };
@@ -310,7 +343,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     // determine if the string has % & the value doesn't end with %;
     var needBackspace = (s.indexOf('%') < 0) && (!practicalForms.endsWith(s, '%'));
     //Remove the leading zeros
-    var trimedValue = String(s).replace(/^0*/, '');
+    var trimedValue = s.replace(/^0*/, '');
     //only return the numbers
     this._value = trimedValue.replace(/[^0-9]/g, '');
     if (needBackspace) {

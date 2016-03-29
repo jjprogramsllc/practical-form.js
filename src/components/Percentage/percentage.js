@@ -28,7 +28,7 @@
 
       link: function(scope, element, attrs, ctrl) {
         ctrl.$formatters.push(function(inputValue) {
-          return new practicalForms.Percentage(inputValue).pretty();
+          return (new practicalForms.Percentage(inputValue)).pretty();
         });
 
         ctrl.$parsers.push(function(value) {
@@ -44,7 +44,7 @@
           } else {
             ctrl.$setValidity('percent', false);
           }
-          return String(p.value());
+          return p.value();
         });
       }
     };
@@ -55,7 +55,7 @@
     // determine if the string has % & the value doesn't end with %;
     var needBackspace = (s.indexOf('%') < 0) && (!practicalForms.endsWith(s, '%'));
     //Remove the leading zeros
-    var trimedValue = String(s).replace(/^0*/, '');
+    var trimedValue = s.replace(/^0*/, '');
     //only return the numbers
     this._value = trimedValue.replace(/[^0-9]/g, '');
     if (needBackspace) {
