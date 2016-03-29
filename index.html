@@ -2,13 +2,13 @@
 
   <head>
     <title>
-      Practical Forms Example Page</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+      Practical Forms Example Page
+    </title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
     <style media="screen">
       .pf-form-control {
         position: relative;
       }
-
       .pf-required {
         color: red;
       }
@@ -52,9 +52,30 @@
         <div class="page-header">
           <h1>Practical Forms Example Page</h1>
         </div>
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active">
+            <a href="index.html">Inputs</a>
+          </li>
+          <li role="presentation">
+            <a href="login.html">Login Form</a>
+          </li>
+          <li role="presentation">
+            <a href="register.html">Registration Form</a>
+          </li>
+          <li role="presentation">
+            <a href="password.html">Change Password Form</a>
+          </li>
+          <li role="presentation">
+            <a href="options.html">Radio/Checkbox Form</a>
+          </li>
+        </ul>
       </div>
-      <div class="row">
 
+      <br/>
+      <br/>
+      <br/>
+
+      <div class="row">
         <form name="form">
           <div class="col-lg-12">
             <pf-group title="General Text Inputs">
@@ -240,8 +261,7 @@
               <pre>Image Viewer Results: {{result}}</pre>
               <pre>Image: {{inputs.picture2}}</pre>
               <pre>Filename: {{inputs.picture2.name}}</pre>
-              <a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">
-                Open Image
+              <a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image
               </a>
             </pf-group>
           </hr/>
