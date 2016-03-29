@@ -36,11 +36,11 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/date.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" uib-datepicker-popup=\"MMMM dd, yyyy\" datepicker-options=\"datepickerOptions\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
   $templateCache.put("/jjp/pf/passwordform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-password title=\"Old Password\" ng-model=ngModel[_oldpassword] ng-required=1>{{oldPasswordHelp}}</pf-password><pf-password title=\"New Password\" ng-model=ngModel[_newpassword] ng-required=1>{{newPasswordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_newpassword]>{{newPasswordHelp}}</pf-password><span ng-transclude ng-if=hasTransclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Change Password</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-password title=\"Old Password\" ng-model=ngModel[_oldpassword] ng-required=1>{{oldPasswordHelp}}</pf-password><pf-password title=\"New Password\" ng-model=ngModel[_newpassword] ng-required=1>{{newPasswordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_newpassword]>{{confirmPasswordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Change Password</button></fieldset></form>");
   $templateCache.put("/jjp/pf/loginform.html",
     "<form name=form><fieldset><legend>{{::_header}}</legend><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
-  $templateCache.put("/jjp/pf/signupform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_password]>{{passwordHelp}}</pf-password><span ng-transclude ng-if=hasTransclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
+  $templateCache.put("/jjp/pf/registerform.html",
+    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_password]>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
 }]);
 
 (function(practicalForms, undefined) {
@@ -918,9 +918,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         oldPassword: '@',
         newPassword: '@',
         confirmPassword: '@',
-
         oldPasswordHelp: '@',
         newPasswordHelp: '@',
+        confirmPasswordHelp: '@'
       },
       require: '^form',
       restrict: 'E',
@@ -949,7 +949,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         ngSubmit: '&',
         email: '@',
         password: '@',
-
         emailHelp: '@',
         passwordHelp: '@',
       },
@@ -961,6 +960,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         scope._header = practicalForms.valOrDefault(scope.header, 'Login');
         scope._email = practicalForms.valOrDefault(scope.email , 'email');
         scope._password = practicalForms.valOrDefault(scope.password , 'password');
+        scope.emailHelp = practicalForms.valOrDefault(scope.emailHelp , '');
+        scope.passwordHelp = practicalForms.valOrDefault(scope.passwordHelp , '');
         scope.hasTransclude = practicalForms.hasTransclude(element);
       }
     };
@@ -970,7 +971,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function(practicalForms, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormSignup', function() {
+  practicalForms.module.directive('pfFormRegister', function() {
     return {
       scope: {
         header: '@',
@@ -991,9 +992,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       restrict: 'E',
       replace: true,
       transclude: true,
-      templateUrl: '/jjp/pf/signupform.html',
+      templateUrl: '/jjp/pf/registerform.html',
       link: function(scope, element) {
-        scope._header = practicalForms.valOrDefault(scope.header, 'Signup Form');
+        scope._header = practicalForms.valOrDefault(scope.header, 'Register');
         scope._firstname = practicalForms.valOrDefault(scope.firstname ,'firstname');
         scope._lastname = practicalForms.valOrDefault(scope.lastname ,'lastname');
         scope._email = practicalForms.valOrDefault(scope.email , 'email');
