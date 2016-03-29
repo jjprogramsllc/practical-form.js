@@ -1,14 +1,15 @@
 (function(practicalForms, undefined) {
-  practicalForms.module.directive("pfGroup", function() {
+  'use strict';
+  practicalForms.module.directive('pfGroup', function() {
     return {
       restrict: 'E',
       scope: {
-        title: "@",
+        title: '@',
         description: '@?',
       },
       transclude: true,
       replace: true,
-      templateUrl: "/jjp/pf/group.html",
+      templateUrl: '/jjp/pf/group.html',
     };
   });
 }(window.practicalForms = window.practicalForms || {}));

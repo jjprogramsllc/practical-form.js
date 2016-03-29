@@ -1,49 +1,5 @@
-(function( practicalForms, undefined ) {
-
-  practicalForms.module.directive("pfState", function() {
-    return {
-      require: ['ngModel', '^form'],
-      restrict: 'E',
-      scope: {
-        title: '@',
-        ngModel: '=',
-        required: "=?",
-        ngRequired: "=?",
-        output: "@"
-      },
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/state.html',
-      link: function(scope, element, attributes, ctrls) {
-        scope.id = practicalForms.gerenateId();
-        var output = scope.output || "code";
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        var ngModel = ctrls[0];
-        scope.subform.name.$validators.stateCode = function(modelValue) {
-          if (!modelValue) return false;
-          return modelValue.toLowerCase() in STATES;
-        };
-        scope.subform.name.$parsers.push(function(viewValue) {
-          viewValue = viewValue.toLowerCase();
-          if (viewValue in STATES) {
-            if (output === "code") {
-              return (viewValue.length == 2) ? viewValue : STATES[viewValue];
-            } else {
-              return (viewValue.length == 2) ? STATES[viewValue] : viewValue;
-            }
-          } else {
-            return undefined;
-          }
-        });
-        scope.$watch('subform.name.$modelValue', function(modelValue, prevValue, form) {
-          if (modelValue !== prevValue && modelValue !== "") {
-            form.subform.name.$setDirty();
-          }
-        });
-      }
-    };
-  });
-
+(function(practicalForms, undefined) {
+  'use strict';
   var STATES = {
     'alabama': 'al',
     'alaska': 'ak',
@@ -168,6 +124,62 @@
     'mp': 'northern mariana islands',
     'pw': 'palau',
     'pr': 'puerto rico',
-    'vi': 'virgin islands',
+    'vi': 'virgin islands'
   };
-}( window.practicalForms = window.practicalForms || {} ));
+
+  practicalForms.module.directive('pfState', function() {
+    return {
+      require: [
+        'ngModel', '^form'
+      ],
+      restrict: 'E',
+      scope: {
+        title: '@',
+        ngModel: '=',
+        required: '=?',
+        ngRequired: '=?',
+        output: '@'
+      },
+      replace: true,
+      transclude: true,
+      templateUrl: '/jjp/pf/state.html',
+      link: function(scope, element) {
+        //TODO: See below
+        // link: function(scope, element, attributes, ctrls) {
+        scope.id = practicalForms.gerenateId();
+        var output = scope.output || 'code';
+        scope.hasTransclude = practicalForms.hasTransclude(element);
+        // TODO: test to see if this line is needed!
+        // var ngModel = ctrls[0];
+
+        scope.subform.name.$validators.stateCode = function(modelValue) {
+          if (!modelValue) {
+            return false;
+          } else {
+            return modelValue.toLowerCase() in STATES;
+          }
+        };
+
+        scope.subform.name.$parsers.push(function(viewValue) {
+          viewValue = viewValue.toLowerCase();
+          if (viewValue in STATES) {
+            if (output === 'code') {
+              return viewValue.length === 2 ? viewValue : STATES[viewValue];
+            } else {
+              return viewValue.length === 2 ? STATES[viewValue] : viewValue;
+            }
+          } else {
+            return undefined;
+          }
+        });
+
+        scope.$watch('subform.name.$modelValue', function(modelValue, prevValue, form) {
+          if (modelValue !== prevValue && modelValue !== '') {
+            form.subform.name.$setDirty();
+          }
+        });
+      }
+    };
+  });
+
+}(window.practicalForms = window.practicalForms || {}));

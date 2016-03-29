@@ -1,21 +1,22 @@
 (function( practicalForms, undefined ) {
+  'use strict';
   /**
    * Text input that has basic validation
    */
-  practicalForms.module.directive("pfText", function(){
+  practicalForms.module.directive('pfText', function(){
     return {
       scope: {
         title: '@',
         placeholder: '@?',
         ngModel : '=',
-        required: "=?",
-        ngRequired:"=?"
+        required: '=?',
+        ngRequired:'=?'
       },
       restrict: 'E',
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/text.html',
-      link: function(scope, element, attrs, ctrls){
+      link: function(scope, element){
         scope.id = practicalForms.gerenateId();
         scope.hasTransclude = practicalForms.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', practicalForms.setDirty);

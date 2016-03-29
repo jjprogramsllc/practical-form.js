@@ -1,234 +1,280 @@
 <html ng-app="examplePage">
 
-<head>
-	<title> Practical Forms Example Page</title>
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
-	<style media="screen">
-		.pf-form-control {
-			position: relative;
-		}
+  <head>
+    <title>
+      Practical Forms Example Page
+    </title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <style media="screen">
+      .pf-form-control {
+        position: relative;
+      }
+      .pf-required {
+        color: red;
+      }
 
-		.pf-required {
-			color: red;
-		}
-	</style>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-aria.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.1/angular-messages.min.js"></script>
-	<script src="../dist/practical-forms.js"></script>
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-aria.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>
+    <script src="../dist/practical-forms.js"></script>
 
-	<script>
-		angular.module("examplePage", ['jjp.practical-forms'])
-			.controller("ExampleCtrl", ['$scope', function($scope) {
-				$scope.inputs = {};
-				$scope.picture2 = {};
-				$scope.ConfirmAction = function(item) {
-					console.log("Confirmed Action!", item);
-				};
+    <script>
+      angular.module("examplePage", ['jjp.practical-forms']).controller("ExampleCtrl", [
+        '$scope',
+        function($scope) {
+          $scope.inputs = {};
+          $scope.picture2 = {};
+          $scope.ConfirmAction = function(item) {
+            console.log("Confirmed Action!", item);
+          };
 
-				$scope.SetState = function(val) {
-					console.log("Setting Input");
-					$scope.inputs.state_code = val;
-				};
-				$scope.set = function(key, val) {
-					$scope.inputs[key] = val;
-				};
-				$scope.AdvancedConfirmSettings = {
-					backdrop: false,
-					animation : false
-				};
-			}]);
-	</script>
-</head>
+          $scope.SetState = function(val) {
+            console.log("Setting Input");
+            $scope.inputs.state_code = val;
+          };
+          $scope.set = function(key, val) {
+            $scope.inputs[key] = val;
+          };
+          $scope.AdvancedConfirmSettings = {
+            backdrop: false,
+            animation: false
+          };
+        }
+      ]);
+    </script>
+  </head>
 
-<body ng-controller="ExampleCtrl">
-	<div class="container">
-		<div class="row">
-			<div class="page-header">
-				<h1>Practical Forms Example Page</h1>
-			</div>
-		</div>
-		<div class="row">
+  <body ng-controller="ExampleCtrl">
+    <div class="container">
+      <div class="row">
+        <div class="page-header">
+          <h1>Practical Forms Example Page</h1>
+        </div>
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active">
+            <a href="index.html">Inputs</a>
+          </li>
+          <li role="presentation">
+            <a href="login.html">Login Form</a>
+          </li>
+          <li role="presentation">
+            <a href="register.html">Registration Form</a>
+          </li>
+          <li role="presentation">
+            <a href="password.html">Change Password Form</a>
+          </li>
+          <li role="presentation">
+            <a href="options.html">Radio/Checkbox Form</a>
+          </li>
+        </ul>
+      </div>
 
-			<form name="form">
-				<div class="col-lg-12">
-					<pf-group title="General Text Inputs">
-						<pf-text title="Text Input" ng-model="inputs.text">
-							This is a basic text input. More or less, just a wrapper for basic input. Input is bounded between 0-255 characters and auto trimmed.
-						</pf-text>
+      <br/>
+      <br/>
+      <br/>
 
-						<pf-text title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" placeholder="Required text input">
-							This input is now required by adding ng-required attribute. The attribute can be added to any input
-						</pf-text>
+      <div class="row">
+        <form name="form">
+          <div class="col-lg-12">
+            <pf-group title="General Text Inputs">
+              <pf-text title="Text Input" ng-model="inputs.text">
+                This is a basic text input. More or less, just a wrapper for basic input. Input is bounded between 0-255 characters and auto trimmed.
+              </pf-text>
 
-						<pf-text title="Text Input, No transclude area" ng-required=1 ng-model="inputs.text"></pf-text>
+              <pf-text title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" placeholder="Required text input">
+                This input is now required by adding ng-required attribute. The attribute can be added to any input
+              </pf-text>
 
-						<pf-text title="Text Input, Set model via code" ng-required=1 ng-model="inputs.text_btn_set" placeholder="Click the Button Below">
-							This input is now required by adding ng-required attribute. The attribute can be added to any input
-						</pf-text>
-						<button class="btn btn-primary" ng-click="set('text_btn_set','This is input is set by code')" type="button">Set Text</button>
+              <pf-text title="Text Input, No transclude area" ng-required=1 ng-model="inputs.text"></pf-text>
 
-						<pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
-							Large text box, limited to 2500 characters
-						</pf-textarea>
-					</pf-group>
-					<!-- ---------------------------------------------------------------------------- -->
+              <pf-text title="Text Input, Set model via code" ng-required=1 ng-model="inputs.text_btn_set" placeholder="Click the Button Below">
+                This input is now required by adding ng-required attribute. The attribute can be added to any input
+              </pf-text>
+              <button class="btn btn-primary" ng-click="set('text_btn_set','This is input is set by code')" type="button">Set Text</button>
 
-					<pf-group title="Numeric Inputs">
-						<pf-number title="Number Input" ng-model="inputs.number">
-							Numerical input, validate with the html 5 numerical input
-						</pf-number>
+              <pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
+                Large text box, limited to 2500 characters
+              </pf-textarea>
+            </pf-group>
+            <!-- ---------------------------------------------------------------------------- -->
 
-						<pf-percentage title="Percentage Input" ng-model="inputs.percentage">
-							Enter input as percentage, only values from 0% to 100% are valid.
-						</pf-percentage>
-					</pf-group>
-					<!-- ---------------------------------------------------------------------------- -->
+            <pf-group title="Numeric Inputs">
+              <pf-number title="Number Input" ng-model="inputs.number">
+                Numerical input, validate with the html 5 numerical input
+              </pf-number>
 
-					<pf-group title="Login Form Inputs">
-						<pf-email title="Email Input" ng-model="inputs.email">
-							Email input, validated using the default browser implementation
-						</pf-email>
+              <pf-number title="Number Input With Min & Max" ng-model="inputs.number_minMax" max=5 min =1>
+                This will only work with number between 1-5. Powered by angular min &amp; max attributes
+              </pf-number>
 
-						<pf-password title="Password Input" ng-model="inputs.password">
-							Please enter password. The default password must be at least 8 characters long and include an upper-case letter, lower-case letter and a number. see <a href="http://regexlib.com/REDetails.aspx?regexp_id=1923">Here</a> for more details
-						</pf-password>
-					</pf-group>
-					<!-- ---------------------------------------------------------------------------- -->
+              <pf-percentage title="Percentage Input" ng-model="inputs.percentage">
+                Enter input as percentage, only values from 0% to 100% are valid.
+              </pf-percentage>
+            </pf-group>
+            <!-- ---------------------------------------------------------------------------- -->
 
-					<pf-group title="Address Inputs">
-						<pf-state title="State Input" ng-model="inputs.state">
-							Enter a state or a state code.
-						</pf-state>
+            <pf-group title="Login Form Inputs">
+              <pf-email title="Email Input" ng-model="inputs.email">
+                Email input, validated using the default browser implementation
+              </pf-email>
 
-						<pf-zip title="Zip Code Input" ng-model="inputs.zip">
-							Enter a zip code, either xxxxx or xxxxx-xxxx. See <a href="http://regexlib.com/REDetails.aspx?regexp_id=837">Here</a> for more details
-						</pf-zip>
+              <pf-password title="Password Input" ng-model="inputs.password">
+                Please enter password. The default password must be at least 8 characters long and include an upper-case letter, lower-case letter and a number. see
+                <a href="http://regexlib.com/REDetails.aspx?regexp_id=1923">Here</a>
+                for more details
+              </pf-password>
+            </pf-group>
+            <!-- ---------------------------------------------------------------------------- -->
 
-						<pf-phone title="Phone Number (US) Input" ng-model="inputs.phone">
-							Enter a phone code, See <a href="http://regexlib.com/REDetails.aspx?regexp_id=607">Here</a> for more details
-						</pf-phone>
+            <pf-group title="Address Inputs">
+              <pf-state title="State Input" ng-model="inputs.state">
+                Enter a state or a state code.
+              </pf-state>
 
-						<pf-url title="Url Link" ng-model="inputs.link">
-							URl link. validated using the default browser implementation
-						</pf-url>
-					</pf-group>
-					<!-- ---------------------------------------------------------------------------- -->
+              <pf-zip title="Zip Code Input" ng-model="inputs.zip">
+                Enter a zip code, either xxxxx or xxxxx-xxxx. See
+                <a href="http://regexlib.com/REDetails.aspx?regexp_id=837">Here</a>
+                for more details
+              </pf-zip>
 
+              <pf-phone title="Phone Number (US) Input" ng-model="inputs.phone">
+                Enter a phone code, See
+                <a href="http://regexlib.com/REDetails.aspx?regexp_id=607">Here</a>
+                for more details
+              </pf-phone>
 
+              <pf-url title="Url Link" ng-model="inputs.link">
+                URl link. validated using the default browser implementation
+              </pf-url>
+            </pf-group>
+            <!-- ---------------------------------------------------------------------------- -->
 
-					<pf-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
-						<pf-checkbox title="Monday">
-							<input type="checkbox" ng-model="inputs.onMonday" ng-required=1>
-						</pf-checkbox>
-						<pf-checkbox title="Tuesday">
-							<input type="checkbox" ng-model="inputs.onTuesday">
-						</pf-checkbox>
-						<pf-checkbox title="Wednesday">
-							<input type="checkbox" ng-model="inputs.onWendesday">
-						</pf-checkbox>
-						<pf-checkbox title="Thursday">
-							<input type="checkbox" ng-model="inputs.onThursday">
-						</pf-checkbox>
-						<pf-checkbox title="Friday">
-							<input type="checkbox" ng-model="inputs.onFriday">
-						</pf-checkbox>
-						<pf-checkbox title="Saturday">
-							<input type="checkbox" ng-model="inputs.onSaturday">
-						</pf-checkbox>
-						<pf-checkbox title="Sunday">
-							<input type="checkbox" ng-model="inputs.onSunday">
-						</pf-checkbox>
-					</pf-group>
+            <pf-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
+              <pf-checkbox title="Monday">
+                <input type="checkbox" ng-model="inputs.onMonday" ng-required=1>
+              </pf-checkbox>
+              <pf-checkbox title="Tuesday">
+                <input type="checkbox" ng-model="inputs.onTuesday">
+              </pf-checkbox>
+              <pf-checkbox title="Wednesday">
+                <input type="checkbox" ng-model="inputs.onWendesday">
+              </pf-checkbox>
+              <pf-checkbox title="Thursday">
+                <input type="checkbox" ng-model="inputs.onThursday">
+              </pf-checkbox>
+              <pf-checkbox title="Friday">
+                <input type="checkbox" ng-model="inputs.onFriday">
+              </pf-checkbox>
+              <pf-checkbox title="Saturday">
+                <input type="checkbox" ng-model="inputs.onSaturday">
+              </pf-checkbox>
+              <pf-checkbox title="Sunday">
+                <input type="checkbox" ng-model="inputs.onSunday">
+              </pf-checkbox>
+            </pf-group>
 
-					<pf-group title="Options Group (Checkbox)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
-						<pf-radio title="Buy1, Get 1">
-							<input type="radio" name="type" value="BOGO" ng-model="inputs.type" ng-required=1>
-						</pf-radio>
-						<pf-radio title="Free!">
-							<input type="radio" name="type" value="FREE" ng-model="inputs.type">
-						</pf-radio>
-						<pf-radio title="Free with Purchase">
-							<input type="radio" name="type" value="FREEwPURCHASE" ng-model="inputs.type">
-						</pf-radio>
-						<pf-radio title="Discount">
-							<input type="radio" name="type" value="DISCOUNT" ng-model="inputs.type">
-						</pf-radio>
-						<pf-radio title="Other">
-							<input type="radio" name="type" value="OTHER" ng-model="inputs.type">
-						</pf-radio>
-					</pf-group>
+            <pf-group title="Options Group (Checkbox)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
+              <pf-radio title="Buy1, Get 1">
+                <input type="radio" name="type" value="BOGO" ng-model="inputs.type" ng-required=1>
+              </pf-radio>
+              <pf-radio title="Free!">
+                <input type="radio" name="type" value="FREE" ng-model="inputs.type">
+              </pf-radio>
+              <pf-radio title="Free with Purchase">
+                <input type="radio" name="type" value="FREEwPURCHASE" ng-model="inputs.type">
+              </pf-radio>
+              <pf-radio title="Discount">
+                <input type="radio" name="type" value="DISCOUNT" ng-model="inputs.type">
+              </pf-radio>
+              <pf-radio title="Other">
+                <input type="radio" name="type" value="OTHER" ng-model="inputs.type">
+              </pf-radio>
+            </pf-group>
 
-					<!-- ---------------------------------------------------------------------------- -->
+            <!-- ---------------------------------------------------------------------------- -->
 
-					<pf-group title="Form Input Binding">
-						<pf-state title="State Code Input" ng-model="inputs.state_code"></pf-state>
-						<pf-state title="State Name Input" ng-model="inputs.state_Name" output="word"></pf-state>
-						<button class="btn btn-primary" ng-click="SetState('OH')" type="button">Set State - Good</button>
-						<button class="btn btn-primary" ng-click="SetState('BAD')" type="button">Set State - Bad</button>
-					</pf-group>
+            <pf-group title="Form Input Binding">
+              <pf-state title="State Code Input" ng-model="inputs.state_code"></pf-state>
+              <pf-state title="State Name Input" ng-model="inputs.state_Name" output="word"></pf-state>
+              <button class="btn btn-primary" ng-click="SetState('OH')" type="button">Set State - Good</button>
+              <button class="btn btn-primary" ng-click="SetState('BAD')" type="button">Set State - Bad</button>
+            </pf-group>
 
+            <!-- ---------------------------------------------------------------------------- -->
+            <pf-group title="UI Bootstrap Inputs">
 
-					<!-- ---------------------------------------------------------------------------- -->
-					<pf-group title="UI Bootstrap Inputs">
+              <h2>Other input needing UI-Bootstrap framework</h2>
+              <pf-date title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date">
+                Enter a date. Min date can be set using the min-date attribute.
+              </pf-date>
+              <pf-date title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date2" min-date="inputs.date">
+                This date has a min value taken from above.
+              </pf-date>
 
-						<h2>Other input needing UI-Bootstrap framework</h2>
-						<pf-date title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date">
-							Enter a date. Min date can be set using the min-date attribute.
-						</pf-date>
-						<pf-date title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date2" min-date="inputs.date">
-							This date has a min value taken from above.
-						</pf-date>
+              <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})">Default Confirm</button>
+              <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">Custome Confirm</button>
+              <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" modal-options="AdvancedConfirmSettings">Custome Confirm</button>
 
+            </pf-group>
 
-						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" >Default Confirm</button>
-						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">Custome Confirm</button>
-						<button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" modal-options="AdvancedConfirmSettings">Custome Confirm</button>
+            <pf-group title="Picture Inputs">
+              <h2>Picture Inputs</h2>
+              <pf-picture-uploader ng-model="inputs.picture" preview="preview" title="Select a Picture" max-size="1000000">Picture selection with preview. Max file size set to 1Mb</pf-picture-uploader>
 
-					</pf-group>
+              <pf-picture-uploader ng-model="inputs.picture2" preview="preview" result="result" status="status" title="Picture with uploading" url="http://localhost:8080/file/">
+                Picture input with uploading action after the image is selected. Max file size if defaulted to 3MB.
+                <br/>
+                Binding Parmeters:
+                <ul>
+                  <li>
+                    ng-model - the image selection for the input (required)
+                  </li>
+                  <li>
+                    title - The title for the input (required)
+                  </li>
+                  <li>
+                    preview - The image source for preview return by the FileReader API
+                  </li>
+                  <li>
+                    result - Result of uploading or error messages
+                  </li>
+                  <li>
+                    status - Numerical status of the image selection
+                    <ul>
+                      <li>0 = No Image</li>
+                      <li>1 = Loading Image</li>
+                      <li>2 = Image Loaded</li>
+                      <li>3 = Uploading</li>
+                      <li>4 = File Uploaded</li>
+                      <li>-1 = Error</li>
+                      <li>-10 = File to big</li>
+                    </ul>
+                  </li>
+                  <li>
+                    url - The url to upload the image to, upload button will only be show if this is given
+                  </li>
+                  <li>
+                    max-size - The max size of image in bytes, default: 3000000
+                  </li>
+                </ul>
 
-					<pf-group title="Picture Inputs">
-						<h2>Picture Inputs</h2>
-						<pf-picture-uploader ng-model="inputs.picture" preview="preview" title="Select a Picture" max-size="1000000">Picture selection with preview. Max file size set to 1Mb</pf-picture-uploader>
-
-						<pf-picture-uploader ng-model="inputs.picture2" preview="preview" result="result" status="status" title="Picture with uploading" url="http://localhost:8080/file/">
-							Picture input with uploading action after the image is selected. Max file size if defaulted to 3MB.
-							<br /> Binding Parmeters:
-							<ul>
-								<li> ng-model - the image selection for the input (required) </li>
-								<li> title - The title for the input (required) </li>
-								<li> preview - The image source for preview return by the FileReader API </li>
-								<li> result - Result of uploading or error messages </li>
-								<li> status - Numerical status of the image selection
-									<ul>
-										<li>0 = No Image</li>
-										<li>1 = Loading Image</li>
-										<li>2 = Image Loaded</li>
-										<li>3 = Uploading</li>
-										<li>4 = File Uploaded</li>
-										<li>-1 = Error</li>
-										<li>-10 = File to big</li>
-									</ul>
-								</li>
-								<li> url - The url to upload the image to, upload button will only be show if this is given </li>
-								<li> max-size - The max size of image in bytes, default: 3000000 </li>
-							</ul>
-
-						</pf-picture-uploader>
-						<pre>Image Viewer status: {{status}}</pre>
-						<pre>Image Viewer Results: {{result}}</pre>
-						<pre>Image: {{inputs.picture2}}</pre>
-						<pre>Filename: {{inputs.picture2.name}}</pre>
-						<a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image </a>
-					</pf-group>
-					</hr/>
-					<h3>Output</h3>
-					<pre>{{inputs | json}}</pre>
-				</div>
-			</form>
-		</div>
-	</div>
+              </pf-picture-uploader>
+              <pre>Image Viewer status: {{status}}</pre>
+              <pre>Image Viewer Results: {{result}}</pre>
+              <pre>Image: {{inputs.picture2}}</pre>
+              <pre>Filename: {{inputs.picture2.name}}</pre>
+              <a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image
+              </a>
+            </pf-group>
+          </hr/>
+          <h3>Output</h3>
+          <pre>{{inputs | json}}</pre>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>
