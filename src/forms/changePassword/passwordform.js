@@ -9,9 +9,9 @@
         oldPassword: '@',
         newPassword: '@',
         confirmPassword: '@',
-
         oldPasswordHelp: '@',
         newPasswordHelp: '@',
+        confirmPasswordHelp: '@'
       },
       require: '^form',
       restrict: 'E',

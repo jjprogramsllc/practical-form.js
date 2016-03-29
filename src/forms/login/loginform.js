@@ -8,7 +8,6 @@
         ngSubmit: '&',
         email: '@',
         password: '@',
-
         emailHelp: '@',
         passwordHelp: '@',
       },
@@ -20,6 +19,8 @@
         scope._header = practicalForms.valOrDefault(scope.header, 'Login');
         scope._email = practicalForms.valOrDefault(scope.email , 'email');
         scope._password = practicalForms.valOrDefault(scope.password , 'password');
+        scope.emailHelp = practicalForms.valOrDefault(scope.emailHelp , '');
+        scope.passwordHelp = practicalForms.valOrDefault(scope.passwordHelp , '');
         scope.hasTransclude = practicalForms.hasTransclude(element);
       }
     };

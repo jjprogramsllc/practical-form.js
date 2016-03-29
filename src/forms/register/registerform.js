@@ -1,6 +1,6 @@
 (function(practicalForms, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormSignup', function() {
+  practicalForms.module.directive('pfFormRegister', function() {
     return {
       scope: {
         header: '@',
@@ -21,9 +21,9 @@
       restrict: 'E',
       replace: true,
       transclude: true,
-      templateUrl: '/jjp/pf/signupform.html',
+      templateUrl: '/jjp/pf/registerform.html',
       link: function(scope, element) {
-        scope._header = practicalForms.valOrDefault(scope.header, 'Signup Form');
+        scope._header = practicalForms.valOrDefault(scope.header, 'Register');
         scope._firstname = practicalForms.valOrDefault(scope.firstname ,'firstname');
         scope._lastname = practicalForms.valOrDefault(scope.lastname ,'lastname');
         scope._email = practicalForms.valOrDefault(scope.email , 'email');
