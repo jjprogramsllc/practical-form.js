@@ -12,6 +12,18 @@
   /** Main angular modules */
   practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
+  /** A basic controller for the modal popups */
+  practicalForms.module.controller('pfModalCtrl', function($scope, $uibModalInstance, params) {
+    $scope.params = params;
+    $scope.Ok = function() {
+      $uibModalInstance.close();
+    };
+    $scope.Cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
+
   /**
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
@@ -50,6 +62,6 @@
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '0.5.0';
+  practicalForms.VERSION = '1.0.0';
 
 }(window.practicalForms = window.practicalForms || {}));
