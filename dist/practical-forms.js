@@ -1,4 +1,4 @@
-/*! practical-forms v0.5.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v1.0.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -33,8 +33,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=url>Not a valid URL. Make sure it starts with 'http://'</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=ngTrim ng-model=ngModel ng-required=ngRequired placeholder=\"Example: http://company.com\" required type=\"url\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/zipcode.html",
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=pattern>Invalid Zip Code. Plase enter the 5 digit zip code</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=ngTrim ng-model=ngModel ng-pattern=\"/^\\d{5}(-\\d{4})?$/\" ng-required=ngRequired placeholder=\"Ex: 12345\" required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
+  $templateCache.put("/jjp/pf/confirm.html",
+    "<div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Cancel()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn btn-primary\" ng-click=Ok()>OK</button> <button type=button class=\"btn btn-warning\" ng-click=Cancel()>Cancel</button></div>");
   $templateCache.put("/jjp/pf/date.html",
     "<div class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><p><input class=form-control ng-model=ngModel is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" uib-datepicker-popup=\"MMMM dd, yyyy\" datepicker-options=\"datepickerOptions\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
+  $templateCache.put("/jjp/pf/info.html",
+    "<div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Ok()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn btn-primary\" ng-click=Ok()>OK</button></div>");
   $templateCache.put("/jjp/pf/passwordform.html",
     "<form name=form><fieldset><legend>{{::_header}}</legend><pf-password title=\"Old Password\" ng-model=ngModel[_oldpassword] ng-required=1>{{oldPasswordHelp}}</pf-password><pf-password title=\"New Password\" ng-model=ngModel[_newpassword] ng-required=1>{{newPasswordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_newpassword]>{{confirmPasswordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Change Password</button></fieldset></form>");
   $templateCache.put("/jjp/pf/loginform.html",
@@ -56,6 +60,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
   /** Main angular modules */
   practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
+
+  /** A basic controller for the modal popups */
+  practicalForms.module.controller('pfModalCtrl', function($scope, $uibModalInstance, params) {
+    $scope.params = params;
+    $scope.Ok = function() {
+      $uibModalInstance.close();
+    };
+    $scope.Cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    };
+  });
+
 
   /**
    * Function to detect if element has transcluded elements
@@ -95,7 +111,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '0.5.0';
+  practicalForms.VERSION = '1.0.0';
 
 }(window.practicalForms = window.practicalForms || {}));
 
@@ -871,11 +887,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 (function(practicalForms, undefined) {
   'use strict';
-  var defaultCtrl = ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
-      $scope.Ok = function() { $uibModalInstance.close(); };
-      $scope.Cancel = function() { $uibModalInstance.dismiss('cancel'); };
-    }
-  ];
 
   practicalForms.module.directive('pfConfirm', [
     '$uibModal',
@@ -890,20 +901,19 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         },
         link: function($scope, $element) {
           $element.bind('click', function() {
-            var message = $scope.pfMessage || 'Please confirm this action!';
-            var title = $scope.pfTitle || 'Are you sure?';
-
-            var modalHtml = '<div class="modal-header"><h2>' + title + '</h2></div>';
-            modalHtml += '<div class="modal-body">' + message + '</div>';
-            modalHtml += '<div class="modal-footer">';
-            modalHtml += '<button class="btn btn-primary" ng-click="Ok()">OK</button>';
-            modalHtml += '<button class="btn btn-warning" ng-click="Cancel()">Cancel</button></div>';
-
             $scope.modalOptions = $scope.modalOptions || {};
-            $scope.modalOptions.template = $scope.modalOptions.template || modalHtml;
-            $scope.modalOptions.controller = $scope.modalOptions.controller || defaultCtrl;
+            $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/confirm.html';
+            $scope.modalOptions.controller = $scope.modalOptions.controller || 'pfModalCtrl';
+            $scope.modalOptions.resolve = {
+              params: {
+                title: $scope.pfTitle || 'Are you sure?',
+                message: $scope.pfMessage || 'Please confirm this action!'
+              }
+            };
 
-            $uibModal.open($scope.modalOptions).result.then(function() {$scope.pfConfirm();});
+            $uibModal.open($scope.modalOptions).result.then(function() {
+              $scope.pfConfirm();
+            });
           });
         }
       };
@@ -938,6 +948,38 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   });
 
+}(window.practicalForms = window.practicalForms || {}));
+
+(function(practicalForms, undefined) {
+  'use strict';
+
+  practicalForms.module.directive('pfInfo', [
+    '$uibModal',
+    function($uibModal) {
+      return {
+        restrict: 'A',
+        scope: {
+          pfTitle: '@',
+          pfMessage: '@',
+          modalOptions: '=?'
+        },
+        link: function($scope, $element) {
+          $element.bind('click', function() {
+            $scope.modalOptions = $scope.modalOptions || {};
+            $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/info.html';
+            $scope.modalOptions.controller = $scope.modalOptions.controller || 'pfModalCtrl';
+            $scope.modalOptions.resolve = {
+              params: {
+                title: $scope.pfTitle || 'Information',
+                message: $scope.pfMessage || 'Here is some more info for you'
+              }
+            };
+            $uibModal.open($scope.modalOptions);
+          });
+        }
+      };
+    }
+  ]);
 }(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
