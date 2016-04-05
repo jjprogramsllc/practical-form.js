@@ -1,4 +1,4 @@
-/*! practical-forms v1.0.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v1.1.1 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -111,7 +111,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '1.0.0';
+  practicalForms.VERSION = '1.1.1';
 
 }(window.practicalForms = window.practicalForms || {}));
 

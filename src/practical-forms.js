@@ -62,6 +62,6 @@
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '1.0.0';
+  practicalForms.VERSION = '1.1.1';
 
 }(window.practicalForms = window.practicalForms || {}));
