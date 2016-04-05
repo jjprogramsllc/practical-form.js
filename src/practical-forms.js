@@ -13,7 +13,7 @@
   practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  practicalForms.module.controller('pfModalCtrl', function($scope, $uibModalInstance, params) {
+  practicalForms.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
     $scope.params = params;
     $scope.Ok = function() {
       $uibModalInstance.close();
@@ -21,7 +21,7 @@
     $scope.Cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
-  });
+  }]);
 
 
   /**

@@ -62,7 +62,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  practicalForms.module.controller('pfModalCtrl', function($scope, $uibModalInstance, params) {
+  practicalForms.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
     $scope.params = params;
     $scope.Ok = function() {
       $uibModalInstance.close();
@@ -70,7 +70,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     $scope.Cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
-  });
+  }]);
 
 
   /**
@@ -221,7 +221,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         ctrl.$parsers.push(function(value) {
           var p = value || 0;
           if (typeof p !== 'number') {
-            console.log('Parse:', p, ' => ', value.replace(/[^0-9\.\-]/g, ''));
             if (value.length === 0) {
               value = 0;
             } else {
@@ -510,7 +509,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             }, function(error) {
               $scope.status = -1;
               $scope.result = error;
-              console.warn(error);
             }, function(event) {
               $scope.load = event;
             });
@@ -531,7 +529,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             }).error(function(error) {
               $scope.status = -1;
               $scope.result = error;
-              console.warn(error);
             });
           };
 

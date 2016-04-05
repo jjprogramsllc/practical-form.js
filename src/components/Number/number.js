@@ -40,7 +40,6 @@
         ctrl.$parsers.push(function(value) {
           var p = value || 0;
           if (typeof p !== 'number') {
-            console.log('Parse:', p, ' => ', value.replace(/[^0-9\.\-]/g, ''));
             if (value.length === 0) {
               value = 0;
             } else {
