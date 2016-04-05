@@ -97,7 +97,6 @@
             }, function(error) {
               $scope.status = -1;
               $scope.result = error;
-              console.warn(error);
             }, function(event) {
               $scope.load = event;
             });
@@ -118,7 +117,6 @@
             }).error(function(error) {
               $scope.status = -1;
               $scope.result = error;
-              console.warn(error);
             });
           };
 

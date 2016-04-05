@@ -1,4 +1,4 @@
-/*! practical-forms v1.0.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v1.1.1 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -62,7 +62,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  practicalForms.module.controller('pfModalCtrl', function($scope, $uibModalInstance, params) {
+  practicalForms.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
     $scope.params = params;
     $scope.Ok = function() {
       $uibModalInstance.close();
@@ -70,7 +70,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     $scope.Cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
-  });
+  }]);
 
 
   /**
@@ -111,7 +111,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '1.0.0';
+  practicalForms.VERSION = '1.1.1';
 
 }(window.practicalForms = window.practicalForms || {}));
 
@@ -221,7 +221,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         ctrl.$parsers.push(function(value) {
           var p = value || 0;
           if (typeof p !== 'number') {
-            console.log('Parse:', p, ' => ', value.replace(/[^0-9\.\-]/g, ''));
             if (value.length === 0) {
               value = 0;
             } else {
@@ -510,7 +509,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             }, function(error) {
               $scope.status = -1;
               $scope.result = error;
-              console.warn(error);
             }, function(event) {
               $scope.load = event;
             });
@@ -531,7 +529,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             }).error(function(error) {
               $scope.status = -1;
               $scope.result = error;
-              console.warn(error);
             });
           };
 
