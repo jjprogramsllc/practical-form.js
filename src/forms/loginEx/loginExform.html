@@ -1,0 +1,10 @@
+<form name="form" >
+  <fieldset>
+    <legend>{{::opt.header}}</legend>
+    <pf-email title="Email" ng-model="ngModel[opt.username]" ng-required=1 ng-if="opt.onlyEmail">{{opt.usernameHelp}}</pf-email>
+    <pf-text title="Username" ng-model="ngModel[opt.username]" ng-required=1 ng-if="!opt.onlyEmail" placeholder="awesomeUser6">{{opt.usernameHelp}}</pf-text>
+    <pf-password title="Password" ng-model="ngModel[opt.password]" ng-required=1>{{opt.passwordHelp}}</pf-password>
+    <span ng-transclude>&nbsp;</span>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Login</button>
+  </fieldset>
+</form>
