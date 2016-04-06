@@ -144,13 +144,9 @@
       transclude: true,
       templateUrl: '/jjp/pf/state.html',
       link: function(scope, element) {
-        //TODO: See below
-        // link: function(scope, element, attributes, ctrls) {
         scope.id = pf.gerenateId();
         var output = scope.output || 'code';
         scope.hasTransclude = pf.hasTransclude(element);
-        // TODO: test to see if this line is needed!
-        // var ngModel = ctrls[0];
 
         scope.subform.name.$validators.stateCode = function(modelValue) {
           if (!modelValue) {
@@ -164,9 +160,9 @@
           viewValue = viewValue.toLowerCase();
           if (viewValue in STATES) {
             if (output === 'code') {
-              return viewValue.length === 2 ? viewValue : STATES[viewValue];
+              return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue];
             } else {
-              return viewValue.length === 2 ? STATES[viewValue] : viewValue;
+              return viewValue.length === 2 ? STATES[viewValue] : viewValue.toUpperCase();
             }
           } else {
             return undefined;

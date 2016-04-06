@@ -29,11 +29,6 @@
           $scope.ConfirmAction = function(item) {
             console.log("Confirmed Action!", item);
           };
-
-          $scope.SetState = function(val) {
-            console.log("Setting Input");
-            $scope.inputs.state_code = val;
-          };
           $scope.set = function(key, val) {
             $scope.inputs[key] = val;
           };
@@ -80,74 +75,97 @@
         <div class="col-lg-12">
           <pf-group title="General Text Inputs">
             <pf-text title="Text Input" ng-model="inputs.text">
-              This is a basic text input. More or less, just a wrapper for basic input. Input is bounded between 0-255 characters and auto
-              trimmed.
+              This is a basic text input. It is bounded between 0-255 characters and is auto trimmed.
             </pf-text>
 
             <pf-text title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" placeholder="Required text input">
-              This input is now required by adding ng-required attribute. The attribute can be added to any input
+              This input is required. This is done by adding the <code>ng-required</code> attribute. The attribute can be
+              added to any PractialForms input
             </pf-text>
 
-            <pf-text title="Text Input, No transclude area" ng-required=1 ng-model="inputs.text"></pf-text>
+            <pf-text title="Text Input, No transclude area" ng-model="inputs.text_noTrans"></pf-text>
 
             <pf-text title="Text Input, Set model via code" ng-required=1 ng-model="inputs.text_btn_set" placeholder="Click the Button Below">
-              This input is now required by adding ng-required attribute. The attribute can be added to any input
+              Inputs have two way bindings, so they can easily be set and validated using code
             </pf-text>
             <button class="btn btn-primary" ng-click="set('text_btn_set','This is input is set by code')" type="button">Set Text</button>
 
             <pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
-              Large text box, limited to 2500 characters
+              Large text box, default limited to 2500 characters
             </pf-textarea>
           </pf-group>
           <!-- ---------------------------------------------------------------------------- -->
 
+          <br />
+          <br />
+          <br />
+
           <pf-group title="Numeric Inputs">
             <pf-number title="Number Input" ng-model="inputs.number">
-              Numerical input, validate with the html 5 numerical input
+              Numerical input, valid only when the input is a number. Works with decimal numbers
             </pf-number>
 
             <pf-number title="Number Input With Min & Max" ng-model="inputs.number_minMax" max=5 min=1>
-              This will only work with number between 1-5. Powered by angular min &amp; max attributes
+              This will only work with number between 1-5. Powered by angular <code>min</code> &amp; <code>max</code> attributes
             </pf-number>
 
             <pf-percentage title="Percentage Input" ng-model="inputs.percentage">
-              Enter input as percentage, only values from 0% to 100% are valid.
+              Percentage input will only accept interger from 0-100.
             </pf-percentage>
           </pf-group>
           <!-- ---------------------------------------------------------------------------- -->
 
-          <pf-group title="Login Form Inputs">
+          <br />
+          <br />
+          <br />
+
+          <pf-group title="Account Inputs">
             <pf-email title="Email Input" ng-model="inputs.email">
               Email input, validated using the default browser implementation
             </pf-email>
 
             <pf-password title="Password Input" ng-model="inputs.password">
-              Please enter password. The default password must be at least 8 characters long and include an upper-case letter, lower-case
-              letter and a number. see
-              <a href="http://regexlib.com/REDetails.aspx?regexp_id=1923">Here</a> for more details
+              The default password must be at least 8 characters long and includes an upper-case letter, lower-case letter and a number.
+              See <a href="http://regexlib.com/REDetails.aspx?regexp_id=1923">this regex website</a> for more
+              details
             </pf-password>
           </pf-group>
           <!-- ---------------------------------------------------------------------------- -->
 
-          <pf-group title="Address Inputs">
-            <pf-state title="State Input" ng-model="inputs.state">
-              Enter a state or a state code.
-            </pf-state>
+          <br />
+          <br />
+          <br />
 
-            <pf-zip title="Zip Code Input" ng-model="inputs.zip">
-              Enter a zip code, either xxxxx or xxxxx-xxxx. See
-              <a href="http://regexlib.com/REDetails.aspx?regexp_id=837">Here</a> for more details
+          <pf-group title="Location Inputs">
+            <pf-state title="State Input" ng-model="inputs.state">
+              Validates a state by either the name or the code.
+            </pf-state>
+            <pf-state title="State Code Input" ng-model="inputs.state_code">
+              When <code>output</code> is set to <code>"code"</code>, the value is the state code name. This is default
+            </pf-state>
+            <pre>Output: {{inputs.state_code}}</pre>
+            <pf-state title="State Name Input" ng-model="inputs.state_Name" output="word">
+              When <code>output</code> is set to <code>"word"</code>, the value is the state name
+            </pf-state>
+            <pre>Output: {{inputs.state_Name}}</pre>
+
+            <pf-zip title="Postal (Zip) Code Input" ng-model="inputs.zip">
+              Validates either the 5 or 9 digit zip code (either ##### or #####-####). See <a href="http://regexlib.com/REDetails.aspx?regexp_id=837">this regex website</a>              for more details.
             </pf-zip>
 
-            <pf-phone title="Phone Number (US) Input" ng-model="inputs.phone">
-              Enter a phone code, See
-              <a href="http://regexlib.com/REDetails.aspx?regexp_id=607">Here</a> for more details
+            <pf-phone title="Phone Number Input" ng-model="inputs.phone">
+              Validates a phone number. See <a href="http://regexlib.com/REDetails.aspx?regexp_id=607">this regex website</a>              for more details
             </pf-phone>
 
             <pf-url title="Url Link" ng-model="inputs.link">
-              URl link. validated using the default browser implementation
+              Validates a URL link using the default browser implementation. Must include the protocal (HTTP, FTP, etc)
             </pf-url>
           </pf-group>
+
+          <br />
+          <br />
+          <br />
+
           <!-- ---------------------------------------------------------------------------- -->
 
           <pf-group title="Options Group (Radio)" description="Option Group is a wrapper for the radio and checkbox inputs" ng-required=1>
@@ -192,19 +210,13 @@
             </pf-radio>
           </pf-group>
 
-          <!-- ---------------------------------------------------------------------------- -->
+          <br />
+          <br />
+          <br />
 
-          <pf-group title="Form Input Binding">
-            <pf-state title="State Code Input" ng-model="inputs.state_code"></pf-state>
-            <pf-state title="State Name Input" ng-model="inputs.state_Name" output="word"></pf-state>
-            <button class="btn btn-primary" ng-click="SetState('OH')" type="button">Set State - Good</button>
-            <button class="btn btn-primary" ng-click="SetState('BAD')" type="button">Set State - Bad</button>
-          </pf-group>
-
-          <!-- ---------------------------------------------------------------------------- -->
           <pf-group title="UI Bootstrap Inputs">
 
-            <h2>Other input needing UI-Bootstrap framework</h2>
+            <h2>Inputs needing UI-Bootstrap framework</h2>
             <pf-date title="Date Picker (ui.bootstrap needed)" ng-model="inputs.date">
               Enter a date. Min date can be set using the min-date attribute.
             </pf-date>
@@ -212,39 +224,41 @@
               This date has a min value taken from above.
             </pf-date>
 
+            <h3> Modal Dialogs</h3>
+            <h4> Confirm Modal Dialog </h4>
+            <p>These popup can be used to popup a information modal</p>
             <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})">Default Confirm</button>
             <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">Custom Confirm</button>
             <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" modal-options="AdvancedConfirmSettings">Custom Confirm</button>
-
-            <h3>Info modal popups</h3>
+            <br/>
+            <br/>
+            <h4> Infromational Modal Dialog </h4>
+            <p>These popup can be used to popup a information modal </p>
             <button type=button class="btn btn-info" pf-info><span class="glyphicon glyphicon-info-sign"></span> Info</button>
             <button type=button class="btn btn-info" pf-info pf-title="Look at this!" pf-message="Err my Ger'd! A nice like popup info box"><span class="glyphicon glyphicon-info-sign"></span> Info - Customized</button>
 
           </pf-group>
 
+          <br />
+          <br />
+          <br />
+
           <pf-group title="Picture Inputs">
-            <h2>Picture Inputs</h2>
-            <pf-picture-uploader ng-model="inputs.picture" preview="preview" title="Select a Picture" max-size="1000000">Picture selection with preview. Max file size set to 1Mb</pf-picture-uploader>
+            <h3>Picture Inputs</h3>
+            <pf-picture-uploader ng-model="inputs.picture" preview="preview" title="Select a Picture" max-size="1000000">
+              Picture selection with preview. Max file size set to 1Mb
+            </pf-picture-uploader>
 
             <pf-picture-uploader ng-model="inputs.picture2" preview="preview" result="result" status="status" title="Picture with uploading"
             url="http://localhost:8080/file/">
               Picture input with uploading action after the image is selected. Max file size if defaulted to 3MB.
               <br/> Binding Parmeters:
               <ul>
-                <li>
-                  ng-model - the image selection for the input (required)
-                </li>
-                <li>
-                  title - The title for the input (required)
-                </li>
-                <li>
-                  preview - The image source for preview return by the FileReader API
-                </li>
-                <li>
-                  result - Result of uploading or error messages
-                </li>
-                <li>
-                  status - Numerical status of the image selection
+                <li> ng-model - the image selection for the input (required) </li>
+                <li> title - The title for the input (required) </li>
+                <li> preview - The image source for preview return by the FileReader API </li>
+                <li> result - Result of uploading or error messages </li>
+                <li> status - Numerical status of the image selection
                   <ul>
                     <li>0 = No Image</li>
                     <li>1 = Loading Image</li>
@@ -255,24 +269,28 @@
                     <li>-10 = File to big</li>
                   </ul>
                 </li>
-                <li>
-                  url - The url to upload the image to, upload button will only be show if this is given
-                </li>
-                <li>
-                  max-size - The max size of image in bytes, default: 3000000
-                </li>
+                <li> url - The url to upload the image to, upload button will only be show if this is given </li>
+                <li> max-size - The max size of image in bytes, default: 3000000 </li>
               </ul>
 
             </pf-picture-uploader>
-            <pre>Image Viewer status: {{status}}</pre>
-            <pre>Image Viewer Results: {{result}}</pre>
-            <pre>Image: {{inputs.picture2}}</pre>
-            <pre>Filename: {{inputs.picture2.name}}</pre>
-            <a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image
-              </a>
+            <pre>
+              Image Input Results:
+              ---------------------------------------------------
+              Image Viewer status: {{status}}
+              Image Viewer Results: {{result}}
+              Image: {{inputs.picture2}}
+              Filename: {{inputs.picture2.name}}
+            </pre>
+            <a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image</a>
           </pf-group>
-          </hr/>
-          <h3>Output</h3>
+
+          <br />
+          <br />
+          <br />
+
+          <hr />
+          <h2>Output: </h2>
           <pre>{{inputs | json}}</pre>
         </div>
       </form>

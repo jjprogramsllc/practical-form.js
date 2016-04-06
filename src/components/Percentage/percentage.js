@@ -1,6 +1,6 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfPercentage', function() {
+  pf.module.directive('pfPercentage', function() {
     return {
       restrict: 'E',
       scope: {
@@ -14,25 +14,25 @@
       transclude: true,
       templateUrl: '/jjp/pf/percentage.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
-  practicalForms.module.directive('pfPercentageMask', function() {
+  pf.module.directive('pfPercentageMask', function() {
     return {
       restrict: 'A',
       require: 'ngModel',
 
       link: function(scope, element, attrs, ctrl) {
         ctrl.$formatters.push(function(inputValue) {
-          return (new practicalForms.Percentage(inputValue)).pretty();
+          return (new pf.Percentage(inputValue)).pretty();
         });
 
         ctrl.$parsers.push(function(value) {
-          var p = new practicalForms.Percentage(value);
+          var p = new pf.Percentage(value);
           if (p.pretty() !== ctrl.$viewValue) {
             ctrl.$setViewValue(p.pretty());
             ctrl.$render();
@@ -50,10 +50,10 @@
     };
   });
 
-  practicalForms.Percentage = function(s) {
+  pf.Percentage = function(s) {
     s = String(s);
     // determine if the string has % & the value doesn't end with %;
-    var needBackspace = (s.indexOf('%') < 0) && (!practicalForms.endsWith(s, '%'));
+    var needBackspace = (s.indexOf('%') < 0) && (!pf.endsWith(s, '%'));
     //Remove the leading zeros
     var trimedValue = s.replace(/^0*/, '');
     //only return the numbers
@@ -63,11 +63,11 @@
     }
   };
 
-  practicalForms.Percentage.prototype.value = function() {
+  pf.Percentage.prototype.value = function() {
     return parseFloat(this._value) || 0;
   };
 
-  practicalForms.Percentage.prototype.pretty = function() {
+  pf.Percentage.prototype.pretty = function() {
     //Adds a leading zero to the front of the singel digit precents: 01%
     if (this.value() > 9) {
       return this.value() + ' %';
@@ -76,7 +76,7 @@
     }
   };
 
-  practicalForms.Percentage.prototype.backspace = function() {
+  pf.Percentage.prototype.backspace = function() {
     // Used to delete the last number of the val;
     // Useful for binding to form when you only have a pretty value
     this._value = this._value.slice(0, this._value.length - 1);
