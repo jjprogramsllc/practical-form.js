@@ -28,6 +28,11 @@
           $scope.submit = function(inputs) {
             alert("Look in the box below the form for the data...");
           };
+          $scope.settings = {
+            meta : { header: '↓↓↓ Awesome Form! ↓↓↓', submit: 'Try getting access', emailOnly: true},
+            username: { title: 'Use your email', model: 'ComplexEmailKey', help: 'Point are award to the person with the most ridiculous email address'},
+            password: { title: 'Passd-word', model: 'passsssssssword', help: 'A password, cuase they are cool when you were six'}
+          };
         }
       ]);
   </script>
@@ -75,10 +80,9 @@
       <div class="col-lg-offset-2 col-md-4 ">
         <h3>Customized Login Form</h3>
         <div class="well">
-          <pf-form-login ng-model="custInputs" ng-submit="submit('custInputs')" header="↓↓↓ Awesome Form! ↓↓↓" email-help="point are award to the person with the most ridiculous email address"
-          password-help="A cool password, because were six" email="ComplexEmailKey" password="PasswordKey">
+          <pf-form-login ng-model="custInputs" ng-submit="submit('custInputs')" settings="settings">
             <p>Here is an cool area that any other elements can be placed to make these forms awesome!</p>
-            <pf-number ng-model="custInputs.number" title="addtional input">Enter some random number because we can :p</pf-number>
+            <pf-number ng-model="custInputs.number" title="addtional input" ng-required=1>Enter some random number because we can :p</pf-number>
           </pf-form-login>
         </div>
         <pre>{{custInputs}}</pre>

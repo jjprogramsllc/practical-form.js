@@ -1,9 +1,10 @@
 <form name="form" >
   <fieldset>
-    <legend>{{::_header}}</legend>
-    <pf-email title="Email" ng-model="ngModel[_email]" ng-required=1>{{emailHelp}}</pf-email>
-    <pf-password title="Password" ng-model="ngModel[_password]" ng-required=1>{{passwordHelp}}</pf-password>
+    <legend>{{::s.meta.header}}</legend>
+    <pf-email title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-if="s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-email>
+    <pf-text title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-if="!s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-text>
+    <pf-password title="{{::s.password.title}}" ng-model="ngModel[s.password.model]" ng-required=1>{{::s.password.help}}</pf-password>
     <span ng-transclude>&nbsp;</span>
-    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Login</button>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">{{::s.meta.submit}}</button>
   </fieldset>
 </form>

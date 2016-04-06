@@ -1,29 +1,33 @@
-(function( practicalForms, undefined ) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormLogin', function(){
+
+  function parseOpts(opts) {
+    opts = opts || { meta: {} };
+    var settings = {
+      meta: pf.formOptions(opts, 'Login', 'Login'),
+      username: pf.vORdInput(opts, 'username', 'Username', '', 'Ex. johndoe2'),
+      password: pf.vORdInput(opts, 'password', 'Password', '', ''),
+    };
+    settings.meta.emailOnly = pf.valOrDefault(opts.meta.emailOnly, false);
+    return settings;
+  }
+
+  pf.module.directive('pfFormLogin', function() {
     return {
       scope: {
-        header: '@',
         ngModel: '=',
         ngSubmit: '&',
-        email: '@',
-        password: '@',
-        emailHelp: '@',
-        passwordHelp: '@',
+        settings: '=?'
       },
       restrict: 'E',
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/loginform.html',
-      link: function(scope, element){
-        scope._header = practicalForms.valOrDefault(scope.header, 'Login');
-        scope._email = practicalForms.valOrDefault(scope.email , 'email');
-        scope._password = practicalForms.valOrDefault(scope.password , 'password');
-        scope.emailHelp = practicalForms.valOrDefault(scope.emailHelp , '');
-        scope.passwordHelp = practicalForms.valOrDefault(scope.passwordHelp , '');
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+      link: function(scope, element) {
+        scope.s = parseOpts(scope.settings);
+        scope.hasTransclude = pf.hasTransclude(element);
       }
     };
   });
 
-}( window.practicalForms = window.practicalForms || {} ));
+} (window.practicalForms = window.practicalForms || {}));
