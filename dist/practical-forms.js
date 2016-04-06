@@ -46,25 +46,25 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/loginExform.html",
     "<form name=form><fieldset><legend>{{::opt.header}}</legend><pf-email title=Email ng-model=ngModel[opt.username] ng-required=1 ng-if=opt.onlyEmail>{{opt.usernameHelp}}</pf-email><pf-text title=Username ng-model=ngModel[opt.username] ng-required=1 ng-if=!opt.onlyEmail placeholder=awesomeUser6>{{opt.usernameHelp}}</pf-text><pf-password title=Password ng-model=ngModel[opt.password] ng-required=1>{{opt.passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
   $templateCache.put("/jjp/pf/registerform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_password]>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{::s.meta.header}}</legend><pf-text title={{::s.firstname.title}} ng-model=ngModel[s.firstname.model] ng-required=1 placeholder={{::s.firstname.placeholder}}>{{::s.firstname.help}}</pf-text><pf-text title={{::s.lastname.title}} ng-model=ngModel[s.lastname.model] ng-required=1 placeholder={{::s.lastname.placeholder}}>{{::s.lastname.help}}</pf-text><pf-email title={{::s.email.title}} ng-model=ngModel[s.email.model] ng-required=1>{{::s.email.help}}</pf-email><pf-password title={{::s.password.title}} ng-model=ngModel[s.password.model] ng-required=1>{{::s.password.help}}</pf-password><pf-password title={{::s.confirmPassword.title}} ng-model=ngModel[s.confirmPassword.model] ng-required=1 confirm=ngModel[s.password.model]>{{::s.confirmPassword.help}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>{{::s.meta.submit}}</button></fieldset></form>");
 }]);
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /** Polyfill for string ops */
-  practicalForms.startsWith = function(str, val) {
+  pf.startsWith = function(str, val) {
     return str.substring(0, val.length) === val;
   };
   /** Polyfill for string ops */
-  practicalForms.endsWith = function(str, val) {
+  pf.endsWith = function(str, val) {
     return str.substring(str.length - val.length, str.length) === val;
   };
 
   /** Main angular modules */
-  practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
+  pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  practicalForms.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
+  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
     $scope.params = params;
     $scope.Ok = function() {
       $uibModalInstance.close();
@@ -79,7 +79,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
    */
-  practicalForms.hasTransclude = function(element) {
+  pf.hasTransclude = function(element) {
     var e = element.find('p').html();
     if (e === undefined) {
       return false;
@@ -89,7 +89,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   };
 
   /** Set the dirty flage when ever the modelValue changes */
-  practicalForms.setDirty = function(modelValue, prevValue, form) {
+  pf.setDirty = function(modelValue, prevValue, form) {
     if (modelValue !== prevValue && modelValue !== '') {
       form.subform.name.$setDirty();
     }
@@ -99,7 +99,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Generate id for elements using GUID like string
    * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
    */
-  practicalForms.gerenateId = function (){
+  pf.gerenateId = function() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
@@ -109,13 +109,45 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       s4() + '-' + s4() + s4() + s4();
   };
 
-  practicalForms.valOrDefault = function(val, def){
+  pf.valOrDefault = function(val, def) {
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '1.1.1';
+  /**
+   * Gets the valus (or defaults) for the form information
+   * @param opts {object} The options object from the binded properties
+   * @param header {string} The form header string, i.e. "Personal Infromation"
+   * @param submit {string} The submit button text, i.e. "Submit"  
+   */
+  pf.formOptions = function(opts, header, submit) {
+    var meta = opts.meta || {} ;
+    return {
+      header: pf.valOrDefault(meta.header, header),
+      submit: pf.valOrDefault(meta.submit, submit),
+    };
+  };
 
-}(window.practicalForms = window.practicalForms || {}));
+  /** 
+   * Get the values (or defaults) for all of the data for a form input
+   * @param opt {object} The current options object
+   * @param name {string} The name of the form input, i.e. "firstname"
+   * @param title {string} The displayed name of the input, i.e. "First Name"
+   * @param help {string} The help text of the input i.e. "Your first name"
+   * @param pl {string} The placeholder of the input i.e. "Ex. John Doe"
+   */
+  pf.vORdInput = function(opts, name, title, help, pl) {
+    var prop = opts[name] || {};
+    return {
+      title: pf.valOrDefault(prop.title, title),
+      model: pf.valOrDefault(prop.model, name),
+      help: pf.valOrDefault(prop.help, help),
+      placeholder: pf.valOrDefault(prop.placeholder, pl),
+    };
+  };
+
+  pf.VERSION = '1.1.1';
+
+} (window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
   'use strict';
@@ -1077,24 +1109,26 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormRegister', function() {
+
+  function parseOpts(opts) {
+    opts = opts || {};
+    return {
+      meta: pf.formOptions(opts, 'Register', 'Create Account'),
+      firstname: pf.vORdInput(opts, 'firstname', 'First Name', '', 'Ex. John'),
+      lastname: pf.vORdInput(opts, 'lastname', 'Last Name', '', 'Ex. Doe'),
+      email: pf.vORdInput(opts, 'email', 'Email', '', 'Ex. john.doe@someplace.com'),
+      password: pf.vORdInput(opts, 'password', 'Password', '', ''),
+      confirmPassword: pf.vORdInput(opts, 'confirmPassword', 'Confirm Password', '', ''),
+    };
+  }
+  pf.module.directive('pfFormRegister', function() {
     return {
       scope: {
-        header: '@',
         ngModel: '=',
         ngSubmit: '&',
-        firstname: '@',
-        lastname: '@',
-        email: '@',
-        password: '@',
-        confirmPassword: '@',
-
-        firstnameHelp: '@',
-        lastnameHelp: '@',
-        emailHelp: '@',
-        passwordHelp: '@',
+        settings: '=?'
       },
       require: '^form',
       restrict: 'E',
@@ -1102,15 +1136,10 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/registerform.html',
       link: function(scope, element) {
-        scope._header = practicalForms.valOrDefault(scope.header, 'Register');
-        scope._firstname = practicalForms.valOrDefault(scope.firstname ,'firstname');
-        scope._lastname = practicalForms.valOrDefault(scope.lastname ,'lastname');
-        scope._email = practicalForms.valOrDefault(scope.email , 'email');
-        scope._password = practicalForms.valOrDefault(scope.password , 'password');
-        scope._confirmPassword = practicalForms.valOrDefault(scope.confirmPassword , 'confirmPassword');
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.s = parseOpts(scope.settings);
+        scope.hasTransclude = pf.hasTransclude(element);
       }
     };
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+} (window.practicalForms = window.practicalForms || {}));

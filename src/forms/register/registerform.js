@@ -1,21 +1,23 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormRegister', function() {
+
+  function parseOpts(opts) {
+    opts = opts || {};
+    return {
+      meta: pf.formOptions(opts, 'Register', 'Create Account'),
+      firstname: pf.vORdInput(opts, 'firstname', 'First Name', '', 'Ex. John'),
+      lastname: pf.vORdInput(opts, 'lastname', 'Last Name', '', 'Ex. Doe'),
+      email: pf.vORdInput(opts, 'email', 'Email', '', 'Ex. john.doe@someplace.com'),
+      password: pf.vORdInput(opts, 'password', 'Password', '', ''),
+      confirmPassword: pf.vORdInput(opts, 'confirmPassword', 'Confirm Password', '', ''),
+    };
+  }
+  pf.module.directive('pfFormRegister', function() {
     return {
       scope: {
-        header: '@',
         ngModel: '=',
         ngSubmit: '&',
-        firstname: '@',
-        lastname: '@',
-        email: '@',
-        password: '@',
-        confirmPassword: '@',
-
-        firstnameHelp: '@',
-        lastnameHelp: '@',
-        emailHelp: '@',
-        passwordHelp: '@',
+        settings: '=?'
       },
       require: '^form',
       restrict: 'E',
@@ -23,15 +25,10 @@
       transclude: true,
       templateUrl: '/jjp/pf/registerform.html',
       link: function(scope, element) {
-        scope._header = practicalForms.valOrDefault(scope.header, 'Register');
-        scope._firstname = practicalForms.valOrDefault(scope.firstname ,'firstname');
-        scope._lastname = practicalForms.valOrDefault(scope.lastname ,'lastname');
-        scope._email = practicalForms.valOrDefault(scope.email , 'email');
-        scope._password = practicalForms.valOrDefault(scope.password , 'password');
-        scope._confirmPassword = practicalForms.valOrDefault(scope.confirmPassword , 'confirmPassword');
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.s = parseOpts(scope.settings);
+        scope.hasTransclude = pf.hasTransclude(element);
       }
     };
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+} (window.practicalForms = window.practicalForms || {}));

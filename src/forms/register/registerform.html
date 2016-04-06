@@ -1,12 +1,12 @@
 <form name="form" >
   <fieldset>
-    <legend>{{::_header}}</legend>
-    <pf-text title="First Name" ng-model="ngModel[_firstname]" ng-required=1 placeholder="Example: John">{{firstnameHelp}}</pf-text>
-    <pf-text title="Last Name" ng-model="ngModel[_lastname]" ng-required=1 placeholder="Example: Doe">{{lastnameHelp}}</pf-text>
-    <pf-email title="Email" ng-model="ngModel[_email]" ng-required=1>{{emailHelp}}</pf-email>
-    <pf-password title="Password" ng-model="ngModel[_password]" ng-required=1>{{passwordHelp}}</pf-password>
-    <pf-password title="Confirm Password" ng-model="ngModel[_confirmPassword]" ng-required=1 confirm="ngModel[_password]">{{passwordHelp}}</pf-password>
+    <legend>{{::s.meta.header}}</legend>
+    <pf-text title="{{::s.firstname.title}}" ng-model="ngModel[s.firstname.model]" ng-required=1 placeholder="{{::s.firstname.placeholder}}">{{::s.firstname.help}}</pf-text>
+    <pf-text title="{{::s.lastname.title}}" ng-model="ngModel[s.lastname.model]" ng-required=1 placeholder="{{::s.lastname.placeholder}}">{{::s.lastname.help}}</pf-text>
+    <pf-email title="{{::s.email.title}}" ng-model="ngModel[s.email.model]" ng-required=1>{{::s.email.help}}</pf-email>
+    <pf-password title="{{::s.password.title}}" ng-model="ngModel[s.password.model]" ng-required=1>{{::s.password.help}}</pf-password>
+    <pf-password title="{{::s.confirmPassword.title}}" ng-model="ngModel[s.confirmPassword.model]" ng-required=1 confirm="ngModel[s.password.model]">{{::s.confirmPassword.help}}</pf-password>
     <span ng-transclude >&nbsp;</span>
-    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">Create Account</button>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">{{::s.meta.submit}}</button>
   </fieldset>
 </form>
