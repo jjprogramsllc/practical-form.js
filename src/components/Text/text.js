@@ -1,9 +1,9 @@
-(function( practicalForms, undefined ) {
+(function(pf, undefined ) {
   'use strict';
   /**
    * Text input that has basic validation
    */
-  practicalForms.module.directive('pfText', function(){
+  pf.module.directive('pfText', function(){
     return {
       scope: {
         title: '@',
@@ -17,9 +17,9 @@
       transclude: true,
       templateUrl: '/jjp/pf/text.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });

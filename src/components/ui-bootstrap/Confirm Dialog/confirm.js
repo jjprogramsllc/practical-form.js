@@ -1,7 +1,7 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
 
-  practicalForms.module.directive('pfConfirm', [
+  pf.module.directive('pfConfirm', [
     '$uibModal',
     function($uibModal) {
       return {

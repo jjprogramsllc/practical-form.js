@@ -147,9 +147,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 } (window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfCheckbox', function() {
+  pf.module.directive('pfCheckbox', function() {
     return {
       restrict: 'E',
       scope: {
@@ -162,8 +162,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       replace: true,
       templateUrl: '/jjp/pf/checkbox.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
       }
     };
@@ -171,9 +171,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfEmail', function() {
+  pf.module.directive('pfEmail', function() {
     return {
       restrict: 'E',
       scope: {
@@ -187,17 +187,17 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/email.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfGroup', function() {
+  pf.module.directive('pfGroup', function() {
     return {
       restrict: 'E',
       scope: {
@@ -211,12 +211,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive('pfNumber', function() {
+  pf.module.directive('pfNumber', function() {
     return {
       restrict: 'E',
       scope: {
@@ -232,14 +232,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/number.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
-  practicalForms.module.directive('pfNumberMask', function() {
+  pf.module.directive('pfNumberMask', function() {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -271,9 +271,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function( practicalForms, undefined ) {
+(function(pf, undefined ) {
   'use strict';
-  practicalForms.module.directive('pfPassword', function(){
+  pf.module.directive('pfPassword', function(){
     return {
       restrict: 'E',
       scope: {
@@ -288,9 +288,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/password.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
         if('confirm' in scope){
           scope.subform.name.$validators.confirm = function(modelValue) {
             if (!modelValue) { return false; }
@@ -304,9 +304,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }( window.practicalForms = window.practicalForms || {} ));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfRegex', function(){
+  pf.module.directive('pfRegex', function(){
     return {
       restrict: 'E',
       scope: {
@@ -324,9 +324,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/pattern.html',
         link: function(scope, element) {
-          scope.id = practicalForms.gerenateId();
-          scope.hasTransclude = practicalForms.hasTransclude(element);
-          scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+          scope.id = pf.gerenateId();
+          scope.hasTransclude = pf.hasTransclude(element);
+          scope.$watch('subform.name.$modelValue', pf.setDirty);
         }
     };
   });
@@ -419,9 +419,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfPhone', function() {
+  pf.module.directive('pfPhone', function() {
     return {
       restrict: 'E',
       scope: {
@@ -434,22 +434,22 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/phone.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /*
    * Single Picture Uploader
    * Provides a preview of the image before uploading
    *
    */
-  practicalForms.module.factory('jjp.FileObject', [
+  pf.module.factory('jjp.FileObject', [
     '$q',
     function($q) {
       var onLoad = function(reader, deferred) {
@@ -488,7 +488,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     }
   ]);
 
-  practicalForms.module.directive('pfPictureUploader', function() {
+  pf.module.directive('pfPictureUploader', function() {
     return {
       restrict: 'E',
       scope: {
@@ -518,8 +518,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             });
           }
         });
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       },
 
       controller: [
@@ -589,9 +589,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfRadio', function() {
+  pf.module.directive('pfRadio', function() {
     return {
       restrict: 'E',
       scope: {
@@ -605,8 +605,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       replace: true,
       templateUrl: '/jjp/pf/radio.html',
       link: function(scope, element, attrs) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
         scope.check = scope.ngRequired;
         scope.name = attrs.ngModel;
@@ -616,7 +616,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   var STATES = {
     'alabama': 'al',
@@ -745,7 +745,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     'vi': 'virgin islands'
   };
 
-  practicalForms.module.directive('pfState', function() {
+  pf.module.directive('pfState', function() {
     return {
       require: [
         'ngModel', '^form'
@@ -764,9 +764,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       link: function(scope, element) {
         //TODO: See below
         // link: function(scope, element, attributes, ctrls) {
-        scope.id = practicalForms.gerenateId();
+        scope.id = pf.gerenateId();
         var output = scope.output || 'code';
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.hasTransclude = pf.hasTransclude(element);
         // TODO: test to see if this line is needed!
         // var ngModel = ctrls[0];
 
@@ -802,12 +802,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function( practicalForms, undefined ) {
+(function(pf, undefined ) {
   'use strict';
   /**
    * Text input that has basic validation
    */
-  practicalForms.module.directive('pfText', function(){
+  pf.module.directive('pfText', function(){
     return {
       scope: {
         title: '@',
@@ -821,21 +821,21 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/text.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }( window.practicalForms = window.practicalForms || {} ));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Text area input
    */
-  practicalForms.module.directive('pfTextarea', function() {
+  pf.module.directive('pfTextarea', function() {
     return {
       restrict: 'E',
       scope: {
@@ -853,18 +853,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/textarea.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfUrl', function() {
+  pf.module.directive('pfUrl', function() {
     return {
       restrict: 'E',
       scope: {
@@ -878,20 +878,20 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/url.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive('pfZip', function() {
+  pf.module.directive('pfZip', function() {
     return {
       restrict: 'E',
       scope: {
@@ -905,19 +905,19 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/zipcode.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
 
-  practicalForms.module.directive('pfConfirm', [
+  pf.module.directive('pfConfirm', [
     '$uibModal',
     function($uibModal) {
       return {
@@ -950,9 +950,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   ]);
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfDate', function() {
+  pf.module.directive('pfDate', function() {
     return {
       restrict: 'E',
       scope: {
@@ -971,18 +971,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         if (typeof scope.minDate !== 'undefined') {
           scope.datepickerOptions.minDate = scope.minDate;
         }
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
 
-  practicalForms.module.directive('pfInfo', [
+  pf.module.directive('pfInfo', [
     '$uibModal',
     function($uibModal) {
       return {

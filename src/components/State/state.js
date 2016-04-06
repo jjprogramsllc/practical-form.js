@@ -1,4 +1,4 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   var STATES = {
     'alabama': 'al',
@@ -127,7 +127,7 @@
     'vi': 'virgin islands'
   };
 
-  practicalForms.module.directive('pfState', function() {
+  pf.module.directive('pfState', function() {
     return {
       require: [
         'ngModel', '^form'
@@ -146,9 +146,9 @@
       link: function(scope, element) {
         //TODO: See below
         // link: function(scope, element, attributes, ctrls) {
-        scope.id = practicalForms.gerenateId();
+        scope.id = pf.gerenateId();
         var output = scope.output || 'code';
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.hasTransclude = pf.hasTransclude(element);
         // TODO: test to see if this line is needed!
         // var ngModel = ctrls[0];
 

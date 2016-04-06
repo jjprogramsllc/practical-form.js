@@ -1,6 +1,6 @@
-(function( practicalForms, undefined ) {
+(function(pf, undefined ) {
   'use strict';
-  practicalForms.module.directive('pfPassword', function(){
+  pf.module.directive('pfPassword', function(){
     return {
       restrict: 'E',
       scope: {
@@ -15,9 +15,9 @@
       transclude: true,
       templateUrl: '/jjp/pf/password.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
         if('confirm' in scope){
           scope.subform.name.$validators.confirm = function(modelValue) {
             if (!modelValue) { return false; }
