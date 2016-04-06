@@ -43,6 +43,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "<form name=form><fieldset><legend>{{::_header}}</legend><pf-password title=\"Old Password\" ng-model=ngModel[_oldpassword] ng-required=1>{{oldPasswordHelp}}</pf-password><pf-password title=\"New Password\" ng-model=ngModel[_newpassword] ng-required=1>{{newPasswordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_newpassword]>{{confirmPasswordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Change Password</button></fieldset></form>");
   $templateCache.put("/jjp/pf/loginform.html",
     "<form name=form><fieldset><legend>{{::_header}}</legend><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
+  $templateCache.put("/jjp/pf/loginExform.html",
+    "<form name=form><fieldset><legend>{{::opt.header}}</legend><pf-email title=Email ng-model=ngModel[opt.username] ng-required=1 ng-if=opt.onlyEmail>{{opt.usernameHelp}}</pf-email><pf-text title=Username ng-model=ngModel[opt.username] ng-required=1 ng-if=!opt.onlyEmail placeholder=awesomeUser6>{{opt.usernameHelp}}</pf-text><pf-password title=Password ng-model=ngModel[opt.password] ng-required=1>{{opt.passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
   $templateCache.put("/jjp/pf/registerform.html",
     "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_password]>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
 }]);
@@ -1040,6 +1042,40 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   });
 
 }( window.practicalForms = window.practicalForms || {} ));
+
+(function(pf, undefined) {
+    'use strict';
+
+    function parseOptions(opt) {
+        opt = opt || {};
+        opt.onlyEmail = pf.valOrDefault(opt.onlyEmail, false);
+        opt.usernameHelp = pf.valOrDefault(opt.usernameHelp, '');
+        opt.passwordHelp = pf.valOrDefault(opt.passwordHelp, '');
+        opt.header = pf.valOrDefault(opt.header, 'Login');
+        opt.username = pf.valOrDefault(opt.username, 'username');
+        opt.password = pf.valOrDefault(opt.password, 'password');
+        return opt;
+    }
+
+    pf.module.directive('pfFormLoginEx', function() {
+        return {
+            scope: {
+                header: '@',
+                ngModel: '=',
+                ngSubmit: '&',
+                options: '=?'
+            },
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            templateUrl: '/jjp/pf/loginExform.html',
+            link: function(scope) {
+                scope.opt = parseOptions(scope.options);
+            }
+        };
+    });
+
+}(window.practicalForms = window.practicalForms || {}));
 
 (function(practicalForms, undefined) {
   'use strict';
