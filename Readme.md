@@ -96,7 +96,8 @@ There is not much to document. But here are a few points:
     * `ngRequired`: Determines if the input is required, default false. _standard angular style_
 * Every Form has these attributes
     * `ngModel`: The object to bind too
-    * `ngSubmit`: The function to call when the form is submitted 
+    * `ngDisabled`: Disabled the entire form _Note: You must add the ngDisabled attribute to the custom inputs on a pre built form_
+    * `ngSubmit`: The function to call when the form is submitted
     * `settings`: An optional settings object to customized the form
 * Every input has a transculde property so some help text can be set (actually anything can be set there)
 * The forms are just grouped collections of inputs with some default options
@@ -115,7 +116,7 @@ The form setting object of the following properties:
     "help": "{string} Some descriptive help text placed under the label",
     "placeholder": "{string} The text in the placeholder on the form"
   },
-} 
+}
 ```
 
 
