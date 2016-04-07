@@ -1,6 +1,6 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfDate', function() {
+  pf.module.directive('pfDate', function() {
     return {
       restrict: 'E',
       scope: {
@@ -19,8 +19,8 @@
         if (typeof scope.minDate !== 'undefined') {
           scope.datepickerOptions.minDate = scope.minDate;
         }
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });

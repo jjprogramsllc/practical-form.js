@@ -1,9 +1,9 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive('pfNumber', function() {
+  pf.module.directive('pfNumber', function() {
     return {
       restrict: 'E',
       scope: {
@@ -19,14 +19,14 @@
       transclude: true,
       templateUrl: '/jjp/pf/number.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
-  practicalForms.module.directive('pfNumberMask', function() {
+  pf.module.directive('pfNumberMask', function() {
     return {
       restrict: 'A',
       require: 'ngModel',

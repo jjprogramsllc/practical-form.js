@@ -1,4 +1,4 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   var STATES = {
     'alabama': 'al',
@@ -127,7 +127,7 @@
     'vi': 'virgin islands'
   };
 
-  practicalForms.module.directive('pfState', function() {
+  pf.module.directive('pfState', function() {
     return {
       require: [
         'ngModel', '^form'
@@ -144,13 +144,9 @@
       transclude: true,
       templateUrl: '/jjp/pf/state.html',
       link: function(scope, element) {
-        //TODO: See below
-        // link: function(scope, element, attributes, ctrls) {
-        scope.id = practicalForms.gerenateId();
+        scope.id = pf.gerenateId();
         var output = scope.output || 'code';
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        // TODO: test to see if this line is needed!
-        // var ngModel = ctrls[0];
+        scope.hasTransclude = pf.hasTransclude(element);
 
         scope.subform.name.$validators.stateCode = function(modelValue) {
           if (!modelValue) {
@@ -164,9 +160,9 @@
           viewValue = viewValue.toLowerCase();
           if (viewValue in STATES) {
             if (output === 'code') {
-              return viewValue.length === 2 ? viewValue : STATES[viewValue];
+              return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue];
             } else {
-              return viewValue.length === 2 ? STATES[viewValue] : viewValue;
+              return viewValue.length === 2 ? STATES[viewValue] : viewValue.toUpperCase();
             }
           } else {
             return undefined;

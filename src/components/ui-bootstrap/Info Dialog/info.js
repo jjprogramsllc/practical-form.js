@@ -1,7 +1,7 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
 
-  practicalForms.module.directive('pfInfo', [
+  pf.module.directive('pfInfo', [
     '$uibModal',
     function($uibModal) {
       return {

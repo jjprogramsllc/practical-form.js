@@ -1,6 +1,6 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfGroup', function() {
+  pf.module.directive('pfGroup', function() {
     return {
       restrict: 'E',
       scope: {

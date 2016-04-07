@@ -1,6 +1,6 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfEmail', function() {
+  pf.module.directive('pfEmail', function() {
     return {
       restrict: 'E',
       scope: {
@@ -14,9 +14,9 @@
       transclude: true,
       templateUrl: '/jjp/pf/email.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });

@@ -1,11 +1,11 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /*
    * Single Picture Uploader
    * Provides a preview of the image before uploading
    *
    */
-  practicalForms.module.factory('jjp.FileObject', [
+  pf.module.factory('jjp.FileObject', [
     '$q',
     function($q) {
       var onLoad = function(reader, deferred) {
@@ -44,7 +44,7 @@
     }
   ]);
 
-  practicalForms.module.directive('pfPictureUploader', function() {
+  pf.module.directive('pfPictureUploader', function() {
     return {
       restrict: 'E',
       scope: {
@@ -74,8 +74,8 @@
             });
           }
         });
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       },
 
       controller: [

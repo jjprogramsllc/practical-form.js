@@ -1,6 +1,6 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfCheckbox', function() {
+  pf.module.directive('pfCheckbox', function() {
     return {
       restrict: 'E',
       scope: {
@@ -13,8 +13,8 @@
       replace: true,
       templateUrl: '/jjp/pf/checkbox.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
       }
     };

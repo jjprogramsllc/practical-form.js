@@ -1,6 +1,6 @@
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfRadio', function() {
+  pf.module.directive('pfRadio', function() {
     return {
       restrict: 'E',
       scope: {
@@ -14,8 +14,8 @@
       replace: true,
       templateUrl: '/jjp/pf/radio.html',
       link: function(scope, element, attrs) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
         scope.check = scope.ngRequired;
         scope.name = attrs.ngModel;

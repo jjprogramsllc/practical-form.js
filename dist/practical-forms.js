@@ -1,4 +1,4 @@
-/*! practical-forms v1.1.1 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v2.0.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-required={{ngRequired}} type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -40,31 +40,29 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/info.html",
     "<div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Ok()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn btn-primary\" ng-click=Ok()>OK</button></div>");
   $templateCache.put("/jjp/pf/passwordform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-password title=\"Old Password\" ng-model=ngModel[_oldpassword] ng-required=1>{{oldPasswordHelp}}</pf-password><pf-password title=\"New Password\" ng-model=ngModel[_newpassword] ng-required=1>{{newPasswordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_newpassword]>{{confirmPasswordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Change Password</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{::s.meta.header}}</legend><pf-password title={{::s.oldpassword.title}} ng-model=ngModel[s.oldpassword.model] ng-required=1>{{::s.oldpassword.help}}</pf-password><pf-password title={{::s.newpassword.title}} ng-model=ngModel[s.newpassword.model] ng-required=1>{{::s.newpassword.help}}</pf-password><pf-password title={{::s.confirmPassword.title}} ng-model=ngModel[s.confirmPassword.model] ng-required=1 confirm=ngModel[s.newpassword.model]>{{::s.confirmPassword.help}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>{{::s.meta.submit}}</button></fieldset></form>");
   $templateCache.put("/jjp/pf/loginform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
-  $templateCache.put("/jjp/pf/loginExform.html",
-    "<form name=form><fieldset><legend>{{::opt.header}}</legend><pf-email title=Email ng-model=ngModel[opt.username] ng-required=1 ng-if=opt.onlyEmail>{{opt.usernameHelp}}</pf-email><pf-text title=Username ng-model=ngModel[opt.username] ng-required=1 ng-if=!opt.onlyEmail placeholder=awesomeUser6>{{opt.usernameHelp}}</pf-text><pf-password title=Password ng-model=ngModel[opt.password] ng-required=1>{{opt.passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Login</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{::s.meta.header}}</legend><pf-email title={{::s.username.title}} ng-model=ngModel[s.username.model] ng-required=1 ng-if=s.meta.emailOnly placeholder={{::s.username.placeholder}}>{{::s.username.help}}</pf-email><pf-text title={{::s.username.title}} ng-model=ngModel[s.username.model] ng-required=1 ng-if=!s.meta.emailOnly placeholder={{::s.username.placeholder}}>{{::s.username.help}}</pf-text><pf-password title={{::s.password.title}} ng-model=ngModel[s.password.model] ng-required=1>{{::s.password.help}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>{{::s.meta.submit}}</button></fieldset></form>");
   $templateCache.put("/jjp/pf/registerform.html",
-    "<form name=form><fieldset><legend>{{::_header}}</legend><pf-text title=\"First Name\" ng-model=ngModel[_firstname] ng-required=1 placeholder=\"Example: John\">{{firstnameHelp}}</pf-text><pf-text title=\"Last Name\" ng-model=ngModel[_lastname] ng-required=1 placeholder=\"Example: Doe\">{{lastnameHelp}}</pf-text><pf-email title=Email ng-model=ngModel[_email] ng-required=1>{{emailHelp}}</pf-email><pf-password title=Password ng-model=ngModel[_password] ng-required=1>{{passwordHelp}}</pf-password><pf-password title=\"Confirm Password\" ng-model=ngModel[_confirmPassword] ng-required=1 confirm=ngModel[_password]>{{passwordHelp}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>Create Account</button></fieldset></form>");
+    "<form name=form><fieldset><legend>{{::s.meta.header}}</legend><pf-text title={{::s.firstname.title}} ng-model=ngModel[s.firstname.model] ng-required=1 placeholder={{::s.firstname.placeholder}}>{{::s.firstname.help}}</pf-text><pf-text title={{::s.lastname.title}} ng-model=ngModel[s.lastname.model] ng-required=1 placeholder={{::s.lastname.placeholder}}>{{::s.lastname.help}}</pf-text><pf-email title={{::s.email.title}} ng-model=ngModel[s.email.model] ng-required=1>{{::s.email.help}}</pf-email><pf-password title={{::s.password.title}} ng-model=ngModel[s.password.model] ng-required=1>{{::s.password.help}}</pf-password><pf-password title={{::s.confirmPassword.title}} ng-model=ngModel[s.confirmPassword.model] ng-required=1 confirm=ngModel[s.password.model]>{{::s.confirmPassword.help}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=form.$invalid>{{::s.meta.submit}}</button></fieldset></form>");
 }]);
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /** Polyfill for string ops */
-  practicalForms.startsWith = function(str, val) {
+  pf.startsWith = function(str, val) {
     return str.substring(0, val.length) === val;
   };
   /** Polyfill for string ops */
-  practicalForms.endsWith = function(str, val) {
+  pf.endsWith = function(str, val) {
     return str.substring(str.length - val.length, str.length) === val;
   };
 
   /** Main angular modules */
-  practicalForms.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
+  pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  practicalForms.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
+  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
     $scope.params = params;
     $scope.Ok = function() {
       $uibModalInstance.close();
@@ -79,7 +77,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
    */
-  practicalForms.hasTransclude = function(element) {
+  pf.hasTransclude = function(element) {
     var e = element.find('p').html();
     if (e === undefined) {
       return false;
@@ -89,7 +87,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   };
 
   /** Set the dirty flage when ever the modelValue changes */
-  practicalForms.setDirty = function(modelValue, prevValue, form) {
+  pf.setDirty = function(modelValue, prevValue, form) {
     if (modelValue !== prevValue && modelValue !== '') {
       form.subform.name.$setDirty();
     }
@@ -99,7 +97,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Generate id for elements using GUID like string
    * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
    */
-  practicalForms.gerenateId = function (){
+  pf.gerenateId = function() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
@@ -109,17 +107,49 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       s4() + '-' + s4() + s4() + s4();
   };
 
-  practicalForms.valOrDefault = function(val, def){
+  pf.valOrDefault = function(val, def) {
     return (val === '' || val === undefined) ? def : val;
   };
 
-  practicalForms.VERSION = '1.1.1';
+  /**
+   * Gets the valus (or defaults) for the form information
+   * @param opts {object} The options object from the binded properties
+   * @param header {string} The form header string, i.e. "Personal Infromation"
+   * @param submit {string} The submit button text, i.e. "Submit"  
+   */
+  pf.formOptions = function(opts, header, submit) {
+    var meta = opts.meta || {} ;
+    return {
+      header: pf.valOrDefault(meta.header, header),
+      submit: pf.valOrDefault(meta.submit, submit),
+    };
+  };
 
-}(window.practicalForms = window.practicalForms || {}));
+  /** 
+   * Get the values (or defaults) for all of the data for a form input
+   * @param opt {object} The current options object
+   * @param name {string} The name of the form input, i.e. "firstname"
+   * @param title {string} The displayed name of the input, i.e. "First Name"
+   * @param help {string} The help text of the input i.e. "Your first name"
+   * @param pl {string} The placeholder of the input i.e. "Ex. John Doe"
+   */
+  pf.vORdInput = function(opts, name, title, help, pl) {
+    var prop = opts[name] || {};
+    return {
+      title: pf.valOrDefault(prop.title, title),
+      model: pf.valOrDefault(prop.model, name),
+      help: pf.valOrDefault(prop.help, help),
+      placeholder: pf.valOrDefault(prop.placeholder, pl),
+    };
+  };
 
-(function(practicalForms, undefined) {
+  pf.VERSION = '2.0.0';
+
+} (window.practicalForms = window.practicalForms || {}));
+
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfCheckbox', function() {
+  pf.module.directive('pfCheckbox', function() {
     return {
       restrict: 'E',
       scope: {
@@ -132,8 +162,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       replace: true,
       templateUrl: '/jjp/pf/checkbox.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
       }
     };
@@ -141,9 +171,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfEmail', function() {
+  pf.module.directive('pfEmail', function() {
     return {
       restrict: 'E',
       scope: {
@@ -157,17 +187,17 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/email.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfGroup', function() {
+  pf.module.directive('pfGroup', function() {
     return {
       restrict: 'E',
       scope: {
@@ -181,12 +211,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive('pfNumber', function() {
+  pf.module.directive('pfNumber', function() {
     return {
       restrict: 'E',
       scope: {
@@ -202,14 +232,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/number.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
-  practicalForms.module.directive('pfNumberMask', function() {
+  pf.module.directive('pfNumberMask', function() {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -241,9 +271,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function( practicalForms, undefined ) {
+(function(pf, undefined ) {
   'use strict';
-  practicalForms.module.directive('pfPassword', function(){
+  pf.module.directive('pfPassword', function(){
     return {
       restrict: 'E',
       scope: {
@@ -258,9 +288,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/password.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
         if('confirm' in scope){
           scope.subform.name.$validators.confirm = function(modelValue) {
             if (!modelValue) { return false; }
@@ -274,9 +304,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }( window.practicalForms = window.practicalForms || {} ));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfRegex', function(){
+  pf.module.directive('pfRegex', function(){
     return {
       restrict: 'E',
       scope: {
@@ -294,18 +324,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/pattern.html',
         link: function(scope, element) {
-          scope.id = practicalForms.gerenateId();
-          scope.hasTransclude = practicalForms.hasTransclude(element);
-          scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+          scope.id = pf.gerenateId();
+          scope.hasTransclude = pf.hasTransclude(element);
+          scope.$watch('subform.name.$modelValue', pf.setDirty);
         }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfPercentage', function() {
+  pf.module.directive('pfPercentage', function() {
     return {
       restrict: 'E',
       scope: {
@@ -319,25 +349,25 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/percentage.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
-  practicalForms.module.directive('pfPercentageMask', function() {
+  pf.module.directive('pfPercentageMask', function() {
     return {
       restrict: 'A',
       require: 'ngModel',
 
       link: function(scope, element, attrs, ctrl) {
         ctrl.$formatters.push(function(inputValue) {
-          return (new practicalForms.Percentage(inputValue)).pretty();
+          return (new pf.Percentage(inputValue)).pretty();
         });
 
         ctrl.$parsers.push(function(value) {
-          var p = new practicalForms.Percentage(value);
+          var p = new pf.Percentage(value);
           if (p.pretty() !== ctrl.$viewValue) {
             ctrl.$setViewValue(p.pretty());
             ctrl.$render();
@@ -355,10 +385,10 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   });
 
-  practicalForms.Percentage = function(s) {
+  pf.Percentage = function(s) {
     s = String(s);
     // determine if the string has % & the value doesn't end with %;
-    var needBackspace = (s.indexOf('%') < 0) && (!practicalForms.endsWith(s, '%'));
+    var needBackspace = (s.indexOf('%') < 0) && (!pf.endsWith(s, '%'));
     //Remove the leading zeros
     var trimedValue = s.replace(/^0*/, '');
     //only return the numbers
@@ -368,11 +398,11 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     }
   };
 
-  practicalForms.Percentage.prototype.value = function() {
+  pf.Percentage.prototype.value = function() {
     return parseFloat(this._value) || 0;
   };
 
-  practicalForms.Percentage.prototype.pretty = function() {
+  pf.Percentage.prototype.pretty = function() {
     //Adds a leading zero to the front of the singel digit precents: 01%
     if (this.value() > 9) {
       return this.value() + ' %';
@@ -381,7 +411,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     }
   };
 
-  practicalForms.Percentage.prototype.backspace = function() {
+  pf.Percentage.prototype.backspace = function() {
     // Used to delete the last number of the val;
     // Useful for binding to form when you only have a pretty value
     this._value = this._value.slice(0, this._value.length - 1);
@@ -389,9 +419,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfPhone', function() {
+  pf.module.directive('pfPhone', function() {
     return {
       restrict: 'E',
       scope: {
@@ -404,22 +434,22 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/phone.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /*
    * Single Picture Uploader
    * Provides a preview of the image before uploading
    *
    */
-  practicalForms.module.factory('jjp.FileObject', [
+  pf.module.factory('jjp.FileObject', [
     '$q',
     function($q) {
       var onLoad = function(reader, deferred) {
@@ -458,7 +488,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     }
   ]);
 
-  practicalForms.module.directive('pfPictureUploader', function() {
+  pf.module.directive('pfPictureUploader', function() {
     return {
       restrict: 'E',
       scope: {
@@ -488,8 +518,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             });
           }
         });
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       },
 
       controller: [
@@ -559,9 +589,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfRadio', function() {
+  pf.module.directive('pfRadio', function() {
     return {
       restrict: 'E',
       scope: {
@@ -575,8 +605,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       replace: true,
       templateUrl: '/jjp/pf/radio.html',
       link: function(scope, element, attrs) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
         scope.ngRequired = scope.ngRequired || false;
         scope.check = scope.ngRequired;
         scope.name = attrs.ngModel;
@@ -586,7 +616,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   var STATES = {
     'alabama': 'al',
@@ -715,7 +745,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     'vi': 'virgin islands'
   };
 
-  practicalForms.module.directive('pfState', function() {
+  pf.module.directive('pfState', function() {
     return {
       require: [
         'ngModel', '^form'
@@ -732,13 +762,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/state.html',
       link: function(scope, element) {
-        //TODO: See below
-        // link: function(scope, element, attributes, ctrls) {
-        scope.id = practicalForms.gerenateId();
+        scope.id = pf.gerenateId();
         var output = scope.output || 'code';
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        // TODO: test to see if this line is needed!
-        // var ngModel = ctrls[0];
+        scope.hasTransclude = pf.hasTransclude(element);
 
         scope.subform.name.$validators.stateCode = function(modelValue) {
           if (!modelValue) {
@@ -752,9 +778,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
           viewValue = viewValue.toLowerCase();
           if (viewValue in STATES) {
             if (output === 'code') {
-              return viewValue.length === 2 ? viewValue : STATES[viewValue];
+              return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue];
             } else {
-              return viewValue.length === 2 ? STATES[viewValue] : viewValue;
+              return viewValue.length === 2 ? STATES[viewValue] : viewValue.toUpperCase();
             }
           } else {
             return undefined;
@@ -772,12 +798,12 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function( practicalForms, undefined ) {
+(function(pf, undefined ) {
   'use strict';
   /**
    * Text input that has basic validation
    */
-  practicalForms.module.directive('pfText', function(){
+  pf.module.directive('pfText', function(){
     return {
       scope: {
         title: '@',
@@ -791,21 +817,21 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/text.html',
       link: function(scope, element){
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }( window.practicalForms = window.practicalForms || {} ));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Text area input
    */
-  practicalForms.module.directive('pfTextarea', function() {
+  pf.module.directive('pfTextarea', function() {
     return {
       restrict: 'E',
       scope: {
@@ -823,18 +849,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/textarea.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfUrl', function() {
+  pf.module.directive('pfUrl', function() {
     return {
       restrict: 'E',
       scope: {
@@ -848,20 +874,20 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/url.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
   /**
    * Input for entering numbers
    */
-  practicalForms.module.directive('pfZip', function() {
+  pf.module.directive('pfZip', function() {
     return {
       restrict: 'E',
       scope: {
@@ -875,19 +901,19 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/zipcode.html',
       link: function(scope, element) {
-        scope.id = practicalForms.gerenateId();
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
 
-  practicalForms.module.directive('pfConfirm', [
+  pf.module.directive('pfConfirm', [
     '$uibModal',
     function($uibModal) {
       return {
@@ -920,9 +946,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   ]);
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfDate', function() {
+  pf.module.directive('pfDate', function() {
     return {
       restrict: 'E',
       scope: {
@@ -941,18 +967,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         if (typeof scope.minDate !== 'undefined') {
           scope.datepickerOptions.minDate = scope.minDate;
         }
-        scope.hasTransclude = practicalForms.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', practicalForms.setDirty);
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
     };
   });
 
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
 
-  practicalForms.module.directive('pfInfo', [
+  pf.module.directive('pfInfo', [
     '$uibModal',
     function($uibModal) {
       return {
@@ -981,20 +1007,24 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   ]);
 }(window.practicalForms = window.practicalForms || {}));
 
-(function(practicalForms, undefined) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormPassword', function() {
+
+  function parseSettings(opt) {
+    opt = opt || { meta: {} };
+    return {
+      meta: pf.formOptions(opt, 'Change Password', 'Submit'),
+      oldpassword: pf.vORdInput(opt, 'oldpassword', 'Old Password', '', ''),
+      newpassword: pf.vORdInput(opt, 'newpassword', 'New Password', '', ''),
+      confirmPassword: pf.vORdInput(opt, 'confirmPassword', 'Confirm Password', '', ''),
+    };
+  }
+  pf.module.directive('pfFormPassword', function() {
     return {
       scope: {
-        header: '@',
         ngModel: '=',
         ngSubmit: '&',
-        oldPassword: '@',
-        newPassword: '@',
-        confirmPassword: '@',
-        oldPasswordHelp: '@',
-        newPasswordHelp: '@',
-        confirmPasswordHelp: '@'
+        settings: '=?',
       },
       require: '^form',
       restrict: 'E',
@@ -1002,99 +1032,68 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/passwordform.html',
       link: function(scope, element) {
-        scope._header = practicalForms.valOrDefault(scope.header, 'Change Password');
-        scope._oldpassword = practicalForms.valOrDefault(scope.oldPassword , 'oldPassword');
-        scope._newpassword = practicalForms.valOrDefault(scope.newPassword , 'newPassword');
-        scope._confirmPassword = practicalForms.valOrDefault(scope.confirmPassword , 'confirmPassword');
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.s = parseSettings(scope.settings);
+        scope.hasTransclude = pf.hasTransclude(element);
       }
     };
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+} (window.practicalForms = window.practicalForms || {}));
 
-(function( practicalForms, undefined ) {
+(function(pf, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormLogin', function(){
+
+  function parseOpts(opts) {
+    opts = opts || { meta: {} };
+    var settings = {
+      meta: pf.formOptions(opts, 'Login', 'Login'),
+      username: pf.vORdInput(opts, 'username', 'Username', '', 'Ex. johndoe2'),
+      password: pf.vORdInput(opts, 'password', 'Password', '', ''),
+    };
+    settings.meta.emailOnly = pf.valOrDefault(opts.meta.emailOnly, false);
+    return settings;
+  }
+
+  pf.module.directive('pfFormLogin', function() {
     return {
       scope: {
-        header: '@',
         ngModel: '=',
         ngSubmit: '&',
-        email: '@',
-        password: '@',
-        emailHelp: '@',
-        passwordHelp: '@',
+        settings: '=?'
       },
       restrict: 'E',
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/loginform.html',
-      link: function(scope, element){
-        scope._header = practicalForms.valOrDefault(scope.header, 'Login');
-        scope._email = practicalForms.valOrDefault(scope.email , 'email');
-        scope._password = practicalForms.valOrDefault(scope.password , 'password');
-        scope.emailHelp = practicalForms.valOrDefault(scope.emailHelp , '');
-        scope.passwordHelp = practicalForms.valOrDefault(scope.passwordHelp , '');
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+      link: function(scope, element) {
+        scope.s = parseOpts(scope.settings);
+        scope.hasTransclude = pf.hasTransclude(element);
       }
     };
   });
 
-}( window.practicalForms = window.practicalForms || {} ));
+} (window.practicalForms = window.practicalForms || {}));
 
 (function(pf, undefined) {
-    'use strict';
-
-    function parseOptions(opt) {
-        opt = opt || {};
-        opt.onlyEmail = pf.valOrDefault(opt.onlyEmail, false);
-        opt.usernameHelp = pf.valOrDefault(opt.usernameHelp, '');
-        opt.passwordHelp = pf.valOrDefault(opt.passwordHelp, '');
-        opt.header = pf.valOrDefault(opt.header, 'Login');
-        opt.username = pf.valOrDefault(opt.username, 'username');
-        opt.password = pf.valOrDefault(opt.password, 'password');
-        return opt;
-    }
-
-    pf.module.directive('pfFormLoginEx', function() {
-        return {
-            scope: {
-                header: '@',
-                ngModel: '=',
-                ngSubmit: '&',
-                options: '=?'
-            },
-            restrict: 'E',
-            replace: true,
-            transclude: true,
-            templateUrl: '/jjp/pf/loginExform.html',
-            link: function(scope) {
-                scope.opt = parseOptions(scope.options);
-            }
-        };
-    });
-
-}(window.practicalForms = window.practicalForms || {}));
-
-(function(practicalForms, undefined) {
   'use strict';
-  practicalForms.module.directive('pfFormRegister', function() {
+
+  function parseOpts(opts) {
+    opts = opts || {};
+    return {
+      meta: pf.formOptions(opts, 'Register', 'Create Account'),
+      firstname: pf.vORdInput(opts, 'firstname', 'First Name', '', 'Ex. John'),
+      lastname: pf.vORdInput(opts, 'lastname', 'Last Name', '', 'Ex. Doe'),
+      email: pf.vORdInput(opts, 'email', 'Email', '', 'Ex. john.doe@someplace.com'),
+      password: pf.vORdInput(opts, 'password', 'Password', '', ''),
+      confirmPassword: pf.vORdInput(opts, 'confirmPassword', 'Confirm Password', '', ''),
+    };
+  }
+  pf.module.directive('pfFormRegister', function() {
     return {
       scope: {
-        header: '@',
         ngModel: '=',
         ngSubmit: '&',
-        firstname: '@',
-        lastname: '@',
-        email: '@',
-        password: '@',
-        confirmPassword: '@',
-
-        firstnameHelp: '@',
-        lastnameHelp: '@',
-        emailHelp: '@',
-        passwordHelp: '@',
+        settings: '=?'
       },
       require: '^form',
       restrict: 'E',
@@ -1102,15 +1101,10 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       transclude: true,
       templateUrl: '/jjp/pf/registerform.html',
       link: function(scope, element) {
-        scope._header = practicalForms.valOrDefault(scope.header, 'Register');
-        scope._firstname = practicalForms.valOrDefault(scope.firstname ,'firstname');
-        scope._lastname = practicalForms.valOrDefault(scope.lastname ,'lastname');
-        scope._email = practicalForms.valOrDefault(scope.email , 'email');
-        scope._password = practicalForms.valOrDefault(scope.password , 'password');
-        scope._confirmPassword = practicalForms.valOrDefault(scope.confirmPassword , 'confirmPassword');
-        scope.hasTransclude = practicalForms.hasTransclude(element);
+        scope.s = parseOpts(scope.settings);
+        scope.hasTransclude = pf.hasTransclude(element);
       }
     };
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+} (window.practicalForms = window.practicalForms || {}));
