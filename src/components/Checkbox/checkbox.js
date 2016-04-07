@@ -1,23 +1,7 @@
-(function(pf, undefined) {
+(function (pf, undefined) {
   'use strict';
-  pf.module.directive('pfCheckbox', function() {
-    return {
-      restrict: 'E',
-      scope: {
-        title: '@',
-        ngModel: '=',
-        required: '=?',
-        ngRequired:'=?'
-      },
-      transclude: true,
-      replace: true,
-      templateUrl: '/jjp/pf/checkbox.html',
-      link: function(scope, element){
-        scope.id = pf.gerenateId();
-        scope.hasTransclude = pf.hasTransclude(element);
-        scope.ngRequired = scope.ngRequired || false;
-      }
-    };
+  pf.module.directive('pfCheckbox', function () {
+    return pf.baseDirective('checkbox');
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+}(window.practicalForms));

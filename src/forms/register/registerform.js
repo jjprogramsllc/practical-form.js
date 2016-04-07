@@ -31,4 +31,4 @@
     };
   });
 
-} (window.practicalForms = window.practicalForms || {}));
+} (window.practicalForms));

@@ -1,4 +1,4 @@
-(function(pf, undefined) {
+(function (pf, angular, undefined) {
   'use strict';
   var STATES = {
     'alabama': 'al',
@@ -124,58 +124,47 @@
     'mp': 'northern mariana islands',
     'pw': 'palau',
     'pr': 'puerto rico',
-    'vi': 'virgin islands'
+    'vi': 'virgin islands',
   };
 
-  pf.module.directive('pfState', function() {
-    return {
+  pf.module.directive('pfState', function () {
+    return angular.merge({
       require: [
-        'ngModel', '^form'
+        'ngModel', '^form',
       ],
-      restrict: 'E',
       scope: {
-        title: '@',
-        ngModel: '=',
-        required: '=?',
-        ngRequired: '=?',
         output: '@'
       },
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/state.html',
-      link: function(scope, element) {
+    }, pf.baseDirective('state'), {
+      link: function (scope, element) {
         scope.id = pf.gerenateId();
-        var output = scope.output || 'code';
+        scope.output = pf.valOrDefault(scope.output, 'code');
         scope.hasTransclude = pf.hasTransclude(element);
 
-        scope.subform.name.$validators.stateCode = function(modelValue) {
-          if (!modelValue) {
-            return false;
-          } else {
-            return modelValue.toLowerCase() in STATES;
-          }
+        scope.subform.name.$validators.stateCode = function (modelValue) {
+          return (typeof modelValue !== 'undefined') && (modelValue !== '') && (modelValue.toLowerCase() in STATES);
         };
 
-        scope.subform.name.$parsers.push(function(viewValue) {
+        scope.subform.name.$parsers.push(function (viewValue) {
           viewValue = viewValue.toLowerCase();
           if (viewValue in STATES) {
-            if (output === 'code') {
-              return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue];
+            if (scope.output === 'code') {
+              return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue].toUpperCase();
             } else {
-              return viewValue.length === 2 ? STATES[viewValue] : viewValue.toUpperCase();
+              return viewValue.length === 2 ? STATES[viewValue] : viewValue;
             }
           } else {
-            return undefined;
+            return '';
           }
         });
 
-        scope.$watch('subform.name.$modelValue', function(modelValue, prevValue, form) {
+        scope.$watch('subform.name.$modelValue', function (modelValue, prevValue, form) {
           if (modelValue !== prevValue && modelValue !== '') {
             form.subform.name.$setDirty();
           }
         });
       }
-    };
+    });
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+}(window.practicalForms, window.angular));

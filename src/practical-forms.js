@@ -1,4 +1,4 @@
-(function(pf, undefined) {
+(function(pf, angular, undefined) {
   'use strict';
   /** Polyfill for string ops */
   pf.startsWith = function(str, val) {
@@ -13,16 +13,20 @@
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', function($scope, $uibModalInstance, params) {
-    $scope.params = params;
-    $scope.Ok = function() {
-      $uibModalInstance.close();
+  pf.module.controller('pfModalCtrl', [
+    '$scope',
+    '$uibModalInstance',
+    'params',
+    function($scope, $uibModalInstance, params) {
+      $scope.params = params;
+      $scope.Ok = function() {
+        $uibModalInstance.close();
+      };
+      $scope.Cancel = function() {
+        $uibModalInstance.dismiss('cancel');
     };
-    $scope.Cancel = function() {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }]);
-
+    }
+  ]);
 
   /**
    * Function to detect if element has transcluded elements
@@ -30,11 +34,7 @@
    */
   pf.hasTransclude = function(element) {
     var e = element.find('p').html();
-    if (e === undefined) {
-      return false;
-    }
-    var hasTransclude = (e.length > 0);
-    return hasTransclude;
+    return  e && (e.length > 0);
   };
 
   /** Set the dirty flage when ever the modelValue changes */
@@ -50,33 +50,30 @@
    */
   pf.gerenateId = function() {
     function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
+      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
 
   pf.valOrDefault = function(val, def) {
-    return (val === '' || val === undefined) ? def : val;
+    return (val === '' || val === undefined) ? def: val;
   };
 
   /**
    * Gets the valus (or defaults) for the form information
    * @param opts {object} The options object from the binded properties
    * @param header {string} The form header string, i.e. "Personal Infromation"
-   * @param submit {string} The submit button text, i.e. "Submit"  
+   * @param submit {string} The submit button text, i.e. "Submit"
    */
   pf.formOptions = function(opts, header, submit) {
-    var meta = opts.meta || {} ;
+    var meta = opts.meta || {};
     return {
       header: pf.valOrDefault(meta.header, header),
-      submit: pf.valOrDefault(meta.submit, submit),
+      submit: pf.valOrDefault(meta.submit, submit)
     };
   };
 
-  /** 
+  /**
    * Get the values (or defaults) for all of the data for a form input
    * @param opt {object} The current options object
    * @param name {string} The name of the form input, i.e. "firstname"
@@ -90,10 +87,37 @@
       title: pf.valOrDefault(prop.title, title),
       model: pf.valOrDefault(prop.model, name),
       help: pf.valOrDefault(prop.help, help),
-      placeholder: pf.valOrDefault(prop.placeholder, pl),
+      placeholder: pf.valOrDefault(prop.placeholder, pl)
+    };
+  };
+
+  pf.baseDirective = function(name) {
+    return {
+      scope: {
+        title: '@',
+        placeholder: '@?',
+        ngModel: '=',
+        required: '=?',
+        ngRequired: '=?',
+        ngDisabled: '=?'
+        //TODO: Add full suport for these options
+        // ngMinlength: '=?',
+        // ngMaxlength: '=?',
+        // ngPattern: '@?',
+        // ngTrim: '=?'
+      },
+      restrict: 'E',
+      replace: true,
+      transclude: true,
+      templateUrl: '/jjp/pf/' + name + '.html',
+      link: function(scope, element) {
+        scope.id = pf.gerenateId();
+        scope.hasTransclude = pf.hasTransclude(element);
+        scope.$watch('subform.name.$modelValue', pf.setDirty);
+      }
     };
   };
 
   pf.VERSION = '2.0.0';
 
-} (window.practicalForms = window.practicalForms || {}));
+}(window.practicalForms = window.practicalForms || {}, window.angular));

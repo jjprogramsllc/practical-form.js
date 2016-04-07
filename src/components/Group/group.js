@@ -1,6 +1,6 @@
-(function(pf, undefined) {
+(function (pf, undefined) {
   'use strict';
-  pf.module.directive('pfGroup', function() {
+  pf.module.directive('pfGroup', function () {
     return {
       restrict: 'E',
       scope: {
@@ -12,4 +12,4 @@
       templateUrl: '/jjp/pf/group.html',
     };
   });
-}(window.practicalForms = window.practicalForms || {}));
+}(window.practicalForms));

@@ -1,29 +1,12 @@
-(function(pf, undefined) {
+(function(pf, angular,  undefined) {
   'use strict';
-  /**
-   * Input for entering numbers
-   */
   pf.module.directive('pfNumber', function() {
-    return {
-      restrict: 'E',
+    return angular.merge({
       scope: {
-        title: '@',
-        placeholder: '@?',
-        ngModel: '=',
-        required: '=?',
-        ngRequired: '=?',
         max: '=?',
         min: '=?'
-      },
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/number.html',
-      link: function(scope, element) {
-        scope.id = pf.gerenateId();
-        scope.hasTransclude = pf.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', pf.setDirty);
       }
-    };
+    }, pf.baseDirective('number'));
   });
 
   pf.module.directive('pfNumberMask', function() {
@@ -56,4 +39,4 @@
     };
   });
 
-}(window.practicalForms = window.practicalForms || {}));
+}(window.practicalForms, window.angular));

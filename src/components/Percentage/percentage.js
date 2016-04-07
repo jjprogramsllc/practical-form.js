@@ -1,24 +1,7 @@
 (function(pf, undefined) {
   'use strict';
   pf.module.directive('pfPercentage', function() {
-    return {
-      restrict: 'E',
-      scope: {
-        title: '@',
-        placeholder: '@?',
-        ngModel: '=',
-        required: '=?',
-        ngRequired: '=?'
-      },
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/percentage.html',
-      link: function(scope, element) {
-        scope.id = pf.gerenateId();
-        scope.hasTransclude = pf.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', pf.setDirty);
-      }
-    };
+    return pf.baseDirective('percentage');
   });
 
   pf.module.directive('pfPercentageMask', function() {
@@ -82,4 +65,4 @@
     this._value = this._value.slice(0, this._value.length - 1);
   };
 
-}(window.practicalForms = window.practicalForms || {}));
+}(window.practicalForms));
