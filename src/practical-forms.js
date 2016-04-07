@@ -94,6 +94,6 @@
     };
   };
 
-  pf.VERSION = '1.1.1';
+  pf.VERSION = '2.0.0';
 
 } (window.practicalForms = window.practicalForms || {}));

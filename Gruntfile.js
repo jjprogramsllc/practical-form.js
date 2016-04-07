@@ -9,19 +9,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    build: {
-      tasks: ['buildAll'],
-      packageConfig: 'pkg',
-      packages: '*.json',
-      gitAdd: '--all'
-    },
-
     replace: {
       build: {
         src: 'src/practical-forms.js',
         dest: 'src/practical-forms.js',
         replacements: [{
-          from: /VERSION\s=\s['\d\.]+;/, // string replacement
+          from: /VERSION\s=\s['\d\.]+;/, 
           to: 'VERSION = \'<%= pkg.version %>\';'
         }]
       }
@@ -49,7 +42,7 @@ module.exports = function(grunt) {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,
           removeAttributeQuotes: true,
-          removeComments: true, // Only if you don't use comment directives!
+          removeComments: true, 
           removeEmptyAttributes: true,
           removeRedundantAttributes: true,
           removeScriptTypeAttributes: true,
@@ -84,19 +77,6 @@ module.exports = function(grunt) {
       },
     },
 
-    'http-server': {
-      dev: {
-        root: './',
-        port: 8282,
-        host: '0.0.0.0',
-        showDir: true,
-        autoIndex: true,
-        ext: 'html',
-        // run in parallel with other tasks
-        runInBackground: true,
-      }
-    },
-
     watch: {
       build: {
         files: ['Gruntfile.js', 'src/**/*.js', 'src/**/*.html'],
@@ -110,6 +90,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['buildAll']);
   grunt.registerTask('buildAll', ['clean', 'replace','jshint', 'uglify', 'html2js', 'concat']);
-  grunt.registerTask('dev', ['buildAll', 'http-server', 'watch']);
+  grunt.registerTask('dev', ['buildAll', 'watch']);
 
 };
