@@ -105,15 +105,15 @@ There is not much to document. But here are a few points:
 The form setting object of the following properties:
 ```JSON
 {
-  'meta': {
-    'header': {string} The text in the header of the form,
-    'submit': {string} The submit button text,
+  "meta": {
+    "header": "{string} The text in the header of the form",
+    "submit": "{string} The submit button text"
   },
- '[_inputname, one for each input_]': {
-    'title': {string} The displayed text of the label,
-    'model': {string} The property name to bind to,
-    'help': {string} Some descriptive help text placed under the label,
-    'placeholder': {string} The text in the placeholder on the form,
+ "[_inputname, one for each input_]": {
+    "title": "{string} The displayed text of the label",
+    "model": "{string} The property name to bind to",
+    "help": "{string} Some descriptive help text placed under the label",
+    "placeholder": "{string} The text in the placeholder on the form"
   },
 } 
 ```
