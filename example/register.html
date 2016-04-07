@@ -8,7 +8,7 @@
     .pf-form-control {
       position: relative;
     }
-    
+
     .pf-required {
       color: red;
     }
@@ -35,6 +35,7 @@
             email: {model: 'ComplexEmailKey', title: 'Email',  help: 'Points are award to the person with the most ridiculous email addres'},
             password:{model: 'Password',  help: 'A cool password, because were six'},
           };
+          $scope.disabled = false;
         }
       ]);
   </script>
@@ -44,6 +45,9 @@
   <div class="container">
     <div class="row">
       <div class="page-header">
+        <span class="pull-right">
+          <pf-checkbox title="Disable all forms" ng-model="disabled">
+        </span>
         <h1>Practical Forms Examples</h1>
       </div>
       <ul class="nav nav-pills">
@@ -72,14 +76,14 @@
       <div class="col-lg-offset-1 col-md-4 ">
         <h3>Default Registration Form</h3>
         <div class="well">
-          <pf-form-register ng-model="inputs" ng-submit="submit()"></pf-form-register>
+          <pf-form-register ng-model="inputs" ng-submit="submit()" ng-disabled="disabled"></pf-form-register>
         </div>
         <pre>{{inputs}}</pre>
       </div>
       <div class="col-lg-offset-2 col-md-4 ">
         <h3>Customized Registration Form</h3>
         <div class="well">
-          <pf-form-register ng-model="custInputs" ng-submit="submit()" settings="settings">
+          <pf-form-register ng-model="custInputs" ng-submit="submit()" ng-disabled="disabled" settings="settings">
             <hr />
             <p>Here is an cool area that any other elements can be placed to make these forms awesome!</p>
             <pf-number ng-model="custInputs.number" title="addtional input" ng-required=1>Enter some random number because we can :p</pf-number>
