@@ -16,6 +16,7 @@
     return {
       scope: {
         ngModel: '=',
+        ngDisabled: '=?',
         ngSubmit: '&',
         settings: '=?'
       },

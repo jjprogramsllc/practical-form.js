@@ -1,10 +1,10 @@
 <form name="form" >
   <fieldset>
     <legend>{{::s.meta.header}}</legend>
-    <pf-email title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-if="s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-email>
-    <pf-text title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-if="!s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-text>
-    <pf-password title="{{::s.password.title}}" ng-model="ngModel[s.password.model]" ng-required=1>{{::s.password.help}}</pf-password>
+    <pf-email title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-disabled="ngDisabled" ng-if="s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-email>
+    <pf-text title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-disabled="ngDisabled" ng-if="!s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-text>
+    <pf-password title="{{::s.password.title}}" ng-model="ngModel[s.password.model]" ng-required=1 ng-disabled="ngDisabled" >{{::s.password.help}}</pf-password>
     <span ng-transclude>&nbsp;</span>
-    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">{{::s.meta.submit}}</button>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid || ngDisabled">{{::s.meta.submit}}</button>
   </fieldset>
 </form>

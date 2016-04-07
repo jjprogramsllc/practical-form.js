@@ -1,12 +1,12 @@
 <form name="form" >
   <fieldset>
     <legend>{{::s.meta.header}}</legend>
-    <pf-text title="{{::s.firstname.title}}" ng-model="ngModel[s.firstname.model]" ng-required=1 placeholder="{{::s.firstname.placeholder}}">{{::s.firstname.help}}</pf-text>
-    <pf-text title="{{::s.lastname.title}}" ng-model="ngModel[s.lastname.model]" ng-required=1 placeholder="{{::s.lastname.placeholder}}">{{::s.lastname.help}}</pf-text>
-    <pf-email title="{{::s.email.title}}" ng-model="ngModel[s.email.model]" ng-required=1>{{::s.email.help}}</pf-email>
-    <pf-password title="{{::s.password.title}}" ng-model="ngModel[s.password.model]" ng-required=1>{{::s.password.help}}</pf-password>
-    <pf-password title="{{::s.confirmPassword.title}}" ng-model="ngModel[s.confirmPassword.model]" ng-required=1 confirm="ngModel[s.password.model]">{{::s.confirmPassword.help}}</pf-password>
+    <pf-text title="{{::s.firstname.title}}" ng-model="ngModel[s.firstname.model]" ng-required=1 ng-disabled="ngDisabled" placeholder="{{::s.firstname.placeholder}}">{{::s.firstname.help}}</pf-text>
+    <pf-text title="{{::s.lastname.title}}" ng-model="ngModel[s.lastname.model]" ng-required=1 ng-disabled="ngDisabled" placeholder="{{::s.lastname.placeholder}}">{{::s.lastname.help}}</pf-text>
+    <pf-email title="{{::s.email.title}}" ng-model="ngModel[s.email.model]" ng-required=1 ng-disabled="ngDisabled">{{::s.email.help}}</pf-email>
+    <pf-password title="{{::s.password.title}}" ng-model="ngModel[s.password.model]" ng-required=1 ng-disabled="ngDisabled">{{::s.password.help}}</pf-password>
+    <pf-password title="{{::s.confirmPassword.title}}" ng-model="ngModel[s.confirmPassword.model]" ng-required=1 ng-disabled="ngDisabled" confirm="ngModel[s.password.model]">{{::s.confirmPassword.help}}</pf-password>
     <span ng-transclude >&nbsp;</span>
-    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid">{{::s.meta.submit}}</button>
+    <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid || ngDisabled">{{::s.meta.submit}}</button>
   </fieldset>
 </form>
