@@ -7,7 +7,7 @@
     </label>
   <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
   <p>
-    <input type="text" class="form-control"  ng-model="ngModel" is-open="isOpen"  ng-required="{{ngRequired}}" ng-click="isOpen=true" ng-focus="isOpen=true"
+    <input type="text" class="form-control"  ng-model="ngModel" ng-disabled="ngDisabled" is-open="isOpen"  ng-required="{{ngRequired}}" ng-click="isOpen=true" ng-focus="isOpen=true"
       uib-datepicker-popup="MMMM dd, yyyy" datepicker-options="datepickerOptions" />
     <span class="glyphicon glyphicon-remove form-control-feedback" style="top:55px;" ng-show="subform.name.$invalid && subform.name.$dirty"></span>
     <span class="glyphicon glyphicon-ok form-control-feedback" style="top:55px;" ng-show="!subform.name.$invalid && subform.name.$dirty"></span>

@@ -10,7 +10,7 @@
   </label>
   <p class="FormHint" id="{{::id}}-tip" ng-show="hasTransclude" ng-transclude></p>
   <div class="pf-form-control">
-    <input aria-describedby="{{::id}}-tip" class="form-control" id="{{::id}}" name="name" ng-Trim=1 ng-maxlength=255 ng-minlength=0 ng-model="ngModel" ng-required="ngRequired" ng-disabled="ngDisabled" placeholder={{placeholder}} required={{required}} type="text"/>
+    <input aria-describedby="{{::id}}-tip" class="form-control" id="{{::id}}" name="name" ng-Trim=1 ng-maxlength=255 ng-minlength=0 ng-model="ngModel" ng-disabled="ngDisabled" ng-required="ngRequired" placeholder={{placeholder}} required={{required}} type="text"/>
     <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
   </div>

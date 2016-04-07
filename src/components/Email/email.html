@@ -11,7 +11,7 @@
 
   <p class="FormHint" ng-show="hasTransclude" ng-transclude  id="{{::id}}-tip"></p>
   <div class="pf-form-control">
-    <input id="{{::id}}" aria-describedby="{{::id}}-tip" class="form-control" name="name" ng-Trim="ngTrim" ng-model="ngModel" ng-required="ngRequired" placeholder="Example: john.doe@company.com" required={{required}} type="email"/>
+    <input id="{{::id}}" aria-describedby="{{::id}}-tip" class="form-control" name="name" ng-Trim="ngTrim" ng-model="ngModel" ng-disabled="ngDisabled" ng-required="ngRequired" placeholder="Example: john.doe@company.com" required={{required}} type="email"/>
     <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
   </div>
