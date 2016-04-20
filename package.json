@@ -1,8 +1,8 @@
 {
   "name": "practical-forms",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Practial, Validated, and Accessible Form Inputs, Built in and for United States web developers",
-  "main": "src/js/practical-forms.js",
+  "main": "dist/practical-forms.js",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~1.0.1",
