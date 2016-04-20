@@ -1,4 +1,4 @@
-<form name="form" >
+<form name="form" class="pf pf-form">
   <fieldset>
     <legend>{{::s.meta.header}}</legend>
     <pf-email title="{{::s.username.title}}" ng-model="ngModel[s.username.model]" ng-required=1 ng-disabled="ngDisabled" ng-if="s.meta.emailOnly" placeholder="{{::s.username.placeholder}}">{{::s.username.help}}</pf-email>
