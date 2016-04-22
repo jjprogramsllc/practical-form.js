@@ -11,7 +11,9 @@
       link: function ($scope, $element) {
         $element.bind('click', function () {
           $scope.modalOptions = $scope.modalOptions || {};
-          $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/info.html';
+          if (typeof $scope.modalOptions.template !== 'undefined') {
+            $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/info.html';
+          }
           $scope.modalOptions.controller = $scope.modalOptions.controller || 'pfModalCtrl';
           $scope.modalOptions.resolve = {
             params: {
