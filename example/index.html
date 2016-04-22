@@ -33,8 +33,10 @@
             $scope.inputs[key] = val;
           };
           $scope.AdvancedConfirmSettings = {
-            backdrop: false,
-            animation: false
+            animation: false,
+            template: '<div class="modal-header"><h3 class="modal-title">Custom Model Template!</h3></div>'
+              + '<div class="modal-body"><p>By settings the <mark>template</mark> property on <code>modalOptions</code> a custom template can be shown</div>'
+              + '<div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="Ok()">OK</button></div>'
           };
           $scope.dateOptions = {
             minDate: new Date($scope.inputs.date)
