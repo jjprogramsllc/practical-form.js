@@ -10,17 +10,13 @@
       },
       link: function ($scope, $element) {
         $element.bind('click', function () {
-          $scope.modalOptions = $scope.modalOptions || {};
-          if (typeof $scope.modalOptions.template !== 'undefined') {
-            $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/info.html';
-          }
-          $scope.modalOptions.controller = $scope.modalOptions.controller || 'pfModalCtrl';
-          $scope.modalOptions.resolve = {
-            params: {
+          $scope.modalOptions = pf.parseModelOptions({
+            templateUrl : '/jjp/pf/info.html',
+            params : {
               title: $scope.pfTitle || 'Information',
-              message: $scope.pfMessage || 'Here is some more info for you'
+              message: $scope.pfMessage || 'Here is some more info for you!'
             }
-          };
+          },$scope.modalOptions);
           $uibModal.open($scope.modalOptions);
         });
       }

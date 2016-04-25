@@ -48,6 +48,15 @@
               }
             }
           };
+          $scope.CustomInfoModalSettings = {
+            templateUrl: "myInfoTemp.html",
+            resolve: {
+              data: {
+                name: "Joe",
+                age: 24
+              }
+            }
+          };
           $scope.dateOptions = {
             minDate: new Date($scope.inputs.date)
           };
@@ -58,17 +67,35 @@
       ]);
     </script>
 
+    <!-- Custom template for the confirm modal dialog -->
     <script type="text/ng-template" id="myModalContent.html">
       <div class="modal-header">
         <h3 class="modal-title">Person Details</h3>
       </div>
       <div class="modal-body">
-        <p>Hello <code>{{data.name}}</code>, how are you?</p>
-        <p>Are you <mark>{{data.age}}</mark>years old?</p>
+        <p>Hello
+          <code>{{data.name}}</code>, how are you?</p>
+        <p>Are you
+          <mark>{{data.age}}</mark>years old?</p>
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary" type="button" ng-click="Ok()">OK</button>
         <button class="btn btn-warning" type="button" ng-click="Cancel()">Cancel</button>
+      </div>
+    </script>
+
+    <!-- Custom template for the info modal dialog -->
+    <script type="text/ng-template" id="myInfoTemp.html">
+      <div class="modal-header">
+        <h3 class="modal-title">Amazing!</h3>
+      </div>
+      <div class="modal-body">
+        <h3>Wow this is a custom modal template!</h3>
+        <p>Look this <code>data</code> object can be resolved into the object</p>
+        <pre>{{data}}</pre>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="Ok()">OK</button>
       </div>
     </script>
   </head>
@@ -251,6 +278,9 @@
                 <button type=button class="btn btn-info" pf-info pf-title="Look at this!" pf-message="Err my Ger'd! A nice like popup info box">
                   <span class="glyphicon glyphicon-info-sign"></span>
                   Info - Customized</button>
+                <button type=button class="btn btn-primary" pf-info modal-options="CustomInfoModalSettings">
+                  <span class="glyphicon glyphicon-info-sign"></span>
+                  Info - Custom Template</button>
 
               </pf-group>
 
