@@ -129,6 +129,6 @@
     };
   };
 
-  pf.VERSION = '2.2.2';
+  pf.VERSION = '2.3.0';
 
 }(window.practicalForms = window.practicalForms || {}, window.angular));

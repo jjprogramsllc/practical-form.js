@@ -99,7 +99,18 @@ There is not much to document. But here are a few points:
     * `ngDisabled`: Disabled the entire form _Note: You must add the ngDisabled attribute to the custom inputs on a pre built form_
     * `ngSubmit`: The function to call when the form is submitted
     * `settings`: An optional settings object to customized the form
-* Every input has a transculde property so some help text can be set (actually anything can be set there)
+* Modal inputs (Info and Confirm) can be customized using the `modalOptions` attribute.
+  * [See UI Bootstrap Documentation](https://angular-ui.github.io/bootstrap/#/modal)
+  * Custom templates can easily be use, when combined with the `resolve.data` makes thing fairly easy to use
+  * The `resolve` property can contain any data that you wished to be passed to the modal. To support minification, we have set up the `resolve.data` attribute to be required.
+  ```JavaScript
+    var modalOptions = {
+        resolve: {
+          data: {} // <- Your custom data object here
+        }
+    }
+  ```
+* Every input has a transclude property so some help text can be set (actually anything can be set there)
 * The forms are just grouped collections of inputs with some default options
 * The best thing is to look at the examples, they should illustrate all the abilities
 
