@@ -1,4 +1,4 @@
-/*! practical-forms v2.2.1 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v2.3.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div class=\"pf pf-input\" ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -47,14 +47,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "<form name=form class=\"pf pf-form\"><fieldset><legend>{{::s.meta.header}}</legend><pf-text title={{::s.firstname.title}} ng-model=ngModel[s.firstname.model] ng-required=1 ng-disabled=ngDisabled placeholder={{::s.firstname.placeholder}}>{{::s.firstname.help}}</pf-text><pf-text title={{::s.lastname.title}} ng-model=ngModel[s.lastname.model] ng-required=1 ng-disabled=ngDisabled placeholder={{::s.lastname.placeholder}}>{{::s.lastname.help}}</pf-text><pf-email title={{::s.email.title}} ng-model=ngModel[s.email.model] ng-required=1 ng-disabled=ngDisabled>{{::s.email.help}}</pf-email><pf-password title={{::s.password.title}} ng-model=ngModel[s.password.model] ng-required=1 ng-disabled=ngDisabled>{{::s.password.help}}</pf-password><pf-password title={{::s.confirmPassword.title}} ng-model=ngModel[s.confirmPassword.model] ng-required=1 ng-disabled=ngDisabled confirm=ngModel[s.password.model]>{{::s.confirmPassword.help}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=\"form.$invalid || ngDisabled\">{{::s.meta.submit}}</button></fieldset></form>");
 }]);
 
-(function(pf, angular, undefined) {
+(function (pf, angular, undefined) {
   'use strict';
   /** Polyfill for string ops */
-  pf.startsWith = function(str, val) {
+  pf.startsWith = function (str, val) {
     return str.substring(0, val.length) === val;
   };
   /** Polyfill for string ops */
-  pf.endsWith = function(str, val) {
+  pf.endsWith = function (str, val) {
     return str.substring(str.length - val.length, str.length) === val;
   };
 
@@ -62,32 +62,43 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  pf.module.controller('pfModalCtrl', [
-    '$scope',
-    '$uibModalInstance',
-    'params',
-    function($scope, $uibModalInstance, params) {
-      $scope.params = params;
-      $scope.Ok = function() {
-        $uibModalInstance.close();
-      };
-      $scope.Cancel = function() {
-        $uibModalInstance.dismiss('cancel');
+  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function ($scope, $uibModalInstance, params, data) {
+    $scope.params = params;
+    $scope.data = data;
+    $scope.Ok = function () {
+      $uibModalInstance.close();
     };
-    }
-  ]);
+    $scope.Cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }]);
+
+  pf.parseModelOptions = function (typeOpts, custOpts) {
+    var defaultOptions = {
+      templateUrl: '/jjp/pf/confirm.html',
+      controller: 'pfModalCtrl',
+      resolve: {
+        params: {
+          title: 'Modal Title',
+          message: 'Modal Body'
+        },
+        data: {}
+      }
+    };
+    return angular.merge({}, defaultOptions, typeOpts, custOpts);
+  };
 
   /**
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
    */
-  pf.hasTransclude = function(element) {
+  pf.hasTransclude = function (element) {
     var e = element.find('p').html();
-    return  e && (e.length > 0);
+    return e && (e.length > 0);
   };
 
   /** Set the dirty flage when ever the modelValue changes */
-  pf.setDirty = function(modelValue, prevValue, form) {
+  pf.setDirty = function (modelValue, prevValue, form) {
     if (modelValue !== prevValue && modelValue !== '') {
       form.subform.name.$setDirty();
     }
@@ -97,15 +108,15 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Generate id for elements using GUID like string
    * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
    */
-  pf.gerenateId = function() {
+  pf.gerenateId = function () {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
 
-  pf.valOrDefault = function(val, def) {
-    return (val === '' || val === undefined) ? def: val;
+  pf.valOrDefault = function (val, def) {
+    return (val === '' || val === undefined) ? def : val;
   };
 
   /**
@@ -114,7 +125,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * @param header {string} The form header string, i.e. "Personal Infromation"
    * @param submit {string} The submit button text, i.e. "Submit"
    */
-  pf.formOptions = function(opts, header, submit) {
+  pf.formOptions = function (opts, header, submit) {
     var meta = opts.meta || {};
     return {
       header: pf.valOrDefault(meta.header, header),
@@ -130,7 +141,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * @param help {string} The help text of the input i.e. "Your first name"
    * @param pl {string} The placeholder of the input i.e. "Ex. John Doe"
    */
-  pf.vORdInput = function(opts, name, title, help, pl) {
+  pf.vORdInput = function (opts, name, title, help, pl) {
     var prop = opts[name] || {};
     return {
       title: pf.valOrDefault(prop.title, title),
@@ -140,7 +151,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   };
 
-  pf.baseDirective = function(name) {
+  pf.baseDirective = function (name) {
     return {
       scope: {
         title: '@',
@@ -149,17 +160,17 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         required: '=?',
         ngRequired: '=?',
         ngDisabled: '=?'
-        //TODO: Add full suport for these options
-        // ngMinlength: '=?',
-        // ngMaxlength: '=?',
-        // ngPattern: '@?',
-        // ngTrim: '=?'
+          //TODO: Add full suport for these options
+          // ngMinlength: '=?',
+          // ngMaxlength: '=?',
+          // ngPattern: '@?',
+          // ngTrim: '=?'
       },
       restrict: 'E',
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/' + name + '.html',
-      link: function(scope, element) {
+      link: function (scope, element) {
         scope.id = pf.gerenateId();
         scope.hasTransclude = pf.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', pf.setDirty);
@@ -167,7 +178,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   };
 
-  pf.VERSION = '2.2.1';
+  pf.VERSION = '2.3.0';
 
 }(window.practicalForms = window.practicalForms || {}, window.angular));
 
@@ -723,18 +734,13 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       },
       link: function ($scope, $element) {
         $element.bind('click', function () {
-          $scope.modalOptions = $scope.modalOptions || {};
-          if (typeof $scope.modalOptions.template !== 'undefined') {
-            $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/confirm.html';
-          }
-          $scope.modalOptions.controller = $scope.modalOptions.controller || 'pfModalCtrl';
-          $scope.modalOptions.resolve = {
-            params: {
+          $scope.modalOptions = pf.parseModelOptions({
+            templateUrl : '/jjp/pf/confirm.html',
+            params : {
               title: $scope.pfTitle || 'Are you sure?',
               message: $scope.pfMessage || 'Please confirm this action!'
             }
-          };
-
+          },$scope.modalOptions);
           $uibModal.open($scope.modalOptions).result.then(function () {
             $scope.pfConfirm();
           });
@@ -768,17 +774,13 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       },
       link: function ($scope, $element) {
         $element.bind('click', function () {
-          $scope.modalOptions = $scope.modalOptions || {};
-          if (typeof $scope.modalOptions.template !== 'undefined') {
-            $scope.modalOptions.templateUrl = $scope.modalOptions.templateUrl || '/jjp/pf/info.html';
-          }
-          $scope.modalOptions.controller = $scope.modalOptions.controller || 'pfModalCtrl';
-          $scope.modalOptions.resolve = {
-            params: {
+          $scope.modalOptions = pf.parseModelOptions({
+            templateUrl : '/jjp/pf/info.html',
+            params : {
               title: $scope.pfTitle || 'Information',
-              message: $scope.pfMessage || 'Here is some more info for you'
+              message: $scope.pfMessage || 'Here is some more info for you!'
             }
-          };
+          },$scope.modalOptions);
           $uibModal.open($scope.modalOptions);
         });
       }
