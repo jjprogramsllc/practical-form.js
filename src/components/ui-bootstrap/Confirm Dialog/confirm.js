@@ -12,12 +12,14 @@
       link: function ($scope, $element) {
         $element.bind('click', function () {
           $scope.modalOptions = pf.parseModelOptions({
-            templateUrl : '/jjp/pf/confirm.html',
-            params : {
-              title: $scope.pfTitle || 'Are you sure?',
-              message: $scope.pfMessage || 'Please confirm this action!'
+            templateUrl: '/jjp/pf/confirm.html',
+            resolve: {
+              params: {
+                title: $scope.pfTitle || 'Are you sure?',
+                message: $scope.pfMessage || 'Please confirm this action!'
+              }
             }
-          },$scope.modalOptions);
+          }, $scope.modalOptions);
           $uibModal.open($scope.modalOptions).result.then(function () {
             $scope.pfConfirm();
           });

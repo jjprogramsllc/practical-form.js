@@ -735,12 +735,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       link: function ($scope, $element) {
         $element.bind('click', function () {
           $scope.modalOptions = pf.parseModelOptions({
-            templateUrl : '/jjp/pf/confirm.html',
-            params : {
-              title: $scope.pfTitle || 'Are you sure?',
-              message: $scope.pfMessage || 'Please confirm this action!'
+            templateUrl: '/jjp/pf/confirm.html',
+            resolve: {
+              params: {
+                title: $scope.pfTitle || 'Are you sure?',
+                message: $scope.pfMessage || 'Please confirm this action!'
+              }
             }
-          },$scope.modalOptions);
+          }, $scope.modalOptions);
           $uibModal.open($scope.modalOptions).result.then(function () {
             $scope.pfConfirm();
           });
@@ -775,12 +777,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       link: function ($scope, $element) {
         $element.bind('click', function () {
           $scope.modalOptions = pf.parseModelOptions({
-            templateUrl : '/jjp/pf/info.html',
-            params : {
-              title: $scope.pfTitle || 'Information',
-              message: $scope.pfMessage || 'Here is some more info for you!'
+            templateUrl: '/jjp/pf/info.html',
+            resolve: {
+              params: {
+                title: $scope.pfTitle || 'Information',
+                message: $scope.pfMessage || 'Here is some more info for you!'
+              }
             }
-          },$scope.modalOptions);
+          }, $scope.modalOptions);
           $uibModal.open($scope.modalOptions);
         });
       }
