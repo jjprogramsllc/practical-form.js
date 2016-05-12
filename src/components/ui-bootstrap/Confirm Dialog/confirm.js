@@ -16,7 +16,9 @@
             resolve: {
               params: {
                 title: $scope.pfTitle || 'Are you sure?',
-                message: $scope.pfMessage || 'Please confirm this action!'
+                message: $scope.pfMessage || 'Please confirm this action!',
+                btnOk: 'btn-primary',
+                btnCancel: 'btn-warning',
               }
             }
           }, $scope.modalOptions);

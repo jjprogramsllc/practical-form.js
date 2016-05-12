@@ -1,4 +1,4 @@
-/*! practical-forms v2.3.0 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
+/*! practical-forms v2.3.1 | (c) 2016, JJ Programs, LLC | Distributed under the MIT License */
 angular.module('jjp.practical-forms.templates', []).run(['$templateCache', function($templateCache) {
   $templateCache.put("/jjp/pf/checkbox.html",
     "<div class=\"pf pf-input\" ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=checkbox tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired type=\"checkbox\">{{title}}&nbsp; <span class=pf-required ng-show=\"required || ngRequired\">*</span></label></div></div>");
@@ -30,11 +30,11 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "    <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span>\n" +
     "  </textarea></div></div>");
   $templateCache.put("/jjp/pf/confirm.html",
-    "<div class=\"pf pf-modal\"><div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Cancel()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn btn-primary\" ng-click=Ok()>OK</button> <button type=button class=\"btn btn-warning\" ng-click=Cancel()>Cancel</button></div></div>");
+    "<div class=\"pf pf-modal\"><div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Cancel()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn {{::params.btnOk}}\" ng-click=Ok()>OK</button> <button type=button class=\"btn {{::params.btnCancel}}\" ng-click=Cancel()>Cancel</button></div></div>");
   $templateCache.put("/jjp/pf/date.html",
     "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label>{{title}}<span ng-if=\"required || ngRequired\">*</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><p><input class=form-control ng-model=ngModel ng-disabled=ngDisabled is-open=isOpen ng-required={{ngRequired}} ng-click=\"isOpen=true\" ng-focus=\"isOpen=true\" uib-datepicker-popup=\"MMMM dd, yyyy\" datepicker-options=\"datepickerOptions\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" style=top:55px ng-show=\"subform.name.$invalid && subform.name.$dirty\"></span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" style=top:55px ng-show=\"!subform.name.$invalid && subform.name.$dirty\"></span></p></div>");
   $templateCache.put("/jjp/pf/info.html",
-    "<div class=\"pf pf-modal\"><div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Ok()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn btn-primary\" ng-click=Ok()>OK</button></div></div>");
+    "<div class=\"pf pf-modal\"><div class=modal-header><button type=button class=close aria-label=ctrl.Close ng-click=Ok()><span aria-hidden=true>&times;</span></button><h4 class=modal-title>{{params.title}}</h4></div><div class=modal-body><p>{{params.message}}</p></div><div class=modal-footer><button type=button class=\"btn {{::params.btnOk}}\" ng-click=Ok()>OK</button></div></div>");
   $templateCache.put("/jjp/pf/url.html",
     "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=url>Not a valid URL. Make sure it starts with 'http://'</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=ngTrim ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder=\"Example: http://company.com\" required type=\"url\"> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/zipcode.html",
@@ -178,7 +178,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   };
 
-  pf.VERSION = '2.3.0';
+  pf.VERSION = '2.3.1';
 
 }(window.practicalForms = window.practicalForms || {}, window.angular));
 
@@ -739,7 +739,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             resolve: {
               params: {
                 title: $scope.pfTitle || 'Are you sure?',
-                message: $scope.pfMessage || 'Please confirm this action!'
+                message: $scope.pfMessage || 'Please confirm this action!',
+                btnOk: 'btn-primary',
+                btnCancel: 'btn-warning',
               }
             }
           }, $scope.modalOptions);
@@ -781,7 +783,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
             resolve: {
               params: {
                 title: $scope.pfTitle || 'Information',
-                message: $scope.pfMessage || 'Here is some more info for you!'
+                message: $scope.pfMessage || 'Here is some more info for you!',
+                btnOk: 'btn-primary',
               }
             }
           }, $scope.modalOptions);

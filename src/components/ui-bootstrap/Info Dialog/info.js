@@ -15,7 +15,8 @@
             resolve: {
               params: {
                 title: $scope.pfTitle || 'Information',
-                message: $scope.pfMessage || 'Here is some more info for you!'
+                message: $scope.pfMessage || 'Here is some more info for you!',
+                btnOk: 'btn-primary',
               }
             }
           }, $scope.modalOptions);
