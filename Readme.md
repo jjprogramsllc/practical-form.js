@@ -101,12 +101,17 @@ There is not much to document. But here are a few points:
     * `settings`: An optional settings object to customized the form
 * Modal inputs (Info and Confirm) can be customized using the `modalOptions` attribute.
   * [See UI Bootstrap Documentation](https://angular-ui.github.io/bootstrap/#/modal)
+  * The classes on the buttons can be set using the `resolve.params` object. See below for details.
   * Custom templates can easily be use, when combined with the `resolve.data` makes thing fairly easy to use
   * The `resolve` property can contain any data that you wished to be passed to the modal. To support minification, we have set up the `resolve.data` attribute to be required.
   ```JavaScript
     var modalOptions = {
         resolve: {
           data: {} // <- Your custom data object here
+          params: {
+            btnOk: "Options class for the Ok button, default: 'btn-primary'"
+            btnCancel: "Options class for the Cancel button, default: 'btn-warning'"
+          }
         }
     }
   ```
