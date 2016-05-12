@@ -1,4 +1,4 @@
-<div class="pf pf-input" class="form-group has-feedback" ng-form="subform" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" >
+<div class="pf pf-input form-group has-feedback" ng-form="subform" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" >
   <label class="control-label">{{title}}<span ng-if="required || ngRequired">*</span>
     <span ng-show="subform.name.$invalid && subform.name.$dirty">
       <span ng-show="subform.name.$error.required"> - Required!</span>
