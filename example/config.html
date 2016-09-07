@@ -1,0 +1,102 @@
+<html ng-app="examplePage">
+
+<head>
+  <title>
+    Practical Forms Configuration Example Page
+  </title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+  <style media="screen">
+    .pf-form-control {
+      position: relative;
+    }
+
+    .pf-required {
+      color: red;
+    }
+  </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-aria.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-messages.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>
+  <script src="../dist/practical-forms.js"></script>
+
+  <script>
+    angular.module("examplePage", ['jjp.practical-forms'])
+    .config(["pfConfigProvider", function(pfConfig){
+      console.log(pfConfig);
+    }])
+    .controller("ExampleCtrl", [
+      '$scope',
+      function($scope) {
+
+      }
+    ]);
+  </script>
+
+<body ng-controller="ExampleCtrl">
+  <div class="container">
+    <div class="row">
+      <div class="page-header">
+        <span class="pull-right">
+            <pf-checkbox title="Disable all forms" ng-model="disabled"></span>
+        <h1>Practical Forms Example Page</h1>
+      </div>
+      <ul class="nav nav-pills">
+        <li role="presentation" class="active">
+          <a href="index.html">Inputs</a>
+        </li>
+        <li role="presentation">
+          <a href="login.html">Login Form</a>
+        </li>
+        <li role="presentation">
+          <a href="register.html">Registration Form</a>
+        </li>
+        <li role="presentation">
+          <a href="password.html">Change Password Form</a>
+        </li>
+        <li role="presentation">
+          <a href="options.html">Radio/Checkbox Form</a>
+        </li>
+      </ul>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="row">
+      <form name="form">
+        <div class="col-lg-12">
+          <pf-group title="General Text Inputs">
+            <pf-text title="Text Input" ng-model="inputs.text" ng-disabled="disabled">
+              This is a basic text input. It is bounded between 0-255 characters and is auto trimmed.
+            </pf-text>
+
+            <pf-text title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" ng-disabled="disabled" placeholder="Required text input">
+              This input is required. This is done by adding the
+              <code>ng-required</code> attribute. The attribute can be added to any PractialForms input
+            </pf-text>
+
+            <pf-text title="Text Input, Disabled" ng-model="inputs.text_noTrans" ng-disabled="disabled" ng-disabled=1></pf-text>
+
+            <pf-text title="Text Input, No transclude area" ng-model="inputs.text_noTrans" ng-disabled="disabled"></pf-text>
+
+            <pf-text title="Text Input, Set model via code" ng-required=1 ng-model="inputs.text_btn_set" ng-disabled="disabled" placeholder="Click the Button Below">
+              Inputs have two way bindings, so they can easily be set and validated using code
+            </pf-text>
+            <button class="btn btn-primary" ng-click="set('text_btn_set','This is input is set by code')" type="button">Set Text</button>
+
+            <pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" ng-disabled="disabled" placeholder="Lot's of text goes here">
+              Large text box, default limited to 2500 characters
+            </pf-textarea>
+          </pf-group>
+          <hr/>
+          <h2>Output:</h2>
+          <pre>{{inputs | json}}</pre>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

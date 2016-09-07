@@ -102,7 +102,7 @@
     };
   };
 
-  pf.baseDirective = function (name) {
+  pf.baseDirective = function (name, config) {
     return {
       scope: {
         title: '@',
@@ -125,6 +125,7 @@
         scope.id = pf.gerenateId();
         scope.hasTransclude = pf.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', pf.setDirty);
+        scope.validation = (config || { validation: {successLabel : 'All Good!'}} ).validation ;
       }
     };
   };

@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         src: 'src/practical-forms.js',
         dest: 'src/practical-forms.js',
         replacements: [{
-          from: /VERSION\s=\s['\d\.]+;/, 
+          from: /VERSION\s=\s['\d\.]+;/,
           to: 'VERSION = \'<%= pkg.version %>\';'
         }]
       }
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
     uglify: {
       build: {
-        src: ['src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
+        src: ['src/practical-forms.js', 'src/provider.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
         dest: '.tmp/<%= pkg.name %>.min.js'
       }
     },
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,
           removeAttributeQuotes: true,
-          removeComments: true, 
+          removeComments: true,
           removeEmptyAttributes: true,
           removeRedundantAttributes: true,
           removeScriptTypeAttributes: true,
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
       },
       build: {
         files: [{
-          src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
+          src: ['<%= html2js.build.dest %>', 'src/practical-forms.js', 'src/provider.js', 'src/components/**/*.js', 'src/forms/**/*.js'],
           dest: 'dist/<%= pkg.name %>.js'
         }]
       },

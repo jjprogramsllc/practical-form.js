@@ -23,7 +23,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/state.html",
     "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=stateCode>State is Invalid. Please enter the state name or the state code!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired ng-trim=true placeholder=\"Ex: OH or Ohio\" required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/text.html",
-    "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=0 ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder={{placeholder}} required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
+    "<div class=\"pf pf-input form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;{{::validation.successLabel}}</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=0 ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder={{placeholder}} required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/textarea.html",
     "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=maxlength>Text must be shorter then {{ngMaxlength || 2500}} characters!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><textarea aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=2500 ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder={{placeholder}} required>\n" +
     "    <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span>\n" +
@@ -151,7 +151,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   };
 
-  pf.baseDirective = function (name) {
+  pf.baseDirective = function (name, config) {
     return {
       scope: {
         title: '@',
@@ -174,12 +174,30 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         scope.id = pf.gerenateId();
         scope.hasTransclude = pf.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', pf.setDirty);
+        scope.validation = (config || { validation: {successLabel : 'All Good!'}} ).validation ;
       }
     };
   };
 
   pf.VERSION = '2.3.0';
 
+}(window.practicalForms = window.practicalForms || {}, window.angular));
+
+(function(pf, angular, undefined) {
+  'use strict';
+
+  pf.module.provider('pfConfig', function() {
+    this.config = {
+      validation: {
+        showSuccessLables : true,
+        successLabel: '--- Success Label Text ---'
+      },
+    };
+
+    this.$get = [function() {
+      return this.config;
+    }];
+  });
 }(window.practicalForms = window.practicalForms || {}, window.angular));
 
 (function (pf, undefined) {
@@ -708,9 +726,10 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   /**
    * Text input that has basic validation
    */
-  pf.module.directive('pfText', function(){
-    return pf.baseDirective('text');
-  });
+  pf.module.directive('pfText', ['pfConfig', function(pfConfig){
+    console.log('ctrl', pfConfig );
+    return pf.baseDirective('text', pfConfig);
+  }]);
 
 }( window.practicalForms ));
 
