@@ -1,11 +1,8 @@
-(function (pf, angular, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfDate', ['pfConfig', function (pfConfig) {
-    return angular.merge({}, pf.baseDirective('date', pfConfig), {
-      scope: {
-        datepickerOptions: '=?'
-      },
-    });
-  }]);
+  angular.module('jjp.practical-forms')
 
-}(window.practicalForms, window.angular));
+  .directive('pfDate', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('date', {datepickerOptions: '=?'});
+  }]);
+}(window.angular));

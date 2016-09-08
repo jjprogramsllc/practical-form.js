@@ -1,6 +1,8 @@
-(function (pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfConfirm', ['$uibModal', function ($uibModal) {
+  angular.module('jjp.practical-forms')
+
+  .directive('pfConfirm', ['pfConfig', '$uibModal', function(pfConfig, $uibModal) {
     return {
       restrict: 'A',
       scope: {
@@ -9,20 +11,22 @@
         pfConfirm: '&',
         modalOptions: '=?'
       },
-      link: function ($scope, $element) {
-        $element.bind('click', function () {
-          $scope.modalOptions = pf.parseModelOptions({
-            templateUrl : '/jjp/pf/confirm.html',
-            params : {
-              title: $scope.pfTitle || 'Are you sure?',
-              message: $scope.pfMessage || 'Please confirm this action!'
+      link: function($scope, $element) {
+        $element.bind('click', function() {
+          $scope.modalOptions = pfConfig.parseModelOptions({
+            templateUrl: '/jjp/pf/confirm.html',
+            resolve: {
+              params: {
+                title: $scope.pfTitle || 'Are you sure?',
+                message: $scope.pfMessage || 'Please confirm this action!'
+              }
             }
-          },$scope.modalOptions);
-          $uibModal.open($scope.modalOptions).result.then(function () {
+          }, $scope.modalOptions);
+          $uibModal.open($scope.modalOptions).result.then(function() {
             $scope.pfConfirm();
           });
         });
       }
     };
   }]);
-}(window.practicalForms));
+}(window.angular));

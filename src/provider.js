@@ -50,6 +50,21 @@
       return (val === '' || val === undefined) ? def : val;
     };
 
+    Config.prototype.parseModelOptions = function(typeOpts, custOpts) {
+      var defaultOptions = {
+        templateUrl: '/jjp/pf/confirm.html',
+        controller: 'pfModalCtrl',
+        resolve: {
+          params: {
+            title: 'Modal Title',
+            message: 'Modal Body'
+          },
+          data: {}
+        }
+      };
+      return angular.merge({}, defaultOptions, typeOpts, custOpts);
+    };
+
     var _config = {
       /** the character or pharse that marks an input as required */
       requiredChar: '*',

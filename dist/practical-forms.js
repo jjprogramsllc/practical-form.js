@@ -252,6 +252,21 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       return (val === '' || val === undefined) ? def : val;
     };
 
+    Config.prototype.parseModelOptions = function(typeOpts, custOpts) {
+      var defaultOptions = {
+        templateUrl: '/jjp/pf/confirm.html',
+        controller: 'pfModalCtrl',
+        resolve: {
+          params: {
+            title: 'Modal Title',
+            message: 'Modal Body'
+          },
+          data: {}
+        }
+      };
+      return angular.merge({}, defaultOptions, typeOpts, custOpts);
+    };
+
     var _config = {
       /** the character or pharse that marks an input as required */
       requiredChar: '*',
@@ -838,9 +853,11 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   }]);
 }(window.angular));
 
-(function (pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfConfirm', ['$uibModal', function ($uibModal) {
+  angular.module('jjp.practical-forms')
+
+  .directive('pfConfirm', ['pfConfig', '$uibModal', function(pfConfig, $uibModal) {
     return {
       restrict: 'A',
       scope: {
@@ -849,39 +866,40 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         pfConfirm: '&',
         modalOptions: '=?'
       },
-      link: function ($scope, $element) {
-        $element.bind('click', function () {
-          $scope.modalOptions = pf.parseModelOptions({
-            templateUrl : '/jjp/pf/confirm.html',
-            params : {
-              title: $scope.pfTitle || 'Are you sure?',
-              message: $scope.pfMessage || 'Please confirm this action!'
+      link: function($scope, $element) {
+        $element.bind('click', function() {
+          $scope.modalOptions = pfConfig.parseModelOptions({
+            templateUrl: '/jjp/pf/confirm.html',
+            resolve: {
+              params: {
+                title: $scope.pfTitle || 'Are you sure?',
+                message: $scope.pfMessage || 'Please confirm this action!'
+              }
             }
-          },$scope.modalOptions);
-          $uibModal.open($scope.modalOptions).result.then(function () {
+          }, $scope.modalOptions);
+          $uibModal.open($scope.modalOptions).result.then(function() {
             $scope.pfConfirm();
           });
         });
       }
     };
   }]);
-}(window.practicalForms));
+}(window.angular));
 
-(function (pf, angular, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfDate', ['pfConfig', function (pfConfig) {
-    return angular.merge({}, pf.baseDirective('date', pfConfig), {
-      scope: {
-        datepickerOptions: '=?'
-      },
-    });
+  angular.module('jjp.practical-forms')
+
+  .directive('pfDate', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('date', {datepickerOptions: '=?'});
   }]);
+}(window.angular));
 
-}(window.practicalForms, window.angular));
-
-(function (pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfInfo', ['$uibModal', function ($uibModal) {
+  angular.module('jjp.practical-forms')
+
+  .directive('pfInfo', ['pfConfig', '$uibModal', function(pfConfig, $uibModal) {
     return {
       restrict: 'A',
       scope: {
@@ -889,21 +907,23 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         pfMessage: '@',
         modalOptions: '=?'
       },
-      link: function ($scope, $element) {
-        $element.bind('click', function () {
-          $scope.modalOptions = pf.parseModelOptions({
-            templateUrl : '/jjp/pf/info.html',
-            params : {
-              title: $scope.pfTitle || 'Information',
-              message: $scope.pfMessage || 'Here is some more info for you!'
+      link: function($scope, $element) {
+        $element.bind('click', function() {
+          $scope.modalOptions = pfConfig.parseModelOptions({
+            templateUrl: '/jjp/pf/info.html',
+            resolve: {
+              params: {
+                title: $scope.pfTitle || 'Information',
+                message: $scope.pfMessage || 'Here is some more info for you!'
+              }
             }
-          },$scope.modalOptions);
+          }, $scope.modalOptions);
           $uibModal.open($scope.modalOptions);
         });
       }
     };
   }]);
-}(window.practicalForms));
+}(window.angular));
 
 (function(angular) {
   'use strict';
