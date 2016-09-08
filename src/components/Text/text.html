@@ -1,12 +1,7 @@
 <div class="pf pf-input" class="form-group has-feedback" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" ng-form="subform" tabindex="-1">
   <label class="control-label" for="{{::id}}">{{title}}
     <span class="pf-required" ng-if="required || ngRequired">{{::config.requiredChar}}</span>
-    <span ng-messages="subform.name.$error" ng-show="subform.name.$invalid && subform.name.$dirty" role="alert">&nbsp;&nbsp;
-      <span ng-message="required">{{::config.validation.labels.required}}</span>
-      <span ng-message="minlength">{{::config.validation.labels.minlength}}</span>
-      <span ng-message="maxlength">{{::config.validation.labels.maxlength}}</span>
-    </span>
-    <span ng-show="subform.name.$valid && subform.name.$dirty" role="alert" ng-if="config.validation.labels.valid">&nbsp;&nbsp;{{::config.validation.labels.valid}}</span>
+    <span ng-include="'/jjp/pf/validation.html'"></span>
   </label>
   <p class="FormHint" id="{{::id}}-tip" ng-show="hasTransclude" ng-transclude></p>
   <div class="pf-form-control">

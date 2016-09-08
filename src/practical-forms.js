@@ -102,6 +102,12 @@
     };
   };
 
+  pf.baseDirectiveLink = function(scope, element, config) {
+    scope.id = pf.gerenateId();
+    scope.hasTransclude = pf.hasTransclude(element);
+    scope.$watch('subform.name.$modelValue', pf.setDirty);
+    scope.config = angular.merge({}, config, scope.pfConfig);
+  };
   pf.baseDirective = function(name, config) {
     return {
       scope: {
@@ -123,16 +129,7 @@
       transclude: true,
       templateUrl: '/jjp/pf/' + name + '.html',
       link: function(scope, element) {
-        scope.id = pf.gerenateId();
-        scope.hasTransclude = pf.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', pf.setDirty);
-        scope.validation = (config || {
-          validation: {
-            successLabel: 'All Good!'
-          }
-        }).validation;
-        scope.config = angular.merge({}, config, scope.pfConfig);
-        console.log(scope.config);
+        pf.baseDirectiveLink(scope, element, config);
       }
     };
   };

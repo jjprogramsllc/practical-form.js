@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       },
 
       build: {
-        src: ['src/components/**/*.html', 'src/forms/**/*.html'],
+        src: ['src/*.html','src/components/**/*.html', 'src/forms/**/*.html'],
         dest: '.tmp/<%= pkg.name %>.tpl.min.js',
       },
     },

@@ -11,7 +11,16 @@
           valid: 'All Good!',
           required: 'This input is required',
           minlength: 'Text must be between 0 and 255 characters',
-          maxlength: 'Text must be between 0 and 255 characters'
+          maxlength: 'Text must be between 0 and 255 characters',
+          email: 'This does not seem to be a valid email',
+          number: 'That is not a number',
+          max: 'Numbers must be less then {{max}}',
+          min: 'Numbers must be greater then {{min}}',
+          confirm: 'The confirmation password does not match the original',
+          pattern: 'Text is invalid',
+          percent: 'Value must be between 0% and 100%',
+          stateCode: 'State is Invalid. Please enter the state name or 2 letter code',
+          url : 'Not a valid URL. Make sure it starts with "http://",'
         }
       },
     };
