@@ -6,7 +6,7 @@
       <span ng-message="required">This field is required!</span>
       <span ng-message="minlength, maxlength">Text must be between 0 and 255 characters!</span>
     </span>
-    <span ng-show="subform.name.$valid && subform.name.$dirty" role="alert">&nbsp;&nbsp;{{::validation.successLabel}}</span>
+    <span ng-show="subform.name.$valid && subform.name.$dirty" role="alert" ng-if="validation.labels.valid">&nbsp;&nbsp;{{::validation.labels.valid}}</span>
   </label>
   <p class="FormHint" id="{{::id}}-tip" ng-show="hasTransclude" ng-transclude></p>
   <div class="pf-form-control">

@@ -2,15 +2,22 @@
   'use strict';
 
   pf.module.provider('pfConfig', function() {
-    this.config = {
+    var _config = {
       validation: {
-        showSuccessLables : true,
-        successLabel: '--- Success Label Text ---'
+        /** These are the human readiable validation label show to the user */
+        labels: {
+          /** This is the label shown when an input is valid */
+          valid: 'All Good!'
+        }
       },
     };
 
+    this.setConfig = function(config) {
+      _config = angular.merge({}, _config, config);
+    };
+
     this.$get = [function() {
-      return this.config;
+      return _config;
     }];
   });
 }(window.practicalForms = window.practicalForms || {}, window.angular));
