@@ -6,8 +6,7 @@
         pf.baseDirectiveLink(scope, element, pfConfig);
 
         scope.subform.name.$validators.zipcode = function (modelValue) {
-          var pattern = /^\d{5}(-\d{4})?$/;
-          return pattern.test(modelValue);
+          return pfConfig.validation.patterns.zipcode.test(modelValue);
         };
       }
     });

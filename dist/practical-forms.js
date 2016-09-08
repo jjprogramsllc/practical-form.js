@@ -197,6 +197,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       /** the character or pharse that marks an input as required */
       requiredChar: '*',
       validation: {
+        /** various regex patterns that are used to validate inputs. These are Regex objects!*/
+        patterns: {
+          /** The password validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=1923 */
+          password: /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$/,
+
+          /** The phone number validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=607 */
+          phone:  /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/,
+
+          /** The zip code validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=837 */
+          zipcode: /^\d{5}(-\d{4})?$/
+
+        },
         /** These are the human readiable validation label show to the user */
         labels: {
           valid: 'All Good!',
@@ -313,10 +325,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     }, pf.baseDirective('password'), {
       link: function(scope, element) {
         pf.baseDirectiveLink(scope, element, pfConfig);
-        
+
         scope.subform.name.$validators.password = function (modelValue) {
-          var pattern = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$/;
-          return pattern.test(modelValue);
+          return pfConfig.validation.patterns.password.test(modelValue);
         };
 
         if ('confirm' in scope) {
@@ -419,8 +430,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         pf.baseDirectiveLink(scope, element, pfConfig);
 
         scope.subform.name.$validators.phone = function(modelValue) {
-          var pattern = /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
-          return pattern.test(modelValue);
+          return pfConfig.validation.patterns.phone.test(modelValue);
         };
       }
     });
@@ -865,8 +875,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         pf.baseDirectiveLink(scope, element, pfConfig);
 
         scope.subform.name.$validators.zipcode = function (modelValue) {
-          var pattern = /^\d{5}(-\d{4})?$/;
-          return pattern.test(modelValue);
+          return pfConfig.validation.patterns.zipcode.test(modelValue);
         };
       }
     });

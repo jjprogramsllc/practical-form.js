@@ -7,8 +7,7 @@
         pf.baseDirectiveLink(scope, element, pfConfig);
 
         scope.subform.name.$validators.phone = function(modelValue) {
-          var pattern = /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/;
-          return pattern.test(modelValue);
+          return pfConfig.validation.patterns.phone.test(modelValue);
         };
       }
     });

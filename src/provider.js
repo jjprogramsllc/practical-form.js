@@ -6,6 +6,18 @@
       /** the character or pharse that marks an input as required */
       requiredChar: '*',
       validation: {
+        /** various regex patterns that are used to validate inputs. These are Regex objects!*/
+        patterns: {
+          /** The password validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=1923 */
+          password: /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$/,
+
+          /** The phone number validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=607 */
+          phone:  /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/,
+
+          /** The zip code validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=837 */
+          zipcode: /^\d{5}(-\d{4})?$/
+
+        },
         /** These are the human readiable validation label show to the user */
         labels: {
           valid: 'All Good!',

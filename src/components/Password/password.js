@@ -8,10 +8,9 @@
     }, pf.baseDirective('password'), {
       link: function(scope, element) {
         pf.baseDirectiveLink(scope, element, pfConfig);
-        
+
         scope.subform.name.$validators.password = function (modelValue) {
-          var pattern = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$/;
-          return pattern.test(modelValue);
+          return pfConfig.validation.patterns.password.test(modelValue);
         };
 
         if ('confirm' in scope) {
