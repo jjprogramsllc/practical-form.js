@@ -23,7 +23,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/state.html",
     "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span> <span ng-message=stateCode>State is Invalid. Please enter the state name or the state code!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired ng-trim=true placeholder=\"Ex: OH or Ohio\" required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/text.html",
-    "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=\"minlength, maxlength\">Text must be between 0 and 255 characters!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert ng-if=validation.labels.valid>&nbsp;&nbsp;{{::validation.labels.valid}}</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=0 ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder={{placeholder}} required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
+    "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">{{::config.requiredChar}}</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>{{::config.validation.labels.required}}</span> <span ng-message=minlength>{{::config.validation.labels.minlength}}</span> <span ng-message=maxlength>{{::config.validation.labels.maxlength}}</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert ng-if=config.validation.labels.valid>&nbsp;&nbsp;{{::config.validation.labels.valid}}</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude></p><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=255 ng-minlength=0 ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder={{placeholder}} required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/textarea.html",
     "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">*</span> <span ng-messages=subform.name.$error ng-show=\"subform.name.$invalid && subform.name.$dirty\" role=alert>&nbsp;&nbsp; <span ng-message=required>This field is required!</span> <span ng-message=maxlength>Text must be shorter then {{ngMaxlength || 2500}} characters!</span></span> <span ng-show=\"subform.name.$valid && subform.name.$dirty\" role=alert>&nbsp;&nbsp;All Good!</span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><textarea aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-trim=1 ng-maxlength=2500 ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired placeholder={{placeholder}} required>\n" +
     "    <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span>\n" +
@@ -47,14 +47,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     "<form name=form class=\"pf pf-form\"><fieldset><legend>{{::s.meta.header}}</legend><pf-text title={{::s.firstname.title}} ng-model=ngModel[s.firstname.model] ng-required=1 ng-disabled=ngDisabled placeholder={{::s.firstname.placeholder}}>{{::s.firstname.help}}</pf-text><pf-text title={{::s.lastname.title}} ng-model=ngModel[s.lastname.model] ng-required=1 ng-disabled=ngDisabled placeholder={{::s.lastname.placeholder}}>{{::s.lastname.help}}</pf-text><pf-email title={{::s.email.title}} ng-model=ngModel[s.email.model] ng-required=1 ng-disabled=ngDisabled>{{::s.email.help}}</pf-email><pf-password title={{::s.password.title}} ng-model=ngModel[s.password.model] ng-required=1 ng-disabled=ngDisabled>{{::s.password.help}}</pf-password><pf-password title={{::s.confirmPassword.title}} ng-model=ngModel[s.confirmPassword.model] ng-required=1 ng-disabled=ngDisabled confirm=ngModel[s.password.model]>{{::s.confirmPassword.help}}</pf-password><span ng-transclude>&nbsp;</span> <button type=submit class=\"btn btn-primary btn-block\" ng-disabled=\"form.$invalid || ngDisabled\">{{::s.meta.submit}}</button></fieldset></form>");
 }]);
 
-(function (pf, angular, undefined) {
+(function(pf, angular, undefined) {
   'use strict';
   /** Polyfill for string ops */
-  pf.startsWith = function (str, val) {
+  pf.startsWith = function(str, val) {
     return str.substring(0, val.length) === val;
   };
   /** Polyfill for string ops */
-  pf.endsWith = function (str, val) {
+  pf.endsWith = function(str, val) {
     return str.substring(str.length - val.length, str.length) === val;
   };
 
@@ -62,18 +62,18 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function ($scope, $uibModalInstance, params, data) {
+  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
     $scope.params = params;
     $scope.data = data;
-    $scope.Ok = function () {
+    $scope.Ok = function() {
       $uibModalInstance.close();
     };
-    $scope.Cancel = function () {
+    $scope.Cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
   }]);
 
-  pf.parseModelOptions = function (typeOpts, custOpts) {
+  pf.parseModelOptions = function(typeOpts, custOpts) {
     var defaultOptions = {
       templateUrl: '/jjp/pf/confirm.html',
       controller: 'pfModalCtrl',
@@ -92,13 +92,13 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
    */
-  pf.hasTransclude = function (element) {
+  pf.hasTransclude = function(element) {
     var e = element.find('p').html();
     return e && (e.length > 0);
   };
 
   /** Set the dirty flage when ever the modelValue changes */
-  pf.setDirty = function (modelValue, prevValue, form) {
+  pf.setDirty = function(modelValue, prevValue, form) {
     if (modelValue !== prevValue && modelValue !== '') {
       form.subform.name.$setDirty();
     }
@@ -108,14 +108,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * Generate id for elements using GUID like string
    * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
    */
-  pf.gerenateId = function () {
+  pf.gerenateId = function() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
 
-  pf.valOrDefault = function (val, def) {
+  pf.valOrDefault = function(val, def) {
     return (val === '' || val === undefined) ? def : val;
   };
 
@@ -125,7 +125,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * @param header {string} The form header string, i.e. "Personal Infromation"
    * @param submit {string} The submit button text, i.e. "Submit"
    */
-  pf.formOptions = function (opts, header, submit) {
+  pf.formOptions = function(opts, header, submit) {
     var meta = opts.meta || {};
     return {
       header: pf.valOrDefault(meta.header, header),
@@ -141,7 +141,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    * @param help {string} The help text of the input i.e. "Your first name"
    * @param pl {string} The placeholder of the input i.e. "Ex. John Doe"
    */
-  pf.vORdInput = function (opts, name, title, help, pl) {
+  pf.vORdInput = function(opts, name, title, help, pl) {
     var prop = opts[name] || {};
     return {
       title: pf.valOrDefault(prop.title, title),
@@ -151,7 +151,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   };
 
-  pf.baseDirective = function (name, config) {
+  pf.baseDirective = function(name, config) {
     return {
       scope: {
         title: '@',
@@ -159,7 +159,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         ngModel: '=',
         required: '=?',
         ngRequired: '=?',
-        ngDisabled: '=?'
+        ngDisabled: '=?',
+        pfConfig: '=?'
           //TODO: Add full suport for these options
           // ngMinlength: '=?',
           // ngMaxlength: '=?',
@@ -170,11 +171,17 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/' + name + '.html',
-      link: function (scope, element) {
+      link: function(scope, element) {
         scope.id = pf.gerenateId();
         scope.hasTransclude = pf.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', pf.setDirty);
-        scope.validation = (config || { validation: {successLabel : 'All Good!'}} ).validation ;
+        scope.validation = (config || {
+          validation: {
+            successLabel: 'All Good!'
+          }
+        }).validation;
+        scope.config = angular.merge({}, config, scope.pfConfig);
+        console.log(scope.config);
       }
     };
   };
@@ -188,11 +195,15 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
   pf.module.provider('pfConfig', function() {
     var _config = {
+      /** the character or pharse that marks an input as required */
+      requiredChar: '*',
       validation: {
         /** These are the human readiable validation label show to the user */
         labels: {
-          /** This is the label shown when an input is valid */
-          valid: 'All Good!'
+          valid: 'All Good!',
+          required: 'This input is required',
+          minlength: 'Text must be between 0 and 255 characters',
+          maxlength: 'Text must be between 0 and 255 characters'
         }
       },
     };

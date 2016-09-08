@@ -24,9 +24,10 @@
     angular.module("examplePage", ['jjp.practical-forms'])
       .config(["pfConfigProvider", function(pfConfig) {
         pfConfig.setConfig({
+          requiredChar: '**********',
           validation: {
             labels: {
-              valid: "Thar be good, ya'll"
+              valid: "",
             }
           }
         });
@@ -35,7 +36,15 @@
       .controller("ExampleCtrl", [
         '$scope',
         function($scope) {
-
+          $scope.otherConfig = {
+            requiredChar: '---- This be requr\'d! Must be-ith filled!',
+            validation: {
+              labels: {
+                valid: "Thar be good, ya'll",
+                required: "Yo, You need to some tight stuff here..."
+              }
+            }
+          };
         }
       ]);
   </script>
@@ -83,6 +92,8 @@
                 This input is required. This is done by adding the
                 <code>ng-required</code> attribute. The attribute can be added to any PractialForms input
               </pf-text>
+
+              <pf-text title="Text Input, Custom Config" ng-model="inputs.text_custConfig" pf-config="otherConfig" ng-required=1></pf-text>
 
               <pf-text title="Text Input, Disabled" ng-model="inputs.text_noTrans" ng-disabled=1></pf-text>
 

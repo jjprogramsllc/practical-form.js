@@ -1,11 +1,11 @@
-(function (pf, angular, undefined) {
+(function(pf, angular, undefined) {
   'use strict';
   /** Polyfill for string ops */
-  pf.startsWith = function (str, val) {
+  pf.startsWith = function(str, val) {
     return str.substring(0, val.length) === val;
   };
   /** Polyfill for string ops */
-  pf.endsWith = function (str, val) {
+  pf.endsWith = function(str, val) {
     return str.substring(str.length - val.length, str.length) === val;
   };
 
@@ -13,18 +13,18 @@
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
   /** A basic controller for the modal popups */
-  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function ($scope, $uibModalInstance, params, data) {
+  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
     $scope.params = params;
     $scope.data = data;
-    $scope.Ok = function () {
+    $scope.Ok = function() {
       $uibModalInstance.close();
     };
-    $scope.Cancel = function () {
+    $scope.Cancel = function() {
       $uibModalInstance.dismiss('cancel');
     };
   }]);
 
-  pf.parseModelOptions = function (typeOpts, custOpts) {
+  pf.parseModelOptions = function(typeOpts, custOpts) {
     var defaultOptions = {
       templateUrl: '/jjp/pf/confirm.html',
       controller: 'pfModalCtrl',
@@ -43,13 +43,13 @@
    * Function to detect if element has transcluded elements
    * @param element Angular.element / jQuery element to detect
    */
-  pf.hasTransclude = function (element) {
+  pf.hasTransclude = function(element) {
     var e = element.find('p').html();
     return e && (e.length > 0);
   };
 
   /** Set the dirty flage when ever the modelValue changes */
-  pf.setDirty = function (modelValue, prevValue, form) {
+  pf.setDirty = function(modelValue, prevValue, form) {
     if (modelValue !== prevValue && modelValue !== '') {
       form.subform.name.$setDirty();
     }
@@ -59,14 +59,14 @@
    * Generate id for elements using GUID like string
    * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
    */
-  pf.gerenateId = function () {
+  pf.gerenateId = function() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
 
-  pf.valOrDefault = function (val, def) {
+  pf.valOrDefault = function(val, def) {
     return (val === '' || val === undefined) ? def : val;
   };
 
@@ -76,7 +76,7 @@
    * @param header {string} The form header string, i.e. "Personal Infromation"
    * @param submit {string} The submit button text, i.e. "Submit"
    */
-  pf.formOptions = function (opts, header, submit) {
+  pf.formOptions = function(opts, header, submit) {
     var meta = opts.meta || {};
     return {
       header: pf.valOrDefault(meta.header, header),
@@ -92,7 +92,7 @@
    * @param help {string} The help text of the input i.e. "Your first name"
    * @param pl {string} The placeholder of the input i.e. "Ex. John Doe"
    */
-  pf.vORdInput = function (opts, name, title, help, pl) {
+  pf.vORdInput = function(opts, name, title, help, pl) {
     var prop = opts[name] || {};
     return {
       title: pf.valOrDefault(prop.title, title),
@@ -102,7 +102,7 @@
     };
   };
 
-  pf.baseDirective = function (name, config) {
+  pf.baseDirective = function(name, config) {
     return {
       scope: {
         title: '@',
@@ -110,7 +110,8 @@
         ngModel: '=',
         required: '=?',
         ngRequired: '=?',
-        ngDisabled: '=?'
+        ngDisabled: '=?',
+        pfConfig: '=?'
           //TODO: Add full suport for these options
           // ngMinlength: '=?',
           // ngMaxlength: '=?',
@@ -121,11 +122,17 @@
       replace: true,
       transclude: true,
       templateUrl: '/jjp/pf/' + name + '.html',
-      link: function (scope, element) {
+      link: function(scope, element) {
         scope.id = pf.gerenateId();
         scope.hasTransclude = pf.hasTransclude(element);
         scope.$watch('subform.name.$modelValue', pf.setDirty);
-        scope.validation = (config || { validation: {successLabel : 'All Good!'}} ).validation ;
+        scope.validation = (config || {
+          validation: {
+            successLabel: 'All Good!'
+          }
+        }).validation;
+        scope.config = angular.merge({}, config, scope.pfConfig);
+        console.log(scope.config);
       }
     };
   };

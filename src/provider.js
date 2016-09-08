@@ -3,11 +3,15 @@
 
   pf.module.provider('pfConfig', function() {
     var _config = {
+      /** the character or pharse that marks an input as required */
+      requiredChar: '*',
       validation: {
         /** These are the human readiable validation label show to the user */
         labels: {
-          /** This is the label shown when an input is valid */
-          valid: 'All Good!'
+          valid: 'All Good!',
+          required: 'This input is required',
+          minlength: 'Text must be between 0 and 255 characters',
+          maxlength: 'Text must be between 0 and 255 characters'
         }
       },
     };
