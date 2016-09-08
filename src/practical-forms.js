@@ -4,10 +4,21 @@
   pf.startsWith = function(str, val) {
     return str.substring(0, val.length) === val;
   };
+
+  /*jshint freeze:false */
   /** Polyfill for string ops */
-  pf.endsWith = function(str, val) {
-    return str.substring(str.length - val.length, str.length) === val;
-  };
+  if (!String.prototype.endsWith) {
+    String.prototype.endsWith = function(searchString, position) {
+        var subjectString = this.toString();
+        if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+          position = subjectString.length;
+        }
+        position -= searchString.length;
+        var lastIndex = subjectString.lastIndexOf(searchString, position);
+        return lastIndex !== -1 && lastIndex === position;
+    };
+  }
+/** jshint enable */
 
   /** Main angular modules */
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);

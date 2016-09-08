@@ -1,6 +1,8 @@
-(function(pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfTextarea', ['pfConfig', function(pfConfig) {
-    return pf.baseDirective('textarea', pfConfig);
+  angular.module('jjp.practical-forms')
+
+  .directive('pfTextarea', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('textarea');
   }]);
-}(window.practicalForms));
+}(window.angular));

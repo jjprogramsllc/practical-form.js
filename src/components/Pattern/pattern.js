@@ -1,7 +1,8 @@
-(function (pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfRegex', ['pfConfig', function (pfConfig) {
-    return pf.baseDirective('pattern', pfConfig);
-  }]);
+  angular.module('jjp.practical-forms')
 
-}(window.practicalForms));
+  .directive('pfRegex', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('pattern');
+  }]);
+}(window.angular));

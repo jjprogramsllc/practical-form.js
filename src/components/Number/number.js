@@ -1,15 +1,15 @@
-(function(pf, angular,  undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfNumber', ['pfConfig', function(pfConfig) {
-    return angular.merge({
-      scope: {
-        max: '=?',
-        min: '=?'
-      }
-    }, pf.baseDirective('number', pfConfig));
-  }]);
+  angular.module('jjp.practical-forms')
 
-  pf.module.directive('pfNumberMask', function() {
+  .directive('pfNumber', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('number', {
+      max: '=?',
+      min: '=?'
+    });
+  }])
+
+  .directive('pfNumberMask', function() {
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -38,5 +38,4 @@
       }
     };
   });
-
-}(window.practicalForms, window.angular));
+}(window.angular));

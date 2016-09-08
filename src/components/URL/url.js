@@ -1,6 +1,8 @@
-(function(pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfUrl', ['pfConfig', function(pfConfig) {
-    return pf.baseDirective('url', pfConfig);
+  angular.module('jjp.practical-forms')
+
+  .directive('pfUrl', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('url');
   }]);
-}(window.practicalForms));
+}(window.angular));

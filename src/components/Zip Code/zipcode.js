@@ -1,15 +1,12 @@
-(function(pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfZip', ['pfConfig', function(pfConfig) {
-    return angular.merge({ }, pf.baseDirective('zipcode', pfConfig), {
-      link: function (scope, element) {
-        pf.baseDirectiveLink(scope, element, pfConfig);
+  angular.module('jjp.practical-forms')
 
-        scope.subform.name.$validators.zipcode = function (modelValue) {
-          return pfConfig.validation.patterns.zipcode.test(modelValue);
-        };
-      }
+  .directive('pfZip', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('zipcode', {}, function(scope){
+      scope.subform.name.$validators.zipcode = function (modelValue) {
+        return pfConfig.validation.patterns.zipcode.test(modelValue);
+      };
     });
   }]);
-
-}(window.practicalForms));
+}(window.angular));

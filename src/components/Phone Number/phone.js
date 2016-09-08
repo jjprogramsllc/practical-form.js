@@ -1,15 +1,12 @@
-(function(pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfPhone', ['pfConfig', function(pfConfig) {
-    // return pf.baseDirective('phone', pfConfig);
-    return angular.merge({}, pf.baseDirective('phone'), {
-      link: function(scope, element) {
-        pf.baseDirectiveLink(scope, element, pfConfig);
+  angular.module('jjp.practical-forms')
 
-        scope.subform.name.$validators.phone = function(modelValue) {
-          return pfConfig.validation.patterns.phone.test(modelValue);
-        };
-      }
+  .directive('pfPhone', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('phone', {}, function(scope) {
+      scope.subform.name.$validators.phone = function(modelValue) {
+        return pfConfig.validation.patterns.phone.test(modelValue);
+      };
     });
   }]);
-}(window.practicalForms));
+}(window.angular));

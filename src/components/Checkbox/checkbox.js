@@ -1,7 +1,8 @@
-(function (pf, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfCheckbox', ['pfConfig', function (pfConfig) {
-    return pf.baseDirective('checkbox', pfConfig);
-  }]);
+  angular.module('jjp.practical-forms')
 
-}(window.practicalForms));
+  .directive('pfCheckbox', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('checkbox');
+  }]);
+}(window.angular));

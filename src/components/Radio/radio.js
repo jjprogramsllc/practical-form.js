@@ -1,18 +1,13 @@
-(function (pf, angular, undefined) {
+
+(function(angular) {
   'use strict';
-  pf.module.directive('pfRadio', ['pfConfig', function (pfConfig) {
-    return angular.merge({}, pf.baseDirective('radio', pfConfig), {
-      scope: {
-        value: '@',
-      },
-      link: function (scope, element, attrs) {
-        scope.id = pf.gerenateId();
-        scope.hasTransclude = pf.hasTransclude(element);
-        scope.ngRequired = pf.valOrDefault(scope.ngRequired, false);
-        scope.check = scope.ngRequired;
-        scope.name = attrs.ngModel;
-      }
+  angular.module('jjp.practical-forms')
+
+  .directive('pfRadio', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('radio', {value: '@'} , function(scope, element, attrs){
+      scope.check = scope.ngRequired;
+      scope.name = attrs.ngModel;
+      scope.ngRequired = pfConfig.valOrDefault(scope.ngRequired, false);
     });
   }]);
-
-}(window.practicalForms, window.angular));
+}(window.angular));

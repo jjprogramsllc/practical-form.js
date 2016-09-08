@@ -2,6 +2,54 @@
   'use strict';
 
   pf.module.provider('pfConfig', function() {
+    function Config(config) {
+      angular.extend(this, config);
+    }
+    Config.prototype.baseDirective = function (name, scopeVars, linkCallback) {
+      var _this = this;
+      var directive = {
+        scope: {
+          title: '@',
+          placeholder: '@?',
+          ngModel: '=',
+          required: '=?',
+          ngRequired: '=?',
+          ngDisabled: '=?',
+          pfConfig: '=?'
+            //TODO: Add full suport for these options
+            // ngMinlength: '=?',
+            // ngMaxlength: '=?',
+            // ngPattern: '@?',
+            // ngTrim: '=?'
+        },
+        restrict: 'E',
+        replace: true,
+        transclude: true,
+        templateUrl: '/jjp/pf/' + name + '.html',
+        link: function(scope, element, attrs) {
+          _this.baseLinkFunc(scope, element, attrs, linkCallback);
+        }
+      };
+      if(typeof scopeVars === 'object') {
+        angular.extend(directive.scope, scopeVars);
+      }
+      return directive;
+    };
+    Config.prototype.baseLinkFunc = function (scope, element, attrs, linkCallback) {
+      scope.id = pf.gerenateId();
+      scope.hasTransclude = pf.hasTransclude(element);
+      scope.$watch('subform.name.$modelValue', pf.setDirty);
+      scope.config = angular.merge({}, this, scope.pfConfig);
+
+      if(linkCallback){
+        linkCallback(scope, element, attrs);
+      }
+    };
+
+    Config.prototype.valOrDefault = function(val, def) {
+      return (val === '' || val === undefined) ? def : val;
+    };
+
     var _config = {
       /** the character or pharse that marks an input as required */
       requiredChar: '*',
@@ -45,7 +93,8 @@
     };
 
     this.$get = [function() {
-      return _config;
+      return new Config(_config);
     }];
+
   });
 }(window.practicalForms = window.practicalForms || {}, window.angular));

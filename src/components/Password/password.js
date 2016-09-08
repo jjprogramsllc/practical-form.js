@@ -1,28 +1,23 @@
-(function(pf, angular, undefined) {
+(function(angular) {
   'use strict';
-  pf.module.directive('pfPassword', ['pfConfig', function(pfConfig) {
-    return angular.merge({
-      scope: {
-        confirm: '=?'
-      }
-    }, pf.baseDirective('password'), {
-      link: function(scope, element) {
-        pf.baseDirectiveLink(scope, element, pfConfig);
+  angular.module('jjp.practical-forms')
 
-        scope.subform.name.$validators.password = function (modelValue) {
-          return pfConfig.validation.patterns.password.test(modelValue);
+  .directive('pfPassword', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('password', {
+      confirm: '=?'
+    }, function(scope){
+      scope.subform.name.$validators.password = function (modelValue) {
+        return pfConfig.validation.patterns.password.test(modelValue);
+      };
+
+      if ('confirm' in scope) {
+        scope.subform.name.$validators.confirm = function(modelValue) {
+          if (!modelValue) {
+            return false;
+          }
+          return modelValue === scope.confirm;
         };
-
-        if ('confirm' in scope) {
-          scope.subform.name.$validators.confirm = function(modelValue) {
-            if (!modelValue) {
-              return false;
-            }
-            return modelValue === scope.confirm;
-          };
-        }
       }
     });
   }]);
-
-}(window.practicalForms, window.angular));
+}(window.angular));

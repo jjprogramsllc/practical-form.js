@@ -1,11 +1,8 @@
-(function(pf, undefined ) {
+(function(angular) {
   'use strict';
-  /**
-   * Text input that has basic validation
-   */
-  pf.module.directive('pfText', ['pfConfig', function(pfConfig){
-    console.log('ctrl', pfConfig );
-    return pf.baseDirective('text', pfConfig);
-  }]);
+  angular.module('jjp.practical-forms')
 
-}( window.practicalForms ));
+  .directive('pfText', ['pfConfig', function(pfConfig) {
+    return pfConfig.baseDirective('text');
+  }]);
+}(window.angular));

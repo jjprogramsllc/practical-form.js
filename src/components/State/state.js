@@ -1,4 +1,4 @@
-(function (pf, angular, undefined) {
+(function(angular) {
   'use strict';
   var STATES = {
     'alabama': 'al',
@@ -127,44 +127,37 @@
     'vi': 'virgin islands',
   };
 
-  pf.module.directive('pfState', ['pfConfig', function (pfConfig) {
-    return angular.merge({
-      require: [
-        'ngModel', '^form',
-      ],
-      scope: {
-        output: '@'
-      },
-    }, pf.baseDirective('state', pfConfig), {
-      link: function (scope, element) {
-        scope.id = pf.gerenateId();
-        scope.output = pf.valOrDefault(scope.output, 'code');
-        scope.hasTransclude = pf.hasTransclude(element);
+  angular.module('jjp.practical-forms')
 
-        scope.subform.name.$validators.stateCode = function (modelValue) {
-          return (typeof modelValue !== 'undefined') && (modelValue !== '') && (modelValue.toLowerCase() in STATES);
-        };
+  .directive('pfState', ['pfConfig', function(pfConfig) {
+    var directive = pfConfig.baseDirective('state', {
+      output: '@'
+    }, function(scope) {
+      scope.subform.name.$validators.stateCode = function(modelValue) {
+        return (typeof modelValue !== 'undefined') && (modelValue !== '') && (modelValue.toLowerCase() in STATES);
+      };
 
-        scope.subform.name.$parsers.push(function (viewValue) {
-          viewValue = viewValue.toLowerCase();
-          if (viewValue in STATES) {
-            if (scope.output === 'code') {
-              return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue].toUpperCase();
-            } else {
-              return viewValue.length === 2 ? STATES[viewValue] : viewValue;
-            }
+      scope.subform.name.$parsers.push(function(viewValue) {
+        viewValue = viewValue.toLowerCase();
+        if (viewValue in STATES) {
+          if (scope.output === 'code') {
+            return viewValue.length === 2 ? viewValue.toUpperCase() : STATES[viewValue].toUpperCase();
           } else {
-            return '';
+            return viewValue.length === 2 ? STATES[viewValue] : viewValue;
           }
-        });
+        } else {
+          return '';
+        }
+      });
 
-        scope.$watch('subform.name.$modelValue', function (modelValue, prevValue, form) {
-          if (modelValue !== prevValue && modelValue !== '') {
-            form.subform.name.$setDirty();
-          }
-        });
-      }
+      scope.$watch('subform.name.$modelValue', function(modelValue, prevValue, form) {
+        if (modelValue !== prevValue && modelValue !== '') {
+          form.subform.name.$setDirty();
+        }
+      });
     });
-  }]);
 
-}(window.practicalForms, window.angular));
+    directive.require = ['ngModel', '^form'];
+    return directive;
+  }]);
+}(window.angular));
