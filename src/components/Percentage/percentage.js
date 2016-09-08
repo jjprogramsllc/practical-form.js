@@ -1,8 +1,8 @@
 (function(pf, undefined) {
   'use strict';
-  pf.module.directive('pfPercentage', function() {
-    return pf.baseDirective('percentage');
-  });
+  pf.module.directive('pfPercentage', ['pfConfig', function(pfConfig) {
+    return pf.baseDirective('percentage',pfConfig);
+  }]);
 
   pf.module.directive('pfPercentageMask', function() {
     return {

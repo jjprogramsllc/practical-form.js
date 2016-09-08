@@ -1,7 +1,7 @@
 (function (pf, angular, undefined) {
   'use strict';
-  pf.module.directive('pfRadio', function () {
-    return angular.merge({}, pf.baseDirective('radio'), {
+  pf.module.directive('pfRadio', ['pfConfig', function (pfConfig) {
+    return angular.merge({}, pf.baseDirective('radio', pfConfig), {
       scope: {
         value: '@',
       },
@@ -13,6 +13,6 @@
         scope.name = attrs.ngModel;
       }
     });
-  });
+  }]);
 
 }(window.practicalForms, window.angular));

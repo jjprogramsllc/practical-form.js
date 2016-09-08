@@ -1,15 +1,9 @@
 <div class="pf pf-input" class="form-group has-feedback" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" ng-form="subform" tabindex="-1">
   <label class="control-label" for="{{::id}}">{{title}}
-    <span class="pf-required" ng-if="required || ngRequired">*</span>
-    <span ng-messages="subform.name.$error" ng-show="subform.name.$invalid && subform.name.$dirty" role="alert">&nbsp;&nbsp;
-    <span ng-show="subform.name.$invalid && subform.name.$dirty">
-      <span ng-message="required">This field is required!</span>
-      <span ng-message="minlength, maxlength">Text must be between 0 and 255 characters!</span>
-      <span ng-message="number">That is not a number!</span>
-      <span ng-message="max">Numbers must be less then {{max}}</span>
-      <span ng-message="min">Numbers must be greater then {{min}}</span>
-    </span>
-    <span ng-show="subform.name.$valid && subform.name.$dirty" role="alert">&nbsp;&nbsp;All Good!</span>
+    <span class="pf-required" ng-if="required || ngRequired">{{::config.requiredChar}}</span>
+    <span ng-include="'/jjp/pf/validation.html'"></span>
+    <!-- <span ng-message="min">Numbers must be greater then {{min}}</span> -->
+    <!-- <span ng-message="max">Numbers must be less then {{max}}</span> -->
   </label>
   <p class="FormHint" id="{{::id}}-tip" ng-show="hasTransclude" ng-transclude></p>
   <div class="pf-form-control">

@@ -2,7 +2,7 @@
   <div class="checkbox" tabindex="-1">
     <label for="{{::id}}">
       <input id="{{::id}}" ng-model="ngModel" ng-disabled="ngDisabled" ng-required="ngRequired" type="checkbox" />{{title}}&nbsp;
-      <span class="pf-required" ng-show="required || ngRequired">*</span>
+      <span class="pf-required" ng-if="required || ngRequired">{{::config.requiredChar}}</span>
     </label>
   </div>
 </div>

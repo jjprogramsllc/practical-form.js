@@ -20,7 +20,10 @@
           pattern: 'Text is invalid',
           percent: 'Value must be between 0% and 100%',
           stateCode: 'State is Invalid. Please enter the state name or 2 letter code',
-          url : 'Not a valid URL. Make sure it starts with "http://",'
+          password: 'The password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 digit',
+          phone: 'This does not seem to be valid phone number',
+          url : 'Not a valid URL. Make sure it starts with "http://"',
+          zipcode: 'Invalid Zip Code. Plase enter the 5 digit zip code'
         }
       },
     };

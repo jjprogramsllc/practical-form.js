@@ -127,7 +127,7 @@
     'vi': 'virgin islands',
   };
 
-  pf.module.directive('pfState', function () {
+  pf.module.directive('pfState', ['pfConfig', function (pfConfig) {
     return angular.merge({
       require: [
         'ngModel', '^form',
@@ -135,7 +135,7 @@
       scope: {
         output: '@'
       },
-    }, pf.baseDirective('state'), {
+    }, pf.baseDirective('state', pfConfig), {
       link: function (scope, element) {
         scope.id = pf.gerenateId();
         scope.output = pf.valOrDefault(scope.output, 'code');
@@ -165,6 +165,6 @@
         });
       }
     });
-  });
+  }]);
 
 }(window.practicalForms, window.angular));

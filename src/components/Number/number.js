@@ -1,13 +1,13 @@
 (function(pf, angular,  undefined) {
   'use strict';
-  pf.module.directive('pfNumber', function() {
+  pf.module.directive('pfNumber', ['pfConfig', function(pfConfig) {
     return angular.merge({
       scope: {
         max: '=?',
         min: '=?'
       }
-    }, pf.baseDirective('number'));
-  });
+    }, pf.baseDirective('number', pfConfig));
+  }]);
 
   pf.module.directive('pfNumberMask', function() {
     return {
