@@ -64,6 +64,12 @@
   function Config(config) {
     angular.extend(this, config);
   }
+  /**
+   * helper to make a directive for the form directives
+   * @param name {string} The name of the form, match the file of the template without "form"
+   * @param [scopeVars] {object} Additional scope variables
+   * @param [parseOpts] {function} A function that parses the forms options
+   */
   Config.prototype.baseFormDirective = function(name, scopeVars, parseOpts) {
     var _this = this;
     var directive = {
@@ -122,6 +128,13 @@
       placeholder: _this.valOrDefault(prop.placeholder, pl)
     };
   };
+
+  /**
+   * helper to make a directive for the input directives
+   * @param name {string} The name of the input, match the file name of the template
+   * @param [scopeVars] {object} Additional scope variables
+   * @param [linkCallback] {function} A function that is called in the link step of the directive
+   */
   Config.prototype.baseDirective = function(name, scopeVars, linkCallback) {
     var _this = this;
     var directive = {
@@ -152,12 +165,19 @@
     }
     return directive;
   };
+
+  /**
+   * The base linker function
+   * @param linkCallback {function} Optional function to run additional linker steps
+   */
   Config.prototype.baseLinkFunc = function(scope, element, attrs, linkCallback) {
     var _this = this;
     scope.id = this.gerenateId();
     scope.hasTransclude = this.hasTransclude(element);
     scope.$watch('subform.name.$modelValue', _this.setDirty);
     scope.config = angular.merge({}, _this, scope.pfConfig);
+
+    //TODO: Add a step to auto subsitute the name in the validation labels
 
     if (linkCallback) {
       linkCallback(scope, element, attrs);
