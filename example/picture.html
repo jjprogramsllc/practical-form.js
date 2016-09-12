@@ -1,0 +1,143 @@
+<html ng-app="examplePage">
+
+  <head>
+    <title>
+      Practical Forms Picure Input
+    </title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <style media="screen">
+      .pf-form-control {
+        position: relative;
+      }
+
+      .pf-required {
+        color: red;
+      }
+
+    </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-aria.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-messages.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>
+    <script src="../dist/practical-forms.js"></script>
+
+    <script>
+      angular.module("examplePage", ['jjp.practical-forms']).controller("ExampleCtrl", [
+        '$scope',
+        function($scope) {
+          $scope.disabled = false;
+          $scope.inputs = {};
+          $scope.picture2 = {};
+
+          $scope.set = function(key, val) {
+            $scope.inputs[key] = val;
+          };
+        }
+      ]);
+    </script>
+  </head>
+
+  <body ng-controller="ExampleCtrl">
+    <div class="container">
+      <div class="row">
+        <div class="page-header">
+          <span class="pull-right">
+            <pf-checkbox title="Disable all forms" ng-model="disabled"></span>
+            <h1>Practical Forms Example Page</h1>
+          </div>
+          <ul class="nav nav-pills">
+            <li role="presentation" class="active">
+              <a href="index.html">Inputs</a>
+            </li>
+            <li role="presentation">
+              <a href="login.html">Login Form</a>
+            </li>
+            <li role="presentation">
+              <a href="register.html">Registration Form</a>
+            </li>
+            <li role="presentation">
+              <a href="password.html">Change Password Form</a>
+            </li>
+            <li role="presentation">
+              <a href="options.html">Radio/Checkbox Form</a>
+            </li>
+          </ul>
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <div class="row">
+          <form name="form">
+            <div class="col-lg-12">
+              <pf-group title="Picture Inputs">
+                <h3>Picture Inputs</h3>
+                <pf-picture-uploader ng-model="inputs.picture" ng-disabled="disabled" preview="preview" title="Select a Picture" max-size="1000000">
+                  Picture selection with preview. Max file size set to 1Mb
+                </pf-picture-uploader>
+
+                <pf-picture-uploader ng-model="inputs.picture2" ng-disabled="disabled" preview="preview" result="result" status="status" title="Picture with uploading" url="http://localhost:8080/file/">
+                  Picture input with uploading action after the image is selected. Max file size if defaulted to 3MB.
+                  <br/>
+                  Binding Parmeters:
+                  <ul>
+                    <li>
+                      ng-model - the image selection for the input (required)
+                    </li>
+                    <li>
+                      title - The title for the input (required)
+                    </li>
+                    <li>
+                      preview - The image source for preview return by the FileReader API
+                    </li>
+                    <li>
+                      result - Result of uploading or error messages
+                    </li>
+                    <li>
+                      status - Numerical status of the image selection
+                      <ul>
+                        <li>0 = No Image</li>
+                        <li>1 = Loading Image</li>
+                        <li>2 = Image Loaded</li>
+                        <li>3 = Uploading</li>
+                        <li>4 = File Uploaded</li>
+                        <li>-1 = Error</li>
+                        <li>-10 = File to big</li>
+                      </ul>
+                    </li>
+                    <li>
+                      url - The url to upload the image to, upload button will only be show if this is given
+                    </li>
+                    <li>
+                      max-size - The max size of image in bytes, default: 3000000
+                    </li>
+                  </ul>
+
+                </pf-picture-uploader>
+                <pre>
+              Image Input Results:
+              ---------------------------------------------------
+              Image Viewer status: {{status}}
+              Image Viewer Results: {{result}}
+              Image: {{inputs.picture2}}
+              Filename: {{inputs.picture2.name}}
+            </pre>
+                <a href="http://localhost:8080/file/{{result.file[0].fd}}" ng-show="status==4">Open Image</a>
+              </pf-group>
+
+              <br/>
+              <br/>
+              <br/>
+
+              <hr/>
+              <h2>Output:
+              </h2>
+              <pre>{{inputs | json}}</pre>
+            </div>
+          </form>
+        </div>
+      </div>
+    </body>
+
+  </html>

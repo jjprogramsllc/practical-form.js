@@ -1,7 +1,9 @@
 (function(pf, angular, undefined) {
   'use strict';
 
-  pf.module.provider('pfConfig', function() {
+  angular.module('jjp.practical-forms')
+
+  .provider('pfConfig', function() {
     function Config(config) {
       angular.extend(this, config);
     }
@@ -36,10 +38,11 @@
       return directive;
     };
     Config.prototype.baseLinkFunc = function (scope, element, attrs, linkCallback) {
-      scope.id = pf.gerenateId();
-      scope.hasTransclude = pf.hasTransclude(element);
-      scope.$watch('subform.name.$modelValue', pf.setDirty);
-      scope.config = angular.merge({}, this, scope.pfConfig);
+      var _this = this;
+      scope.id = this.gerenateId();
+      scope.hasTransclude = this.hasTransclude(element);
+      scope.$watch('subform.name.$modelValue', _this.setDirty);
+      scope.config = angular.merge({}, _this, scope.pfConfig);
 
       if(linkCallback){
         linkCallback(scope, element, attrs);
@@ -63,6 +66,33 @@
         }
       };
       return angular.merge({}, defaultOptions, typeOpts, custOpts);
+    };
+
+    /**
+     * Function to detect if element has transcluded elements
+     * @param element Angular.element / jQuery element to detect
+     */
+    Config.prototype.hasTransclude = function(element) {
+      var e = element.find('p').html();
+      return e && (e.length > 0);
+    };
+
+    /**
+     * Generate id for elements using GUID like string
+     * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
+     */
+    Config.prototype.gerenateId = function() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    };
+
+    /** Set the dirty flage when ever the modelValue changes */
+    Config.prototype.setDirty = function(modelValue, prevValue, form) {
+      if (modelValue !== prevValue && modelValue !== '') {
+        form.subform.name.$setDirty();
+      }
     };
 
     var _config = {
@@ -111,5 +141,17 @@
       return new Config(_config);
     }];
 
-  });
+  })
+
+  /** A basic controller for the modal popups */
+  .controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
+    $scope.params = params;
+    $scope.data = data;
+    $scope.Ok = function() {
+      $uibModalInstance.close();
+    };
+    $scope.Cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }]);
 }(window.practicalForms = window.practicalForms || {}, window.angular));

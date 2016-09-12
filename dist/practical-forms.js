@@ -19,7 +19,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   $templateCache.put("/jjp/pf/phone.html",
     "<div class=\"form-group has-feedback\" ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\" ng-form=subform tabindex=-1><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">{{::config.requiredChar}}</span> <span ng-include=\"'/jjp/pf/validation.html'\"></span></label><p class=FormHint id={{::id}}-tip ng-show=hasTransclude ng-transclude><div class=pf-form-control><input aria-describedby={{::id}}-tip class=form-control id={{::id}} name=name ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired ng-trim=true placeholder=\"Example: (123)456-7890\" required> <span class=\"glyphicon glyphicon-remove form-control-feedback\" ng-show=\"subform.name.$invalid && subform.name.$dirty\">&nbsp;</span> <span class=\"glyphicon glyphicon-ok form-control-feedback\" ng-show=\"!subform.name.$invalid && subform.name.$dirty\">&nbsp;</span></div></div>");
   $templateCache.put("/jjp/pf/picture.html",
-    "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><span class=pf-required ng-if=\"required || ngRequired\">{{::config.requiredChar}}</span> <span ng-show=\"subform.name.$invalid && subform.name.$dirty\"><span ng-show=subform.name.$error.required>- Required!</span></span><p class=FormHint ng-transclude ng-show=hasTransclude></p><div class=\"well row\"><div class=col-xs-9><h4><span ng-show=\"status == 4\">Success! File Uploaded</span> <span ng-show=\"status == 3\">Uploading...</span> <span ng-show=\"status == 2\">Loaded Image <small><i>Image may not be display correctly</i></small></span> <span ng-show=\"status == 1\">Loading Image {{load.loaded*100/load.total | number:0}}%</span> <span ng-show=\"status == 0\">No Image Selected</span> <span ng-show=\"status < 0\">Error! <span ng-show=\"status == -10\">- File is Too Large, Max Size: {{size/1000}} kB</span></span></h4><div class=\"fileinput-preview thumbnail\" style=\"width: 250px\" ng-show=\"status>= 2\"><img ng-src={{preview}} style=\"image-orientation: from-image\"></div><input class=form-control type=file name=name accept=image/* ng-required=ngRequired required style=display:none><p ng-show=\"status>=2\"><strong>File:</strong> {{ngModel.name}}</p></div><div class=col-xs-3><button type=button class=\"btn btn-block btn-default file-selector\">Select</button> <button type=button class=\"btn btn-block btn-success\" ng-click=Upload() ng-show=\"status>=2\" ng-if=showUpload>Upload</button> <button type=button class=\"btn btn-block btn-danger\" ng-click=Remove() ng-show=\"status>=2\">Remove</button></div></div></div>");
+    "<div class=\"pf pf-input\" class=\"form-group has-feedback\" ng-form=subform ng-class=\"{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }\"><label class=control-label for={{::id}}>{{title}} <span class=pf-required ng-if=\"required || ngRequired\">{{::config.requiredChar}}</span> <span ng-include=\"'/jjp/pf/validation.html'\"></span></label><p class=FormHint ng-transclude ng-show=hasTransclude></p><div class=\"well row\"><div class=col-xs-9><h4><span ng-show=\"status == 4\">Success! File Uploaded</span> <span ng-show=\"status == 3\">Uploading...</span> <span ng-show=\"status == 2\">Loaded Image <small><i>Image may not be display correctly</i></small></span> <span ng-show=\"status == 1\">Loading Image {{load.loaded*100/load.total | number:0}}%</span> <span ng-show=\"status == 0\">No Image Selected</span> <span ng-show=\"status < 0\">Error! <span ng-show=\"status == -10\">- File is Too Large, Max Size: {{size/1000}} kB</span></span></h4><div class=\"fileinput-preview thumbnail\" style=\"width: 250px\" ng-show=\"status>= 2\"><img ng-src={{preview}} style=\"image-orientation: from-image\"></div><input class=form-control type=file name=name accept=image/* ng-required=ngRequired required style=display:none><p ng-show=\"status>=2\"><strong>File:</strong> {{ngModel.name}}</p></div><div class=col-xs-3><button type=button class=\"btn btn-block btn-default file-selector\">Select</button> <button type=button class=\"btn btn-block btn-success\" ng-click=Upload() ng-show=\"status>=2\" ng-if=showUpload>Upload</button> <button type=button class=\"btn btn-block btn-danger\" ng-click=Remove() ng-show=\"status>=2\">Remove</button></div></div></div>");
   $templateCache.put("/jjp/pf/radio.html",
     "<div class=\"pf pf-input\" ng-class=\"{'has-error':!ngModel && ngRequired, 'has-success':ngModel&& ngRequired }\"><div class=radio tabindex=-1><label for={{::id}}><input id={{::id}} ng-model=ngModel ng-disabled=ngDisabled ng-required=ngRequired type=radio name={{name}} value=\"{{value}}\">{{title}}&nbsp; <span class=pf-required ng-if=\"required || ngRequired\">{{::config.requiredChar}}</span></label></div></div>");
   $templateCache.put("/jjp/pf/state.html",
@@ -74,64 +74,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   /** Main angular modules */
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
-  /** A basic controller for the modal popups */
-  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
-    $scope.params = params;
-    $scope.data = data;
-    $scope.Ok = function() {
-      $uibModalInstance.close();
-    };
-    $scope.Cancel = function() {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }]);
-
-  pf.parseModelOptions = function(typeOpts, custOpts) {
-    var defaultOptions = {
-      templateUrl: '/jjp/pf/confirm.html',
-      controller: 'pfModalCtrl',
-      resolve: {
-        params: {
-          title: 'Modal Title',
-          message: 'Modal Body'
-        },
-        data: {}
-      }
-    };
-    return angular.merge({}, defaultOptions, typeOpts, custOpts);
-  };
-
-  /**
-   * Function to detect if element has transcluded elements
-   * @param element Angular.element / jQuery element to detect
-   */
-  pf.hasTransclude = function(element) {
-    var e = element.find('p').html();
-    return e && (e.length > 0);
-  };
-
-  /** Set the dirty flage when ever the modelValue changes */
-  pf.setDirty = function(modelValue, prevValue, form) {
-    if (modelValue !== prevValue && modelValue !== '') {
-      form.subform.name.$setDirty();
-    }
-  };
-
-  /**
-   * Generate id for elements using GUID like string
-   * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
-   */
-  pf.gerenateId = function() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-  };
-
-  pf.valOrDefault = function(val, def) {
-    return (val === '' || val === undefined) ? def : val;
-  };
-
   /**
    * Gets the valus (or defaults) for the form information
    * @param opts {object} The options object from the binded properties
@@ -164,38 +106,6 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     };
   };
 
-  pf.baseDirectiveLink = function(scope, element, config) {
-    scope.id = pf.gerenateId();
-    scope.hasTransclude = pf.hasTransclude(element);
-    scope.$watch('subform.name.$modelValue', pf.setDirty);
-    scope.config = angular.merge({}, config, scope.pfConfig);
-  };
-  pf.baseDirective = function(name, config) {
-    return {
-      scope: {
-        title: '@',
-        placeholder: '@?',
-        ngModel: '=',
-        required: '=?',
-        ngRequired: '=?',
-        ngDisabled: '=?',
-        pfConfig: '=?'
-          //TODO: Add full suport for these options
-          // ngMinlength: '=?',
-          // ngMaxlength: '=?',
-          // ngPattern: '@?',
-          // ngTrim: '=?'
-      },
-      restrict: 'E',
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/' + name + '.html',
-      link: function(scope, element) {
-        pf.baseDirectiveLink(scope, element, config);
-      }
-    };
-  };
-
   pf.VERSION = '2.3.0';
 
 }(window.practicalForms = window.practicalForms || {}, window.angular));
@@ -203,7 +113,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 (function(pf, angular, undefined) {
   'use strict';
 
-  pf.module.provider('pfConfig', function() {
+  angular.module('jjp.practical-forms')
+
+  .provider('pfConfig', function() {
     function Config(config) {
       angular.extend(this, config);
     }
@@ -238,10 +150,11 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       return directive;
     };
     Config.prototype.baseLinkFunc = function (scope, element, attrs, linkCallback) {
-      scope.id = pf.gerenateId();
-      scope.hasTransclude = pf.hasTransclude(element);
-      scope.$watch('subform.name.$modelValue', pf.setDirty);
-      scope.config = angular.merge({}, this, scope.pfConfig);
+      var _this = this;
+      scope.id = this.gerenateId();
+      scope.hasTransclude = this.hasTransclude(element);
+      scope.$watch('subform.name.$modelValue', _this.setDirty);
+      scope.config = angular.merge({}, _this, scope.pfConfig);
 
       if(linkCallback){
         linkCallback(scope, element, attrs);
@@ -265,6 +178,33 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         }
       };
       return angular.merge({}, defaultOptions, typeOpts, custOpts);
+    };
+
+    /**
+     * Function to detect if element has transcluded elements
+     * @param element Angular.element / jQuery element to detect
+     */
+    Config.prototype.hasTransclude = function(element) {
+      var e = element.find('p').html();
+      return e && (e.length > 0);
+    };
+
+    /**
+     * Generate id for elements using GUID like string
+     * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
+     */
+    Config.prototype.gerenateId = function() {
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+      }
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    };
+
+    /** Set the dirty flage when ever the modelValue changes */
+    Config.prototype.setDirty = function(modelValue, prevValue, form) {
+      if (modelValue !== prevValue && modelValue !== '') {
+        form.subform.name.$setDirty();
+      }
     };
 
     var _config = {
@@ -313,7 +253,19 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
       return new Config(_config);
     }];
 
-  });
+  })
+
+  /** A basic controller for the modal popups */
+  .controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
+    $scope.params = params;
+    $scope.data = data;
+    $scope.Ok = function() {
+      $uibModalInstance.close();
+    };
+    $scope.Cancel = function() {
+      $uibModalInstance.dismiss('cancel');
+    };
+  }]);
 }(window.practicalForms = window.practicalForms || {}, window.angular));
 
 (function(angular) {
@@ -510,152 +462,131 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   }]);
 }(window.angular));
 
-(function(pf, undefined) {
+(function(angular) {
   'use strict';
+  angular.module('jjp.practical-forms')
+
   /*
    * Single Picture Uploader
    * Provides a preview of the image before uploading
    *
    */
-  pf.module.factory('jjp.FileObject', [
-    '$q',
-    function($q) {
-      var onLoad = function(reader, deferred) {
-        return function() {
-          deferred.resolve(reader.result);
-        };
+  .factory('jjp.FileObject', ['$q', function($q) {
+    var onLoad = function(reader, deferred) {
+      return function() {
+        deferred.resolve(reader.result);
       };
-
-      var onError = function(reader, deferred) {
-        return function() {
-          deferred.reject(reader.result);
-        };
-      };
-
-      var onProgress = function(reader, deferred) {
-        return function(event) {
-          deferred.notify(event);
-        };
-      };
-      var FileObject = {
-        ReadImage: function(file) {
-          var deferred = $q.defer();
-
-          var reader = new FileReader();
-          reader.onload = onLoad(reader, deferred);
-          reader.onerror = onError(reader, deferred);
-          reader.onprogress = onProgress(reader, deferred);
-
-          reader.readAsDataURL(file);
-
-          return deferred.promise;
-        }
-      };
-
-      return FileObject;
-    }
-  ]);
-
-  pf.module.directive('pfPictureUploader', function() {
-    return {
-      restrict: 'E',
-      scope: {
-        title: '@',
-        ngModel: '=',
-        preview: '=?',
-        url: '@?',
-        result: '=?',
-        status: '=?',
-        maxSize: '=?',
-        required: '=?',
-        ngRequired: '=?'
-      },
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/picture.html',
-
-      link: function(scope, element) {
-        angular.element(element[0].querySelector('.file-selector')).bind('click', function() {
-          element[0].querySelector('input').click();
-        });
-        angular.element(element[0].querySelector('input')).bind('change', function(e) {
-          if (typeof((e.srcElement || e.target).files[0]) !== 'undefined') {
-            scope.$apply(function() {
-              scope.ngModel = (e.srcElement || e.target).files[0];
-              scope.Select();
-            });
-          }
-        });
-        scope.hasTransclude = pf.hasTransclude(element);
-        scope.$watch('subform.name.$modelValue', pf.setDirty);
-      },
-
-      controller: [
-        '$scope',
-        '$http',
-        'jjp.FileObject',
-        function($scope, $http, FileObject) {
-
-          $scope.Select = function() {
-            $scope.status = 1;
-            if ($scope.ngModel.size > $scope.size) {
-              $scope.status = -10;
-              $scope.result = 'Image is too Big!';
-              return;
-            }
-            FileObject.ReadImage($scope.ngModel).then(function(result) {
-              $scope.preview = result;
-              $scope.status = 2;
-            }, function(error) {
-              $scope.status = -1;
-              $scope.result = error;
-            }, function(event) {
-              $scope.load = event;
-            });
-          };
-
-          $scope.Upload = function() {
-            $scope.status = 3;
-            var fd = new FormData();
-            fd.append('file', $scope.ngModel);
-            $http.post($scope.url, fd, {
-              transformRequest: angular.identity,
-              headers: {
-                'Content-Type': undefined
-              }
-            }).success(function(data) {
-              $scope.status = 4;
-              $scope.result = data;
-            }).error(function(error) {
-              $scope.status = -1;
-              $scope.result = error;
-            });
-          };
-
-          $scope.Remove = function() {
-            $scope.ngModel = null;
-            $scope.preview = null;
-            $scope.status = 0;
-          };
-
-          $scope.CanUpload = function() {
-            var urlPattern = new RegExp('^(ht|f)tp(s?)\:\/\/(([a-zA-Z0-9\-\._]+(\.[a-zA-Z0-9\-\._]+)+)|localhost)(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?([\d\w\.\/\%\+\-\=\&amp;\?\:\\\&quot;\'\,\|\~\;]*)$');
-            return urlPattern.test($scope.url);
-          };
-
-          // maxSize or 3MB
-          $scope.size = $scope.maxSize || 3000000;
-          $scope.ngModel = {};
-          $scope.status = 0;
-          $scope.result = {};
-          $scope.showPreview = 0;
-          $scope.showUpload = $scope.CanUpload();
-        }
-      ]
     };
-  });
 
-}(window.practicalForms));
+    var onError = function(reader, deferred) {
+      return function() {
+        deferred.reject(reader.result);
+      };
+    };
+
+    var onProgress = function(reader, deferred) {
+      return function(event) {
+        deferred.notify(event);
+      };
+    };
+
+    var FileObject = {
+      ReadImage: function(file) {
+        var deferred = $q.defer();
+
+        var reader = new FileReader();
+        reader.onload = onLoad(reader, deferred);
+        reader.onerror = onError(reader, deferred);
+        reader.onprogress = onProgress(reader, deferred);
+
+        reader.readAsDataURL(file);
+
+        return deferred.promise;
+      }
+    };
+
+    return FileObject;
+  }])
+
+  .directive('pfPictureUploader', ['pfConfig', function(pfConfig) {
+    var directive = pfConfig.baseDirective('picture', {
+      preview: '=?',
+      url: '@?',
+      result: '=?',
+      status: '=?',
+      maxSize: '=?',
+    }, function(scope, element) {
+      angular.element(element[0].querySelector('.file-selector')).bind('click', function() {
+        element[0].querySelector('input').click();
+      });
+      angular.element(element[0].querySelector('input')).bind('change', function(e) {
+        if (typeof((e.srcElement || e.target).files[0]) !== 'undefined') {
+          scope.$apply(function() {
+            scope.ngModel = (e.srcElement || e.target).files[0];
+            scope.Select();
+          });
+        }
+      });
+    });
+    directive.controller = ['$scope', '$http', 'jjp.FileObject', function($scope, $http, FileObject) {
+      $scope.Select = function() {
+        $scope.status = 1;
+        if ($scope.ngModel.size > $scope.size) {
+          $scope.status = -10;
+          $scope.result = 'Image is too Big!';
+          return;
+        }
+        FileObject.ReadImage($scope.ngModel).then(function(result) {
+          $scope.preview = result;
+          $scope.status = 2;
+        }, function(error) {
+          $scope.status = -1;
+          $scope.result = error;
+        }, function(event) {
+          $scope.load = event;
+        });
+      };
+
+      $scope.Upload = function() {
+        $scope.status = 3;
+        var fd = new FormData();
+        fd.append('file', $scope.ngModel);
+        $http.post($scope.url, fd, {
+          transformRequest: angular.identity,
+          headers: {
+            'Content-Type': undefined
+          }
+        }).success(function(data) {
+          $scope.status = 4;
+          $scope.result = data;
+        }).error(function(error) {
+          $scope.status = -1;
+          $scope.result = error;
+        });
+      };
+
+      $scope.Remove = function() {
+        $scope.ngModel = null;
+        $scope.preview = null;
+        $scope.status = 0;
+      };
+
+      $scope.CanUpload = function() {
+        var urlPattern = new RegExp('^(ht|f)tp(s?)\:\/\/(([a-zA-Z0-9\-\._]+(\.[a-zA-Z0-9\-\._]+)+)|localhost)(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?([\d\w\.\/\%\+\-\=\&amp;\?\:\\\&quot;\'\,\|\~\;]*)$');
+        return urlPattern.test($scope.url);
+      };
+
+      // maxSize or 3MB
+      $scope.size = $scope.maxSize || 3000000;
+      $scope.ngModel = {};
+      $scope.status = 0;
+      $scope.result = {};
+      $scope.showPreview = 0;
+      $scope.showUpload = $scope.CanUpload();
+    }];
+    return directive;
+  }]);
+}(window.angular));
 
 
 (function(angular) {

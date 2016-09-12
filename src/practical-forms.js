@@ -23,64 +23,6 @@
   /** Main angular modules */
   pf.module = angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages']);
 
-  /** A basic controller for the modal popups */
-  pf.module.controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
-    $scope.params = params;
-    $scope.data = data;
-    $scope.Ok = function() {
-      $uibModalInstance.close();
-    };
-    $scope.Cancel = function() {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }]);
-
-  pf.parseModelOptions = function(typeOpts, custOpts) {
-    var defaultOptions = {
-      templateUrl: '/jjp/pf/confirm.html',
-      controller: 'pfModalCtrl',
-      resolve: {
-        params: {
-          title: 'Modal Title',
-          message: 'Modal Body'
-        },
-        data: {}
-      }
-    };
-    return angular.merge({}, defaultOptions, typeOpts, custOpts);
-  };
-
-  /**
-   * Function to detect if element has transcluded elements
-   * @param element Angular.element / jQuery element to detect
-   */
-  pf.hasTransclude = function(element) {
-    var e = element.find('p').html();
-    return e && (e.length > 0);
-  };
-
-  /** Set the dirty flage when ever the modelValue changes */
-  pf.setDirty = function(modelValue, prevValue, form) {
-    if (modelValue !== prevValue && modelValue !== '') {
-      form.subform.name.$setDirty();
-    }
-  };
-
-  /**
-   * Generate id for elements using GUID like string
-   * {@link http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript}
-   */
-  pf.gerenateId = function() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-  };
-
-  pf.valOrDefault = function(val, def) {
-    return (val === '' || val === undefined) ? def : val;
-  };
-
   /**
    * Gets the valus (or defaults) for the form information
    * @param opts {object} The options object from the binded properties
@@ -110,38 +52,6 @@
       model: pf.valOrDefault(prop.model, name),
       help: pf.valOrDefault(prop.help, help),
       placeholder: pf.valOrDefault(prop.placeholder, pl)
-    };
-  };
-
-  pf.baseDirectiveLink = function(scope, element, config) {
-    scope.id = pf.gerenateId();
-    scope.hasTransclude = pf.hasTransclude(element);
-    scope.$watch('subform.name.$modelValue', pf.setDirty);
-    scope.config = angular.merge({}, config, scope.pfConfig);
-  };
-  pf.baseDirective = function(name, config) {
-    return {
-      scope: {
-        title: '@',
-        placeholder: '@?',
-        ngModel: '=',
-        required: '=?',
-        ngRequired: '=?',
-        ngDisabled: '=?',
-        pfConfig: '=?'
-          //TODO: Add full suport for these options
-          // ngMinlength: '=?',
-          // ngMaxlength: '=?',
-          // ngPattern: '@?',
-          // ngTrim: '=?'
-      },
-      restrict: 'E',
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/' + name + '.html',
-      link: function(scope, element) {
-        pf.baseDirectiveLink(scope, element, config);
-      }
     };
   };
 

@@ -1,8 +1,7 @@
-<div class="pf pf-input" class="form-group has-feedback" ng-form="subform" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }" >
+<div class="pf pf-input" class="form-group has-feedback" ng-form="subform" ng-class="{'has-error':subform.name.$invalid && subform.name.$dirty, 'has-success':!subform.name.$invalid && subform.name.$dirty }">
+  <label class="control-label" for="{{::id}}">{{title}}
   <span class="pf-required" ng-if="required || ngRequired">{{::config.requiredChar}}</span>
-    <span ng-show="subform.name.$invalid && subform.name.$dirty">
-      <span ng-show="subform.name.$error.required"> - Required!</span>
-    </span>
+  <span ng-include="'/jjp/pf/validation.html'"></span>
   </label>
   <p class="FormHint" ng-transclude ng-show="hasTransclude"></p>
   <div class="well row">
@@ -18,7 +17,7 @@
         </span>
       </h4>
       <div class="fileinput-preview thumbnail" style="width: 250px; " ng-show="status>= 2">
-        <img ng-src="{{preview}}" style="image-orientation: from-image"/>
+        <img ng-src="{{preview}}" style="image-orientation: from-image" />
       </div>
       <input class="form-control" type="file" name="name" accept="image/*" ng-required="ngRequired" required={{required}} style="display:none">
       <p ng-show="status>=2"><strong>File:</strong> {{ngModel.name}}</p>
@@ -29,4 +28,4 @@
       <button type="button" class="btn btn-block btn-danger" ng-click="Remove()" ng-show="status>=2">Remove</button>
     </div>
 
-</div>
+  </div>
