@@ -1,35 +1,19 @@
-(function(pf, undefined) {
+(function(angular) {
   'use strict';
+  angular.module('jjp.practical-forms')
 
-  function parseOpts(opts) {
-    opts = opts || {};
-    return {
-      meta: pf.formOptions(opts, 'Register', 'Create Account'),
-      firstname: pf.vORdInput(opts, 'firstname', 'First Name', '', 'Ex. John'),
-      lastname: pf.vORdInput(opts, 'lastname', 'Last Name', '', 'Ex. Doe'),
-      email: pf.vORdInput(opts, 'email', 'Email', '', 'Ex. john.doe@someplace.com'),
-      password: pf.vORdInput(opts, 'password', 'Password', '', ''),
-      confirmPassword: pf.vORdInput(opts, 'confirmPassword', 'Confirm Password', '', ''),
-    };
-  }
-  pf.module.directive('pfFormRegister', function() {
-    return {
-      scope: {
-        ngModel: '=',
-        ngDisabled: '=?',
-        ngSubmit: '&',
-        settings: '=?'
-      },
-      require: '^form',
-      restrict: 'E',
-      replace: true,
-      transclude: true,
-      templateUrl: '/jjp/pf/registerform.html',
-      link: function(scope, element) {
-        scope.s = parseOpts(scope.settings);
-        scope.hasTransclude = pf.hasTransclude(element);
-      }
-    };
-  });
-
-} (window.practicalForms));
+  .directive('pfFormRegister', ['pfConfig', function(pfConfig) {
+    function parseOpts(opts) {
+      opts = opts || {};
+      return {
+        meta: pfConfig.formOptions(opts, 'Register', 'Create Account'),
+        firstname: pfConfig.vORdInput(opts, 'firstname', 'First Name', '', 'Ex. John'),
+        lastname: pfConfig.vORdInput(opts, 'lastname', 'Last Name', '', 'Ex. Doe'),
+        email: pfConfig.vORdInput(opts, 'email', 'Email', '', 'Ex. john.doe@someplace.com'),
+        password: pfConfig.vORdInput(opts, 'password', 'Password', '', ''),
+        confirmPassword: pfConfig.vORdInput(opts, 'confirmPassword', 'Confirm Password', '', ''),
+      };
+    }
+    return pfConfig.baseFormDirective('register', {}, parseOpts);
+  }]);
+}(window.angular));
