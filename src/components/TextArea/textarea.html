@@ -6,7 +6,7 @@
   </label>
   <p class="FormHint" id="{{::id}}-tip" ng-show="hasTransclude" ng-transclude/>
   <div class="pf-form-control">
-    <textarea aria-describedby="{{::id}}-tip" class="form-control" id="{{::id}}" name="name" ng-Trim=1 ng-maxlength=2500 ng-model="ngModel" ng-disabled="ngDisabled" ng-required="ngRequired" placeholder={{placeholder}} required={{required}}></textara>
+    <textarea aria-describedby="{{::id}}-tip" class="form-control" id="{{::id}}" name="name" ng-Trim=1 ng-maxlength="ngMaxlength" ng-model="ngModel" ng-disabled="ngDisabled" ng-required="ngRequired" placeholder={{placeholder}} required={{required}}></textara>
     <span class="glyphicon glyphicon-remove form-control-feedback" ng-show="subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="!subform.name.$invalid && subform.name.$dirty">&nbsp;</span>
   </div>

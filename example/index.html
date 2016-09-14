@@ -88,6 +88,10 @@
                   attribute. The attribute can be added to any PractialForms input
                 </pf-text>
 
+                <pf-text title="Text Input, Custom Length" ng-model="inputs.text_custLength" ng-disabled="disabled" ng-maxlength=50 ng-minlength=10>
+                  This text field has the length set to 10-50 characters
+                </pf-text>
+
                 <pf-text title="Text Input, Disabled" ng-model="inputs.text_noTrans" ng-disabled=1></pf-text>
 
                 <pf-text title="Text Input, No transclude area" ng-model="inputs.text_noTrans" ng-disabled="disabled"></pf-text>

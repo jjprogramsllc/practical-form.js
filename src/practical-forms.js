@@ -37,8 +37,8 @@
       labels: {
         valid: 'All Good!',
         required: 'This input is required',
-        minlength: 'Text must be between 0 and 255 characters',
-        maxlength: 'Text must be between 0 and 255 characters',
+        minlength: 'Text must be longer than {{ngMinlength}} characters',
+        maxlength: 'Text must be shorter than {{ngMaxlength}} characters',
         email: 'This does not seem to be a valid email',
         number: 'That is not a number',
         max: 'Numbers must be less then {{max}}',
@@ -145,12 +145,11 @@
         required: '=?',
         ngRequired: '=?',
         ngDisabled: '=?',
-        pfConfig: '=?'
-          //TODO: Add full suport for these options
-          // ngMinlength: '=?',
-          // ngMaxlength: '=?',
-          // ngPattern: '@?',
-          // ngTrim: '=?'
+        pfConfig: '=?',
+        ngMinlength: '=?',
+        ngMaxlength: '=?',
+        // ngPattern: '@?',
+        // ngTrim: '=?'
       },
       restrict: 'E',
       replace: true,
@@ -173,15 +172,30 @@
   Config.prototype.baseLinkFunc = function(scope, element, attrs, linkCallback) {
     var _this = this;
     scope.id = this.gerenateId();
+
+    scope.ngMaxlength = scope.ngMaxlength || 255;
+    scope.ngMinlength = scope.ngMinlength || 0;
+
     scope.hasTransclude = this.hasTransclude(element);
     scope.$watch('subform.name.$modelValue', _this.setDirty);
     scope.config = angular.merge({}, _this, scope.pfConfig);
 
-    //TODO: Add a step to auto subsitute the name in the validation labels
-
     if (linkCallback) {
       linkCallback(scope, element, attrs);
     }
+
+    var scopeProps = Object.keys(scope);
+    var blacklistProps = ['subform', 'config', 'id'];
+
+    var validKeys = scopeProps.filter(function(q) {
+      return (q[0] !== '$') && (blacklistProps.indexOf(q) === -1);
+    });
+    console.log(validKeys);
+    Object.keys(scope.config.validation.labels).forEach(function(q) {
+      validKeys.forEach(function(w) {
+        scope.config.validation.labels[q] = scope.config.validation.labels[q].replace('{{' + w + '}}', scope[w]);
+      });
+    });
   };
 
   Config.prototype.valOrDefault = function(val, def) {
@@ -234,26 +248,26 @@
 
   /** Main angular modules */
   angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages'])
-  .provider('pfConfig', function() {
-    /** Set the config object */
-    this.setConfig = function(config) {
-      _config = angular.merge({}, _config, config);
-    };
+    .provider('pfConfig', function() {
+      /** Set the config object */
+      this.setConfig = function(config) {
+        _config = angular.merge({}, _config, config);
+      };
 
-    this.$get = [function() {
-      return new Config(_config);
-    }];
-  })
-  /** A basic controller for the modal popups */
-  .controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
-    $scope.params = params;
-    $scope.data = data;
-    $scope.Ok = function() {
-      $uibModalInstance.close();
-    };
-    $scope.Cancel = function() {
-      $uibModalInstance.dismiss('cancel');
-    };
-  }]);
+      this.$get = [function() {
+        return new Config(_config);
+      }];
+    })
+    /** A basic controller for the modal popups */
+    .controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
+      $scope.params = params;
+      $scope.data = data;
+      $scope.Ok = function() {
+        $uibModalInstance.close();
+      };
+      $scope.Cancel = function() {
+        $uibModalInstance.dismiss('cancel');
+      };
+    }]);
 
 }(window.angular));
