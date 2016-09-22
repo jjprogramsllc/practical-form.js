@@ -112,8 +112,9 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
    *
    * @param config {object} A object that has all of the configurataion options
    */
-  function Config(config) {
+  function Config(config, $interpolate) {
     angular.extend(this, config);
+    this.$interpolate= $interpolate;
   }
   /**
    * helper to make a directive for the form directives
@@ -193,14 +194,14 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
         title: '@',
         placeholder: '@?',
         ngModel: '=',
-        required: '=?',
-        ngRequired: '=?',
-        ngDisabled: '=?',
+        required: '@?',
+        ngRequired: '<?',
+        ngDisabled: '<?',
         pfConfig: '=?',
-        ngMinlength: '=?',
-        ngMaxlength: '=?',
-        // ngPattern: '@?',
-        // ngTrim: '=?'
+        ngMinlength: '@?',
+        ngMaxlength: '@?',
+        minlength: '@?',
+        maxlength: '@?',
       },
       restrict: 'E',
       replace: true,
@@ -224,8 +225,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     var _this = this;
     scope.id = this.gerenateId();
 
-    scope.ngMaxlength = scope.ngMaxlength || 255;
-    scope.ngMinlength = scope.ngMinlength || 0;
+    scope.ngMaxlength = parseInt(attrs.ngMaxlength) || scope.ngMaxlength || 255;
+    scope.ngMinlength = parseInt(attrs.ngMinlength) || scope.ngMinlength || 0;
 
     scope.hasTransclude = this.hasTransclude(element);
     scope.$watch('subform.name.$modelValue', _this.setDirty);
@@ -234,18 +235,8 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
     if (linkCallback) {
       linkCallback(scope, element, attrs);
     }
-
-    var scopeProps = Object.keys(scope);
-    var blacklistProps = ['subform', 'config', 'id'];
-
-    var validKeys = scopeProps.filter(function(q) {
-      return (q[0] !== '$') && (blacklistProps.indexOf(q) === -1);
-    });
-    console.log(validKeys);
-    Object.keys(scope.config.validation.labels).forEach(function(q) {
-      validKeys.forEach(function(w) {
-        scope.config.validation.labels[q] = scope.config.validation.labels[q].replace('{{' + w + '}}', scope[w]);
-      });
+    Object.keys(scope.config.validation.labels).forEach(function(label){
+      scope.config.validation.labels[label] = _this.$interpolate(scope.config.validation.labels[label])(scope);
     });
   };
 
@@ -299,16 +290,16 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
 
   /** Main angular modules */
   angular.module('jjp.practical-forms', ['jjp.practical-forms.templates', 'ui.bootstrap', 'ngAria', 'ngMessages'])
-    .provider('pfConfig', function() {
+    .provider('pfConfig', [function() {
       /** Set the config object */
       this.setConfig = function(config) {
         _config = angular.merge({}, _config, config);
       };
 
-      this.$get = [function() {
-        return new Config(_config);
+      this.$get = ['$interpolate', function($interpolate) {
+        return new Config(_config, $interpolate);
       }];
-    })
+    }])
     /** A basic controller for the modal popups */
     .controller('pfModalCtrl', ['$scope', '$uibModalInstance', 'params', 'data', function($scope, $uibModalInstance, params, data) {
       $scope.params = params;
@@ -826,10 +817,7 @@ angular.module('jjp.practical-forms.templates', []).run(['$templateCache', funct
   angular.module('jjp.practical-forms')
 
   .directive('pfText', ['pfConfig', function(pfConfig) {
-    return pfConfig.baseDirective('text', {},  function(scope, element, attrs){
-      scope.ngMaxlength = attrs.ngMaxlength || scope.ngMaxlength;
-      scope.ngMinlength = attrs.ngMaxlength || scope.ngMinlength;
-    });
+    return pfConfig.baseDirective('text');
   }]);
 }(window.angular));
 
