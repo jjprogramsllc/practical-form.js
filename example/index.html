@@ -21,58 +21,43 @@
   <script src="../dist/practical-forms.js"></script>
 
   <script>
-    angular.module("examplePage", ['jjp.practical-forms']).controller("ExampleCtrl", [
-      '$scope',
-      function($scope) {
-        $scope.disabled = false;
-        $scope.inputs = {};
-        $scope.picture2 = {};
+    angular.module("examplePage", ['jjp.practical-forms'])
+      .config(['$compileProvider', function($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+      }])
+      .controller("ExampleCtrl", [
+        '$scope',
+        function($scope) {
+          $scope.title = 'Practical Forms - Basic Inputs ';
+          $scope.hasDisabled = true;
+          $scope.location = window.location.pathname.split('/')[2];
 
-        $scope.len = {
-          max: 50,
-          min: 10
-        };
+          $scope.disabled = false;
+          $scope.inputs = {};
+          $scope.picture2 = {};
 
-        $scope.set = function(key, val) {
-          $scope.inputs[key] = val;
-        };
-        $scope.dateOptions = {
-          minDate: new Date($scope.inputs.date)
-        };
-        $scope.$watch("inputs.date", function(x, y) {
-          $scope.dateOptions.minDate = x;
-        });
-      }
-    ]);
+          $scope.len = {
+            max: 50,
+            min: 10
+          };
+
+          $scope.set = function(key, val) {
+            $scope.inputs[key] = val;
+          };
+          $scope.dateOptions = {
+            minDate: new Date($scope.inputs.date)
+          };
+          $scope.$watch("inputs.date", function(x, y) {
+            $scope.dateOptions.minDate = x;
+          });
+        }
+      ]);
   </script>
 </head>
 
 <body ng-controller="ExampleCtrl">
   <div class="container">
-    <div class="row">
-      <div class="page-header">
-        <span class="pull-right">
-            <pf-checkbox title="Disable all forms" ng-model="disabled"></span>
-        <h1>Practical Forms Example Page</h1>
-      </div>
-      <ul class="nav nav-pills">
-        <li role="presentation" class="active">
-          <a href="index.html">Inputs</a>
-        </li>
-        <li role="presentation">
-          <a href="login.html">Login Form</a>
-        </li>
-        <li role="presentation">
-          <a href="register.html">Registration Form</a>
-        </li>
-        <li role="presentation">
-          <a href="password.html">Change Password Form</a>
-        </li>
-        <li role="presentation">
-          <a href="options.html">Radio/Checkbox Form</a>
-        </li>
-      </ul>
-    </div>
+    <div ng-include="'nav.html'"></div>
 
     <br/>
     <br/>
@@ -106,6 +91,10 @@
 
             <pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" ng-disabled="disabled" placeholder="Lot's of text goes here">
               Large text box, default limited to 2500 characters
+            </pf-textarea>
+
+            <pf-textarea title="Textarea Input, With Size Limits" ng-required=0 ng-model="inputs.textareaLimit" ng-disabled="disabled" placeholder="Lot's of text goes here" ng-maxlength=250 ng-minlength=100>
+              Large text box, limited to 100-250 characters
             </pf-textarea>
           </pf-group>
           <!-- ---------------------------------------------------------------------------- -->

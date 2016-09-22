@@ -36,6 +36,10 @@
       .controller("ExampleCtrl", [
         '$scope',
         function($scope) {
+          $scope.title = 'Practical Forms - Configuration Options';
+          $scope.hasDisabled = true;
+          $scope.location = window.location.pathname.split('/')[2];
+
           $scope.otherConfig = {
             requiredChar: '---- This be requr\'d! Must be-ith filled!',
             validation: {
@@ -51,30 +55,7 @@
 
   <body ng-controller="ExampleCtrl">
     <div class="container">
-      <div class="row">
-        <div class="page-header">
-          <span class="pull-right">
-            <pf-checkbox title="Disable all forms" ng-model="disabled"></span>
-          <h1>Practical Forms Example Page</h1>
-        </div>
-        <ul class="nav nav-pills">
-          <li role="presentation" class="active">
-            <a href="index.html">Inputs</a>
-          </li>
-          <li role="presentation">
-            <a href="login.html">Login Form</a>
-          </li>
-          <li role="presentation">
-            <a href="register.html">Registration Form</a>
-          </li>
-          <li role="presentation">
-            <a href="password.html">Change Password Form</a>
-          </li>
-          <li role="presentation">
-            <a href="options.html">Radio/Checkbox Form</a>
-          </li>
-        </ul>
-      </div>
+      <div ng-include="'nav.html'"></div>
 
       <br/>
       <br/>
