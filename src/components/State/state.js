@@ -133,6 +133,8 @@
     var directive = pfConfig.baseDirective('state', {
       output: '@'
     }, function(scope) {
+      scope.output = scope.output || 'code';
+
       scope.subform.name.$validators.stateCode = function(modelValue) {
         return (typeof modelValue !== 'undefined') && (modelValue !== '') && (modelValue.toLowerCase() in STATES);
       };

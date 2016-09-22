@@ -31,7 +31,6 @@
             }
           }
         });
-        console.log(pfConfig);
       }])
       .controller("ExampleCtrl", [
         '$scope',
@@ -66,7 +65,7 @@
           <div class="col-lg-12">
             <pf-group title="General Text Inputs">
               <pf-text title="Text Input" ng-model="inputs.text" ng-disabled="disabled">
-                This is a basic text input. It is bounded between 0-255 characters and is auto trimmed.
+                This input has the good message disabled
               </pf-text>
 
               <pf-text title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" placeholder="Required text input">
@@ -76,13 +75,7 @@
 
               <pf-text title="Text Input, Custom Config" ng-model="inputs.text_custConfig" pf-config="otherConfig" ng-required=1></pf-text>
 
-              <pf-text title="Text Input, Disabled" ng-model="inputs.text_noTrans" ng-disabled=1></pf-text>
 
-              <pf-text title="Text Input, No transclude area" ng-model="inputs.text_noTrans"></pf-text>
-
-              <pf-textarea title="Textarea Input" ng-required=1 ng-model="inputs.textarea" placeholder="Lot's of text goes here">
-                Large text box, default limited to 2500 characters
-              </pf-textarea>
             </pf-group>
             <hr/>
             <h2>Output:</h2>
