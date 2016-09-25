@@ -17,12 +17,16 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-aria.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-messages.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>
-  <script src="./dist/practical-forms.js"></script>
+  <script src="./javascripts/practical-forms.min.js"></script>
 
   <script>
     angular.module("examplePage", ['jjp.practical-forms']).controller("ExampleCtrl", [
         '$scope',
         function($scope) {
+          $scope.title = 'Practical Forms - Radio and Checkbox ';
+          $scope.hasDisabled = true;
+          $scope.location = window.location.pathname.split('/')[2];
+
           $scope.inputs = {};
           $scope.custInputs = {};
           $scope.submit = function(inputs) {
@@ -36,32 +40,7 @@
 
 <body ng-controller="ExampleCtrl">
   <div class="container">
-    <div class="row">
-      <div class="page-header">
-        <span class="pull-right">
-          <pf-checkbox title="Disable all forms" ng-model="disabled">
-        </span>
-        <h1>Pract
-        <h1>Practical Forms Examples</h1>
-      </div>
-      <ul class="nav nav-pills">
-        <li role="presentation">
-          <a href="index.html">Inputs</a>
-        </li>
-        <li role="presentation">
-          <a href="login.html">Login Form</a>
-        </li>
-        <li role="presentation">
-          <a href="register.html">Registration Form</a>
-        </li>
-        <li role="presentation">
-          <a href="password.html">Change Password Form</a>
-        </li>
-        <li role="presentation" class="active">
-          <a href="options.html">Radio/Checkbox Form</a>
-        </li>
-      </ul>
-    </div>
+    <div ng-include="'nav.html'"></div>
 
     <br/>
     <br/>

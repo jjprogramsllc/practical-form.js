@@ -1,0 +1,136 @@
+<html ng-app="examplePage">
+
+<head>
+  <title>
+    Practical Forms Example Page
+  </title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+  <style media="screen">
+    .pf-form-control {
+      position: relative;
+    }
+
+    .pf-required {
+      color: red;
+    }
+  </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-aria.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-messages.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>
+  <script src="./javascripts/practical-forms.min.js"></script>
+
+  <script>
+    angular.module("examplePage", ['jjp.practical-forms']).controller("ExampleCtrl", [
+      '$scope',
+      function($scope) {
+        $scope.title = 'Practical Forms - Popup Dialogs';
+        $scope.hasDisabled = true;
+        $scope.location = window.location.pathname.split('/')[2];
+
+        $scope.ConfirmAction = function(item) {
+          console.log("Confirmed Action!", item);
+        };
+        $scope.set = function(key, val) {
+          $scope.inputs[key] = val;
+        };
+        $scope.AdvancedConfirmSettings = {
+          animation: false,
+          template: '<div class="modal-header"><h3 class="modal-title">Custom Model Template!</h3></div><div class="modal-body"><p>By settings the <mark>template</mark> property on <code>modalOptions</code> a custom template can be shown</p></div><div class="modal-footer' +
+            '"><button class="btn btn-primary" type="button" ng-click="Ok()">OK</button></div>'
+        };
+        $scope.CustomTemplateModalSettings = {
+          templateUrl: "myModalContent.html",
+          resolve: {
+            data: {
+              name: "Joe",
+              age: 24
+            }
+          }
+        };
+        $scope.CustomInfoModalSettings = {
+          templateUrl: "myInfoTemp.html",
+          resolve: {
+            data: {
+              name: "Joe",
+              age: 24
+            }
+          }
+        };
+      }
+    ]);
+  </script>
+
+  <!-- Custom template for the confirm modal dialog -->
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Person Details</h3>
+    </div>
+    <div class="modal-body">
+      <p>Hello
+        <code>{{data.name}}</code>, how are you?</p>
+      <p>Are you
+        <mark>{{data.age}}</mark>years old?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="Ok()">OK</button>
+      <button class="btn btn-warning" type="button" ng-click="Cancel()">Cancel</button>
+    </div>
+  </script>
+
+  <!-- Custom template for the info modal dialog -->
+  <script type="text/ng-template" id="myInfoTemp.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Amazing!</h3>
+    </div>
+    <div class="modal-body">
+      <h3>Wow this is a custom modal template!</h3>
+      <p>Look this <code>data</code> object can be resolved into the object</p>
+      <pre>{{data}}</pre>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" ng-click="Ok()">OK</button>
+    </div>
+  </script>
+</head>
+
+<body ng-controller="ExampleCtrl">
+  <div class="container">
+    <div ng-include="'nav.html'"></div>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="row">
+      <form name="form">
+        <div class="col-lg-12">
+          <pf-group title="UI Dialogs">
+            <h3>Confirm Modal Dialog</h3>
+            <p>These popup can be used to popup a information modal</p>
+            <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})">Default Confirm</button>
+            <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" pf-title="Are you sure?" pf-message="Do you really want todo this thing?">Custom Confirm</button>
+            <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" modal-options="AdvancedConfirmSettings">Custom Confirm</button>
+            <button type=button class="btn btn-success" pf-confirm="ConfirmAction({item: 123})" modal-options="CustomTemplateModalSettings">Custom Template Confirm</button>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <h3>Infromational Modal Dialog</h3>
+            <p>These popup can be used to popup a information modal</p>
+
+            <button type=button class="btn btn-info" pf-info>
+                  <span class="glyphicon glyphicon-info-sign"></span>Info</button>
+            <button type=button class="btn btn-info" pf-info pf-title="Look at this!" pf-message="Err my Ger'd! A nice like popup info box">
+                  <span class="glyphicon glyphicon-info-sign"></span>Info - Customized</button>
+            <button type=button class="btn btn-primary" pf-info modal-options="CustomInfoModalSettings">
+                  <span class="glyphicon glyphicon-info-sign"></span>Info - Custom Template</button>
+          </pf-group>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

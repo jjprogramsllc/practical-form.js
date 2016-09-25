@@ -1,0 +1,89 @@
+<html ng-app="examplePage">
+
+<head>
+  <title>
+    Practical Forms Configuration Example Page
+  </title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+  <style media="screen">
+    .pf-form-control {
+      position: relative;
+    }
+
+    .pf-required {
+      color: red;
+    }
+  </style>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-aria.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular-messages.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>
+  <script src="./javascripts/practical-forms.min.js"></script>
+
+  <script>
+    angular.module("examplePage", ['jjp.practical-forms'])
+      .config(["pfConfigProvider", function(pfConfig) {
+        pfConfig.setConfig({
+          requiredChar: '**********',
+          validation: {
+            labels: {
+              valid: "",
+            }
+          }
+        });
+      }])
+      .controller("ExampleCtrl", [
+        '$scope',
+        function($scope) {
+          $scope.title = 'Practical Forms - Configuration Options';
+          $scope.hasDisabled = true;
+          $scope.location = window.location.pathname.split('/')[2];
+
+          $scope.otherConfig = {
+            requiredChar: '---- This be requr\'d! Must be-ith filled!',
+            validation: {
+              labels: {
+                valid: "Thar be good, ya'll",
+                required: "Yo, You need to some tight stuff here..."
+              }
+            }
+          };
+        }
+      ]);
+  </script>
+
+  <body ng-controller="ExampleCtrl">
+    <div class="container">
+      <div ng-include="'nav.html'"></div>
+
+      <br/>
+      <br/>
+      <br/>
+
+      <div class="row">
+        <form name="form">
+          <div class="col-lg-12">
+            <pf-group title="General Text Inputs">
+              <pf-text title="Text Input" ng-model="inputs.text" ng-disabled="disabled">
+                This input has the good message disabled
+              </pf-text>
+
+              <pf-text title="Text Input, Required" ng-required=1 ng-model="inputs.text_req" placeholder="Required text input">
+                This input is required. This is done by adding the
+                <code>ng-required</code> attribute. The attribute can be added to any PractialForms input
+              </pf-text>
+
+              <pf-text title="Text Input, Custom Config" ng-model="inputs.text_custConfig" pf-config="otherConfig" ng-required=1></pf-text>
+
+
+            </pf-group>
+            <hr/>
+            <h2>Output:</h2>
+            <pre>{{inputs | json}}</pre>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>
