@@ -85,6 +85,63 @@ angular.modular("app", ['jjp.practical-forms']);
 }
 ```
 
+Configuration
+---------------------------------------------------------------------
+There are a few basic things that able to be configured. Configuration is done using the `pfConfigProvider` in the angular run function.
+```javascript
+angular.module("examplePage", ['jjp.practical-forms'])
+  .config(["pfConfigProvider", function(pfConfig) {
+    // This will be a configuration object, see below
+    var pfconfig = {};
+    // Set the default configuration for all forms
+    pfConfig.setConfig(pfconfig);
+  }])
+```
+
+These are the options that can be configured along with the default options.
+```javascript
+{
+  /** the character or pharse that marks an input as required */
+  requiredChar: '*',
+  validation: {
+    /** various regex patterns that are used to validate inputs. These are Regex objects!*/
+    patterns: {
+      /** The password validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=1923 */
+      password: /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!@#$%^&*()]*$/,
+
+      /** The phone number validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=607 */
+      phone: /^(?:\([2-9]\d{2}\)\ ?|[2-9]\d{2}(?:\-?|\ ?))[2-9]\d{2}[- ]?\d{4}$/,
+
+      /** The zip code validation: @see: http://regexlib.com/REDetails.aspx?regexp_id=837 */
+      zipcode: /^\d{5}(-\d{4})?$/
+
+    },
+    /** These are the human readiable validation label show to the user */
+    labels: {
+      valid: 'All Good!',
+      required: 'This input is required',
+      minlength: 'Text must be longer than {{ngMinlength}} characters',
+      maxlength: 'Text must be shorter than {{ngMaxlength}} characters',
+      email: 'This does not seem to be a valid email',
+      number: 'That is not a number',
+      max: 'Numbers must be less then {{max}}',
+      min: 'Numbers must be greater then {{min}}',
+      confirm: 'The confirmation password does not match the original',
+      pattern: 'Text is invalid',
+      percent: 'Value must be between 0% and 100%',
+      stateCode: 'State is Invalid. Please enter the state name or 2 letter code',
+      password: 'The password must contain at least 1 lowercase letter, 1 uppercase letter, and 1 digit',
+      phone: 'This does not seem to be valid phone number',
+      url: 'Not a valid URL. Make sure it starts with "http://"',
+      zipcode: 'Invalid Zip Code. Plase enter the 5 digit zip code'
+    }
+  },
+}
+```
+
+### Per-Input Configuration
+Individual inputs can be configured also. Set the `pf-config` attribute on the individual input. See the config example to see how this is done. 
+
 Documentation
 ---------------------------------------------------------------------
 There is not much to document. But here are a few points:
