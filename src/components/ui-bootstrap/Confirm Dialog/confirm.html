@@ -9,7 +9,7 @@
     <p>{{params.message}}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="Ok()">OK</button>
-    <button type="button" class="btn btn-warning" ng-click="Cancel()">Cancel</button>
+    <button type="button" class="btn {{::params.btnOk}}" ng-click="Ok()">OK</button>
+    <button type="button" class="btn {{::params.btnCancel}}" ng-click="Cancel()">Cancel</button>
   </div>
 </div>
